@@ -1,0 +1,14 @@
+[
+  {
+    "editorServiceName": "Anonymization service",
+    "pcmCompositeComponentId": "_V6iU4HrGEem-6sTFpLwnvg",
+    "pcmFunctionalComponentId": "_V6iU4XrGEem-6sTFpLwnvg",
+    "hardGoals": []
+  },
+  {
+    "editorServiceName": "Crash cam app",
+    "pcmCompositeComponentId": "_V6iU43rGEem-6sTFpLwnvg",
+    "pcmFunctionalComponentId": "_V6iU5HrGEem-6sTFpLwnvg",
+    "hardGoals": []
+  }
+]
