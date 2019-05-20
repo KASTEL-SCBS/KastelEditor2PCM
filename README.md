@@ -1,5 +1,5 @@
 # KASTEL-Requirements-Editor to PCM 
-This prototypical Application uses the JSON-Export of the [KASTELEditor]{https://github.com/Baakel/KastelEditor} and generates a Repository-Repository Model and a Composite-Component of the system according to the Palladio Component Model (PCM). Furthermore, a JSON-File is generated relating the generated Content with the Elements of the KASTELEditor-Model to provide means to trace back the PCM-Elements to their counter-parts of the KASTELEditor. 
+This prototypical Application uses the JSON-Export of the [KASTELEditor](https://github.com/Baakel/KastelEditor) and generates a Repository-Repository Model and a Composite-Component of the system according to the Palladio Component Model (PCM). Furthermore, a JSON-File is generated relating the generated Content with the Elements of the KASTELEditor-Model to provide means to trace back the PCM-Elements to their counter-parts of the KASTELEditor. 
 A Software Architect can use the generated PCM-Model as a point to start and refine the model further. 
 
 ## Mapping between the KASTELEditor and the PCM-Model
