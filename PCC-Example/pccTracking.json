@@ -1,14 +1,613 @@
 [
   {
     "editorServiceName": "Anonymization service",
-    "pcmCompositeComponentId": "_V6iU4HrGEem-6sTFpLwnvg",
-    "pcmFunctionalComponentId": "_V6iU4XrGEem-6sTFpLwnvg",
-    "hardGoals": []
+    "pcmCompositeComponentId": "_5HgcAK7TEem04PHXwoy8Lg",
+    "hardGoals": [
+      {
+        "name": "Anonymization service ensures the Authenticity of Anonymized data during the Downloading anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf08q7TEem04PHXwoy8Lg",
+          "name": "Downloading anonymized data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Anonymized data",
+          "concern": "authenticity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Anonymized data during the Storing anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf08K7TEem04PHXwoy8Lg",
+          "name": "Storing anonymized data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Anonymized data",
+          "concern": "authenticity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Anonymized data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+          "name": "Storing data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Anonymized data",
+          "concern": "authenticity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+          "name": "Authenticating crash cam operator"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Crash cam operators\u0027 user accounts",
+          "concern": "authenticity",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Data during the Explicitly granting access to raw data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09K7TEem04PHXwoy8Lg",
+          "name": "Explicitly granting access to raw data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+          "name": "Storing data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Privileged user account during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+          "name": "Authenticating prosecution authority"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Privileged user account",
+          "concern": "authenticity",
+          "asset": "Privileged user account",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+          "name": "Authenticating crash cam operator"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Crash cam operators\u0027 user accounts",
+          "concern": "confidentiality",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Crash cam operators\u0027 user accounts during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+          "name": "Authenticating prosecution authority"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Crash cam operators\u0027 user accounts",
+          "concern": "confidentiality",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Data during the Explicitly granting access to raw data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09K7TEem04PHXwoy8Lg",
+          "name": "Explicitly granting access to raw data"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+          "name": "Storing data"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Privileged user account during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+          "name": "Authenticating prosecution authority"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Privileged user account",
+          "concern": "confidentiality",
+          "asset": "Privileged user account",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Anonymizing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN5K7TEem04PHXwoy8Lg",
+          "name": "Anonymizing data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Downloading anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf08q7TEem04PHXwoy8Lg",
+          "name": "Downloading anonymized data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Storing anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf08K7TEem04PHXwoy8Lg",
+          "name": "Storing anonymized data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+          "name": "Storing data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": "Anonymized data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+          "name": "Authenticating crash cam operator"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Crash cam operators\u0027 user accounts",
+          "concern": "integrity",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Crash cam operators\u0027 user accounts during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+          "name": "Authenticating prosecution authority"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Crash cam operators\u0027 user accounts",
+          "concern": "integrity",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Data during the Explicitly granting access to raw data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf09K7TEem04PHXwoy8Lg",
+          "name": "Explicitly granting access to raw data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+          "name": "Storing data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": "Data",
+          "priority": true
+        }
+      }
+    ],
+    "blackBoxMechanisms": [
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": true,
+        "extraHg": "Signature Key Protection",
+        "pcmElementId": "_5HkGba7TEem04PHXwoy8Lg",
+        "name": "Digital Signature"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": false,
+        "extraHg": "User input is correctly checked or masked",
+        "pcmElementId": "_5HkGZ67TEem04PHXwoy8Lg",
+        "name": "Password Authentication Scheme"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": true,
+        "pcmElementId": "_5HjfUK7TEem04PHXwoy8Lg",
+        "name": "Cryptographic Hash Function"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": false,
+        "pcmElementId": "_5HkGZK7TEem04PHXwoy8Lg",
+        "name": "Asymmetric Crypto Authentication Scheme"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "pcmElementId": "_5HkGcK7TEem04PHXwoy8Lg",
+        "name": "Role-Based Access Control"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "extraHg": "Private Key Protection",
+        "pcmElementId": "_5Hktdq7TEem04PHXwoy8Lg",
+        "name": "Hybrid Encryption"
+      }
+    ],
+    "providedFunctionalRequirements": [
+      {
+        "pcmElementId": "_5Hf08q7TEem04PHXwoy8Lg",
+        "name": "Downloading anonymized data"
+      },
+      {
+        "pcmElementId": "_5Hf08K7TEem04PHXwoy8Lg",
+        "name": "Storing anonymized data"
+      },
+      {
+        "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+        "name": "Storing data"
+      },
+      {
+        "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+        "name": "Authenticating crash cam operator"
+      },
+      {
+        "pcmElementId": "_5Hf09K7TEem04PHXwoy8Lg",
+        "name": "Explicitly granting access to raw data"
+      },
+      {
+        "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+        "name": "Storing data"
+      },
+      {
+        "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+        "name": "Authenticating prosecution authority"
+      },
+      {
+        "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+        "name": "Authenticating crash cam operator"
+      },
+      {
+        "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+        "name": "Authenticating prosecution authority"
+      },
+      {
+        "pcmElementId": "_5Hf09K7TEem04PHXwoy8Lg",
+        "name": "Explicitly granting access to raw data"
+      },
+      {
+        "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+        "name": "Storing data"
+      },
+      {
+        "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+        "name": "Authenticating prosecution authority"
+      },
+      {
+        "pcmElementId": "_5HfN5K7TEem04PHXwoy8Lg",
+        "name": "Anonymizing data"
+      },
+      {
+        "pcmElementId": "_5Hf08q7TEem04PHXwoy8Lg",
+        "name": "Downloading anonymized data"
+      },
+      {
+        "pcmElementId": "_5Hf08K7TEem04PHXwoy8Lg",
+        "name": "Storing anonymized data"
+      },
+      {
+        "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+        "name": "Storing data"
+      },
+      {
+        "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+        "name": "Authenticating crash cam operator"
+      },
+      {
+        "pcmElementId": "_5Hf09q7TEem04PHXwoy8Lg",
+        "name": "Authenticating prosecution authority"
+      },
+      {
+        "pcmElementId": "_5Hf09K7TEem04PHXwoy8Lg",
+        "name": "Explicitly granting access to raw data"
+      },
+      {
+        "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+        "name": "Storing data"
+      }
+    ],
+    "pcmElementId": "_5HhqIK7TEem04PHXwoy8Lg"
   },
   {
     "editorServiceName": "Crash cam app",
-    "pcmCompositeComponentId": "_V6iU43rGEem-6sTFpLwnvg",
-    "pcmFunctionalComponentId": "_V6iU5HrGEem-6sTFpLwnvg",
-    "hardGoals": []
+    "pcmCompositeComponentId": "_5Hi4QK7TEem04PHXwoy8Lg",
+    "hardGoals": [
+      {
+        "name": "Crash cam app ensures the Authenticity of Data during the Recording data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HcKkK7TEem04PHXwoy8Lg",
+          "name": "Recording data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Authenticity of Data during the Uploading data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4K7TEem04PHXwoy8Lg",
+          "name": "Uploading data"
+        },
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+          "name": "Authenticating crash cam operator"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Crash cam operators\u0027 user accounts",
+          "concern": "confidentiality",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Data during the Recording data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HcKkK7TEem04PHXwoy8Lg",
+          "name": "Recording data"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Data during the Storing data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+          "name": "Storing data"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Data during the Uploading data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4K7TEem04PHXwoy8Lg",
+          "name": "Uploading data"
+        },
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Integrity of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+          "name": "Authenticating crash cam operator"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Crash cam operators\u0027 user accounts",
+          "concern": "integrity",
+          "asset": "Crash cam operators\u0027 user accounts",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Integrity of Data during the Recording data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HcKkK7TEem04PHXwoy8Lg",
+          "name": "Recording data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": "Data",
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Integrity of Data during the Uploading data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "pcmElementId": "_5HfN4K7TEem04PHXwoy8Lg",
+          "name": "Uploading data"
+        },
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": "Data",
+          "priority": true
+        }
+      }
+    ],
+    "blackBoxMechanisms": [
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": true,
+        "pcmElementId": "_5HjfUK7TEem04PHXwoy8Lg",
+        "name": "Cryptographic Hash Function"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "pcmElementId": "_5HktcK7TEem04PHXwoy8Lg",
+        "name": "Access Control"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "extraHg": "Private Key Protection",
+        "pcmElementId": "_5Hktdq7TEem04PHXwoy8Lg",
+        "name": "Hybrid Encryption"
+      }
+    ],
+    "providedFunctionalRequirements": [
+      {
+        "pcmElementId": "_5HcKkK7TEem04PHXwoy8Lg",
+        "name": "Recording data"
+      },
+      {
+        "pcmElementId": "_5HfN4K7TEem04PHXwoy8Lg",
+        "name": "Uploading data"
+      },
+      {
+        "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+        "name": "Authenticating crash cam operator"
+      },
+      {
+        "pcmElementId": "_5HcKkK7TEem04PHXwoy8Lg",
+        "name": "Recording data"
+      },
+      {
+        "pcmElementId": "_5Hf0-K7TEem04PHXwoy8Lg",
+        "name": "Storing data"
+      },
+      {
+        "pcmElementId": "_5HfN4K7TEem04PHXwoy8Lg",
+        "name": "Uploading data"
+      },
+      {
+        "pcmElementId": "_5HfN4q7TEem04PHXwoy8Lg",
+        "name": "Authenticating crash cam operator"
+      },
+      {
+        "pcmElementId": "_5HcKkK7TEem04PHXwoy8Lg",
+        "name": "Recording data"
+      },
+      {
+        "pcmElementId": "_5HfN4K7TEem04PHXwoy8Lg",
+        "name": "Uploading data"
+      }
+    ],
+    "pcmElementId": "_5Hi4Qa7TEem04PHXwoy8Lg"
   }
 ]
