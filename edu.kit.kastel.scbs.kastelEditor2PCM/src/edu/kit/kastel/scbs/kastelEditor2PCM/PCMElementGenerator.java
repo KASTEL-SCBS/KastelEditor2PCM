@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -11,27 +12,43 @@ import java.util.Set;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.net4j.util.collection.MultiMap;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
+import org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
+import org.palladiosimulator.pcm.repository.CompositeDataType;
+import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.RequiredRole;
+import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.seff.ExternalCallAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
+import org.palladiosimulator.pcm.seff.SeffFactory;
+import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
+import org.palladiosimulator.pcm.seff.StartAction;
+import org.palladiosimulator.pcm.seff.StopAction;
 
 import com.google.common.collect.Multimap;
 
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 
 
 
@@ -52,11 +69,10 @@ public class PCMElementGenerator {
 		this.res.getContents().add(repo);
 		
 		generateInterfacesFromKASTELFunctionalRequirements(reader.getFunctionalRequirements());
-		generateComponentsFromKASTELServices(reader.getServicesAsCollection());
-		generateBBMComponentsFromKASTELBBM(reader.getBlackBoxMechanismsAsList());
+		generateComponentsFromKASTELServices(reader.getServices());
+		generateBBMComponentsFromKASTELBBM(reader.getBlackBoxMechanisms());
 		
-		extendComponentsWithFunctionalRequirementInterfaces(reader.getServiceFuReqRelationships());
-		extendComponentsWithHardGoalsAndMechanisms(reader.getServiceBBMMap());
+		extendPalladioComponents(reader);
 	}
 	
 	public boolean savePCMModel() {
@@ -68,99 +84,143 @@ public class PCMElementGenerator {
 		}
 	}
 	
-	public void generateInterfacesFromKASTELFunctionalRequirements(Collection<String> functionalRequirements) {
+	public void extendPalladioComponents(KastelEditorJsonReader reader) {
+		Set<Component> components = reader.getServices();
 		
-		for(String functionalRequirement : functionalRequirements) {
+		extendComponentsWithFunctionalRequirementInterfaces(components);
+		extendComponentsWithHardGoalsAndMechanisms(components);
+		extendComponentsSeffsWithBlackBoxMechanisms(components);
+		
+		
+	}
+	
+	public void generateInterfacesFromKASTELFunctionalRequirements(Collection<FunctionalRequirement> functionalRequirements) {
+		
+		for(FunctionalRequirement functionalRequirement : functionalRequirements) {
 			OperationInterface functionalRequirementInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
-			functionalRequirementInterface.setEntityName(functionalRequirement);
-			
+			functionalRequirementInterface.setEntityName(trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.UPPER));
+
+
 			OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
-			signature.setEntityName(functionalRequirement);
+			signature.setEntityName(trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.LOWER));
+			
+			for(Asset asset : functionalRequirement.getAssets()) {
+				Parameter parameter = RepositoryFactory.eINSTANCE.createParameter();
+				parameter.setParameterName(trimWhiteSpace(asset.getName(), UpperOrLower.LOWER));
+				parameter.setDataType__Parameter(generateDataTypeFromAssetWhenNotExisting(asset));
+				
+				signature.getParameters__OperationSignature().add(parameter);
+			}
+			
+			functionalRequirement.setPcmElementId(functionalRequirementInterface.getId());
 			
 			functionalRequirementInterface.getSignatures__OperationInterface().add(signature);
 			
 			repo.getInterfaces__Repository().add(functionalRequirementInterface);
+		
+			
+			
 		}
+	}
+	
+	public CompositeDataType generateDataTypeFromAssetWhenNotExisting(Asset asset) {
+		for(DataType datatype : repo.getDataTypes__Repository()) {
+			if((trimWhiteSpace(((CompositeDataType)datatype).getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(asset.getName(), UpperOrLower.UPPER)))){
+				return (CompositeDataType)datatype;
+			}
+		}
+		
+		CompositeDataType dataType = RepositoryFactory.eINSTANCE.createCompositeDataType();
+		dataType.setEntityName(trimWhiteSpace(asset.getName(), UpperOrLower.UPPER));
+		asset.setPcmElementId(dataType.getId());
+		repo.getDataTypes__Repository().add(dataType);
+		
+		return dataType;
 	}
 	
 	public void generateComponentsFromKASTELServices(Collection<Component> services) {
 		for(Component service : services) {
 			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
 			
-			component.setEntityName(service.getName()+" Composite");
+			component.setEntityName(trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Composite");
 			repo.getComponents__Repository().add(component);
 			service.setPcmCompositeComponentId(component.getId());
 			
-			//create representation for the functionality, use abstraction (CompleteComponentType) to allow basic or composed instanciation. 
-			CompleteComponentType base = RepositoryFactory.eINSTANCE.createCompleteComponentType();
-			base.setEntityName(service.getName()+" Functionality");
+			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
+			base.setEntityName(trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Functionality");
 			repo.getComponents__Repository().add(base);
 			service.setPcmFunctionalComponentId(base.getId());
 			
 			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
-			mainContext.setEntityName(service.getName());
+			mainContext.setEntityName(trimWhiteSpace(service.getName(),UpperOrLower.UPPER));
 			mainContext.setEncapsulatedComponent__AssemblyContext(base);
 			component.getAssemblyContexts__ComposedStructure().add(mainContext);
 		}
 	}
 	
-	public void generateComponentsFromKASTELServicesFromMap(Map<String, Component> services) {
-		for(Component service : services.values()) {
-			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
-			
-			component.setEntityName(service.getName()+" Composite");
-			repo.getComponents__Repository().add(component);
-			service.setPcmCompositeComponentId(component.getId());
-			
-			//create representation for the functionality, use abstraction (CompleteComponentType) to allow basic or composed instanciation. 
-			CompleteComponentType base = RepositoryFactory.eINSTANCE.createCompleteComponentType();
-			base.setEntityName(service.getName()+" Functionality");
-			repo.getComponents__Repository().add(base);
-			service.setPcmFunctionalComponentId(base.getId());
-			
-			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
-			mainContext.setEntityName(service.getName());
-			mainContext.setEncapsulatedComponent__AssemblyContext(base);
-			component.getAssemblyContexts__ComposedStructure().add(mainContext);
-		}
-	}
+//	public void generateComponentsFromKASTELServicesFromMap(Map<String, Component> services) {
+//		for(Component service : services.values()) {
+//			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
+//			
+//			component.setEntityName(trimWhiteSpace(service.getName())+" Composite");
+//			repo.getComponents__Repository().add(component);
+//			service.setPcmCompositeComponentId(component.getId());
+//			
+//			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
+//			base.setEntityName(trimWhiteSpace(service.getName())+"Functionality");
+//			repo.getComponents__Repository().add(base);
+//			service.setPcmFunctionalComponentId(base.getId());
+//			
+//			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
+//			mainContext.setEntityName(service.getName());
+//			mainContext.setEncapsulatedComponent__AssemblyContext(base);
+//			component.getAssemblyContexts__ComposedStructure().add(mainContext);
+//		}
+//	}
 	
 	public void generateBBMComponentsFromKASTELBBM(Collection<BlackBoxMechanism> bbms) {
 		
 		for(BlackBoxMechanism bbm : bbms) {
-			CompleteComponentType bbmComponent = RepositoryFactory.eINSTANCE.createCompleteComponentType();
-			bbmComponent.setEntityName(bbm.getName());
+			BasicComponent bbmComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
+			bbmComponent.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
 			repo.getComponents__Repository().add(bbmComponent);
 			bbm.setBbmComponentId(bbmComponent.getId());
 			
 			OperationInterface bbmInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
-			bbmInterface.setEntityName(bbm.getName());
+			bbmInterface.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
+			
+			OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
+			signature.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
+			bbmInterface.getSignatures__OperationInterface().add(signature);
+			
+			
 			repo.getInterfaces__Repository().add(bbmInterface);
 			
+			
+			
 			OperationProvidedRole bbmOpProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-			bbmOpProvidedRole.setEntityName("Provided_" + bbm.getName());
+			bbmOpProvidedRole.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
 			
 			bbmOpProvidedRole.setProvidedInterface__OperationProvidedRole(bbmInterface);
 			bbmComponent.getProvidedRoles_InterfaceProvidingEntity().add(bbmOpProvidedRole);
 		}
 	}
 	
-	public void extendComponentsWithFunctionalRequirementInterfaces(Multimap<Component, String> serviceFuReqRelationships) {
+	public void extendComponentsWithFunctionalRequirementInterfaces(Set<Component> components) {
 		
-		Set<Component> services = serviceFuReqRelationships.keySet();
 		
-		for(Component service : services) {
+		for(Component service : components) {
 			
-			Collection<OperationInterface> interfacesForComponent = findInterfacesForComponent(service, serviceFuReqRelationships);
+			Collection<OperationInterface> interfacesForComponent = findInterfacesForComponent(service);
 			
 			CompositeComponent compositeComponent = null;
-			RepositoryComponent baseComponent = null;
+			BasicComponent baseComponent = null;
 			
 			for(RepositoryComponent repoComp : repo.getComponents__Repository()) {
 				if(repoComp.getId().equals(service.getPcmCompositeComponentId())) {
 					compositeComponent = (CompositeComponent)repoComp;
 				} else if(repoComp.getId().equals(service.getPcmFunctionalComponentId())) {
-					baseComponent = repoComp;
+					baseComponent = (BasicComponent)repoComp;
 				}
 				
 				if(compositeComponent != null && baseComponent != null) {
@@ -175,20 +235,21 @@ public class PCMElementGenerator {
 			
 			for(OperationInterface opInt : interfacesForComponent) {
 				connectInterfacesToCompositeAndFunctionalComponents(compositeComponent, baseComponent, opInt);
+				generateTemplateSeffForProvidedSignaturesOfPalladioComponent(baseComponent, opInt);
 			}
 		}
 	}
 	
 	
-	public void extendComponentsWithHardGoalsAndMechanisms(Multimap<Component, BlackBoxMechanism> serivceBlackboxMechanisms) {
+	public void extendComponentsWithHardGoalsAndMechanisms(Set<Component> components) {
 		
 		
-		for(Component service : serivceBlackboxMechanisms.keySet()) {
+		for(Component service : components) {
 			
 			CompositeComponent compositeComponent = null;
 			RepositoryComponent functionalComponent = null;
 			
-			ArrayList<RepositoryComponent> blackBoxComponents = new ArrayList<RepositoryComponent>();
+			Set<RepositoryComponent> blackBoxComponents = new HashSet<RepositoryComponent>();
 			
 			for(RepositoryComponent repoComp : repo.getComponents__Repository()) {
 				if(repoComp.getId().equals(service.getPcmCompositeComponentId())) {
@@ -196,7 +257,7 @@ public class PCMElementGenerator {
 				} else if(repoComp.getId().equals(service.getPcmFunctionalComponentId())) {
 					functionalComponent = repoComp;
 				} else {
-					for(BlackBoxMechanism bbm : serivceBlackboxMechanisms.get(service)) {
+					for(BlackBoxMechanism bbm : service.getBlackBoxMechanisms()) {
 						if(repoComp.getId().equals(bbm.getBbmComponentId())) {
 							blackBoxComponents.add(repoComp);
 						}
@@ -205,7 +266,7 @@ public class PCMElementGenerator {
 				
 				
 				
-				if(compositeComponent != null && functionalComponent != null && blackBoxComponents.size() == serivceBlackboxMechanisms.get(service).size()) {
+				if(compositeComponent != null && functionalComponent != null && blackBoxComponents.size() == service.getBlackBoxMechanisms().size()) {
 					break;
 				}
 			}
@@ -216,13 +277,13 @@ public class PCMElementGenerator {
 					OperationRequiredRole  bbmReqRole = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
 					OperationInterface bbmOpInt = ((OperationProvidedRole)role).getProvidedInterface__OperationProvidedRole();
 					
-					bbmReqRole.setEntityName("Required_" + bbmOpInt.getEntityName());
+					bbmReqRole.setEntityName(trimWhiteSpace(bbmOpInt.getEntityName(),UpperOrLower.LOWER));
 					bbmReqRole.setRequiredInterface__OperationRequiredRole(bbmOpInt);
 					functionalComponent.getRequiredRoles_InterfaceRequiringEntity().add(bbmReqRole);
 					
 					AssemblyContext bbCompoContext = CompositionFactory.eINSTANCE.createAssemblyContext();
 					bbCompoContext.setEncapsulatedComponent__AssemblyContext(bbCompo);
-					bbCompoContext.setEntityName(bbCompo.getEntityName());
+					bbCompoContext.setEntityName(trimWhiteSpace(bbCompo.getEntityName(),UpperOrLower.UPPER));
 					compositeComponent.getAssemblyContexts__ComposedStructure().add(bbCompoContext);
 					
 					AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
@@ -247,12 +308,12 @@ public class PCMElementGenerator {
 		
 	}
 	
-	private Collection<OperationInterface> findInterfacesForComponent(Component component, Multimap<Component, String> serviceFuReqRelationships){
-		Collection<OperationInterface> interfacesForComponent = new ArrayList<OperationInterface>();
+	private Set<OperationInterface> findInterfacesForComponent(Component component){
+		Set<OperationInterface> interfacesForComponent = new HashSet<OperationInterface>();
 		
 		for(Interface opInt : repo.getInterfaces__Repository()) {
-			for(String functionalRequirement : serviceFuReqRelationships.get(component)) {
-				if(opInt.getEntityName().equals(functionalRequirement)) {
+			for(FunctionalRequirement functionalRequirement : component.getProvidedFunctionalRequirements()) {
+				if(trimWhiteSpace(opInt.getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
 					interfacesForComponent.add((OperationInterface) opInt);
 				}
 			}
@@ -264,12 +325,12 @@ public class PCMElementGenerator {
 	private void connectInterfacesToCompositeAndFunctionalComponents(CompositeComponent compositeComponent, RepositoryComponent functionalityComponent, OperationInterface opInterface) {
 		
 		OperationProvidedRole compositeProvRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		compositeProvRole.setEntityName("Provided_" + opInterface.getEntityName());
+		compositeProvRole.setEntityName(trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
 		compositeProvRole.setProvidedInterface__OperationProvidedRole(opInterface);
 		compositeComponent.getProvidedRoles_InterfaceProvidingEntity().add(compositeProvRole);
 	
 		OperationProvidedRole baseProvRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		baseProvRole.setEntityName("Provided_" + opInterface.getEntityName());
+		baseProvRole.setEntityName(trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
 		baseProvRole.setProvidedInterface__OperationProvidedRole(opInterface);
 		functionalityComponent.getProvidedRoles_InterfaceProvidingEntity().add(baseProvRole);
 		
@@ -284,6 +345,150 @@ public class PCMElementGenerator {
 				compositeComponent.getConnectors__ComposedStructure().add(compositeBaseInterfaceDelegation);
 				break;
 			}
+		}		
+	}
+	
+	private void generateTemplateSeffForProvidedSignaturesOfPalladioComponent(BasicComponent functionalityComponent, OperationInterface operationInterface) {
+		for(Signature signature : operationInterface.getSignatures__OperationInterface()) {
+			ResourceDemandingSEFF seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
+			seff.setBasicComponent_ServiceEffectSpecification(functionalityComponent);
+			seff.setDescribedService__SEFF(signature);
+			
+			StartAction startAction = SeffFactory.eINSTANCE.createStartAction();
+			StopAction stopAction = SeffFactory.eINSTANCE.createStopAction();
+			
+			stopAction.setPredecessor_AbstractAction(startAction);
+			
+			seff.getSteps_Behaviour().add(startAction);
+			seff.getSteps_Behaviour().add(stopAction);
+		
+			functionalityComponent.getServiceEffectSpecifications__BasicComponent().add(seff);
 		}
 	}
+	
+	private void extendComponentsSeffsWithBlackBoxMechanisms(Set<Component> components) {
+		for (Component component : components) {
+			fillComponentSeffs(component);
+		}
+	}
+	
+	private void fillComponentSeffs(Component component) {
+		BasicComponent functionalityComponent = getFunctionalityComponentFromRepository(component);
+		
+		for(FunctionalRequirement req : component.getProvidedFunctionalRequirements()) {
+			ResourceDemandingSEFF seff = (ResourceDemandingSEFF)getSeffForFunctionalRequirementAndComponent(req, functionalityComponent);
+			fillSeffWithBlackBoxMechanismCalls(component, seff, req);
+		}
+		
+	}
+	
+	private BasicComponent getFunctionalityComponentFromRepository(Component editorComponent) {
+		
+		for(RepositoryComponent component : repo.getComponents__Repository()) {
+			if(component.getId().equals(editorComponent.getPcmFunctionalComponentId())) {
+				return (BasicComponent)component;
+			}
+		}
+		return null;
+	}
+	
+	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(FunctionalRequirement requirement, BasicComponent component){
+		
+		for(ServiceEffectSpecification seff : component.getServiceEffectSpecifications__BasicComponent()) {
+		
+			String s = seff.getDescribedService__SEFF().getEntityName();
+			if(trimWhiteSpace(seff.getDescribedService__SEFF().getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(requirement.getName(),UpperOrLower.UPPER))) {
+				return seff;
+			}
+		}
+		return null;
+	}
+	
+	private void fillSeffWithBlackBoxMechanismCalls(Component component, ResourceDemandingSEFF seff, FunctionalRequirement requirement) {
+		if(seff == null) {
+			return;
+		}
+		BasicComponent palladioComponent = getFunctionalityComponentFromRepository(component);
+
+		Set<BlackBoxMechanism> bbms = extractBlackBoxMechanismsForRequirement(component, requirement);
+		
+		for(BlackBoxMechanism bbm : bbms) {
+			ExternalCallAction action = SeffFactory.eINSTANCE.createExternalCallAction();
+			
+			for(RequiredRole role : palladioComponent.getRequiredRoles_InterfaceRequiringEntity()) {
+				OperationRequiredRole operationRequiredRole = (OperationRequiredRole) role;
+				
+				if (trimWhiteSpace(operationRequiredRole.getRequiredInterface__OperationRequiredRole().getEntityName(),UpperOrLower.LOWER).equals(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER))) {
+					action.setRole_ExternalService(operationRequiredRole);
+					for(Signature signature : operationRequiredRole.getRequiredInterface__OperationRequiredRole().getSignatures__OperationInterface()) {
+						if(trimWhiteSpace(signature.getEntityName(),UpperOrLower.LOWER).equals(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER))) {
+							action.setCalledService_ExternalService((OperationSignature)signature);
+							break;
+						}
+					}
+					break;
+				}
+			}
+			
+			seff.getSteps_Behaviour().add(action);
+			
+		}
+	}
+	
+	private Set<BlackBoxMechanism> extractBlackBoxMechanismsForRequirement(Component component, FunctionalRequirement requirement){
+		Set<BlackBoxMechanism> bbms = new HashSet<BlackBoxMechanism>();
+		for(HardGoal hg : component.getHardGoals()) {
+			if(hg.getFunctionalRequirement().equals(requirement)) {
+				bbms.add(hg.getBBM());
+			}
+		}
+		
+		return bbms;
+	}
+	
+	
+	public enum UpperOrLower {
+		UPPER,
+		LOWER,
+		KEEP;
+	};
+	
+	public String trimWhiteSpace(String name, UpperOrLower first) {
+		char[] characters = "".toCharArray();
+		String result = "";
+		
+		if(!name.contains(" ")){
+			result = name;
+		} else {
+			
+		String[] nameParts = name.split(" ");
+	
+		for (int i = 0; i < nameParts.length; i++) {
+			characters = nameParts[i].toCharArray();
+			
+			characters[0] = Character.toUpperCase(characters[0]);
+
+			result += String.valueOf(characters);
+			}
+		}
+		
+	
+		
+		characters = result.toCharArray();
+		switch (first) {
+		case UPPER:
+			characters[0] = Character.toUpperCase(characters[0]);
+			break;
+		case LOWER:
+			characters[0] = Character.toLowerCase(characters[0]);
+			break;
+		default:
+			break;
+		}
+		
+		result = String.valueOf(characters);
+		return result;
+	}
+
+
 }

@@ -1,46 +1,24 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class HardGoal {
 
 	private final String name;
-	private final String extra_hg;
-	private final String extra_hgUsed;
-	private final String original_hg;
 	private final String serviceName;
-	private final String functionalRequirement;
+	private final FunctionalRequirement functionalRequirement;
+	private BlackBoxMechanism bbm;
 	private final SoftGoal SoftGoal;
 
 	
 	
-	public HardGoal(String name, String serviceName, SoftGoal sg, String functionalRequirement, String extra_hg, String extra_hgUsed, String original_hg) {
+	public HardGoal(String name, String serviceName, SoftGoal sg, FunctionalRequirement functionalRequirement) {
 		this.name = name;
 		this.serviceName = serviceName;
 		this.functionalRequirement = functionalRequirement;
 		this.SoftGoal = sg;
-		this.extra_hg = extra_hg;
-		this.extra_hgUsed = extra_hgUsed;
-		this.original_hg = original_hg;
-
-	}
-
-
-	public String isExtra_hg() {
-		return extra_hg;
-	}
-
-
-	public String isExtra_hgUsed() {
-		return extra_hgUsed;
-	}
-
-
-	public String isOriginal_hg() {
-		return original_hg;
-	}
-
-
-	public String getServiceName() {
-		return serviceName;
+		this.bbm = null;
 	}
 
 	public SoftGoal getSg() {
@@ -53,10 +31,26 @@ public class HardGoal {
 	}
 
 
-	public String getFunctionalRequirement() {
+	public FunctionalRequirement getFunctionalRequirement() {
 		return functionalRequirement;
 	}
 	
+	public void setBlackBoxMechansims(BlackBoxMechanism bbm) {
+		if(this.bbm == null)
+			this.bbm = bbm;
+	}
 	
+	public String getServiceName() {
+		return serviceName;
+	}
 	
+	public void addBlackBoxMechanism(BlackBoxMechanism bbm){
+		if(this.bbm == null) {
+		this.bbm = bbm;
+		}
+	}
+	
+	public BlackBoxMechanism getBBM() {
+		return bbm;
+	}
 }

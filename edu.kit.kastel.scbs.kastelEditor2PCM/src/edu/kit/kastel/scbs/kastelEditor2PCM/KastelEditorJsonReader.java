@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
@@ -17,24 +19,26 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.SoftGoal;
 
 
 public class KastelEditorJsonReader {
 	
-	private Map<String, Component> services;
-	private Map<String, BlackBoxMechanism> blackBoxMechanisms;
-	private Collection<String> functionalRequirements;
-	private Collection<String> assets;
+	private Set<Component> services;
+	private Set<BlackBoxMechanism> blackBoxMechanisms;
+	private Set<FunctionalRequirement> functionalRequirements;
+	private Set<Asset> assets;
 	private Collection<SoftGoal> softGoals;
 	private Map<String, HardGoal> hardGoals;
 
-	private Multimap<Component, String> serviceFuReqRelationships;
-	private Multimap<HardGoal, BlackBoxMechanism> hardMechanismRelationship;
-	private Multimap<Component, BlackBoxMechanism> serviceBBMMap;
+//	private Multimap<Component, FunctionalRequirement> serviceFuReqRelationships;
+	//private Multimap<HardGoal, BlackBoxMechanism> hardMechanismRelationship;
+//	private Multimap<Component, BlackBoxMechanism> serviceBBMMap;
 	
 
 	public boolean extractKastelEditorModelFromJson(File file) {
@@ -63,7 +67,7 @@ public class KastelEditorJsonReader {
 		}
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String s = gson.toJson(getServicesAsCollection());
+		String s = gson.toJson(services);
 		return IOUtility.writeToFile( json, s);
 	}
 	
@@ -89,12 +93,7 @@ public class KastelEditorJsonReader {
 		return true;
 	}
 	
-	
-	public Collection<BlackBoxMechanism> getBlackBoxMechanismsAsList() {
-		return blackBoxMechanisms.values();
-	}
-	
-	public Map<String, BlackBoxMechanism> getBlackBoxMechanismsMap(){
+	public Set<BlackBoxMechanism> getBlackBoxMechanisms(){
 		return blackBoxMechanisms;
 	}
 
@@ -113,23 +112,25 @@ public class KastelEditorJsonReader {
 	}
 
 
-	public Multimap<Component, BlackBoxMechanism> getServiceBBMMap() {
-		return serviceBBMMap;
-	}
+//	public Multimap<Component, BlackBoxMechanism> getServiceBBMMap() {
+//		return serviceBBMMap;
+//	}
 
 
 	private void extractBaseEntities(JsonObject rootElement) {
 		services = generateServiceObjectsFromJson(rootElement.get("Services"));
-		functionalRequirements = extractStringCollection(rootElement.get("Functional Requirements"));
-		assets = extractStringCollection(rootElement.get("Assets"));
+		functionalRequirements = extractFunctionalRequirements(rootElement.get("Functional Requirements"));
+		assets = extractAssets(rootElement.get("Assets"));
 		blackBoxMechanisms = extractBlackBoxMechanisms(rootElement.get("Black Box Mechanisms"));
 	}
 	
 	private void extractRelationships(JsonObject rootElement) {
-		serviceFuReqRelationships = extractServiceFunctionalReqSets(rootElement.get("Functional Requirements and Services Relationships"));
+//		serviceFuReqRelationships = extractServiceFunctionalReqSets(rootElement.get("Functional Requirements and Services Relationships"));
+		appendFunctionalRequirementsToServices(rootElement.get("Functional Requirements and Services Relationships"));
 		softGoals = extractSoftGoals(rootElement.get("Soft Goals"));
 		hardGoals = extractHardGoals(rootElement.get("Hard Goals"));
-		hardMechanismRelationship = extractHardGoalBBMRelationship(rootElement.get("Hard Mechanism Relationship"));
+		//hardMechanismRelationship = extractHardGoalBBMRelationship(rootElement.get("Hard Mechanism Relationship"));
+		appendBBMsToHardgoals(rootElement.get("Hard Mechanism Relationship"));
 	}
 	
 	
@@ -151,15 +152,47 @@ public class KastelEditorJsonReader {
 		
 		return stringCollection;	
 	}
+	
+	private Set<FunctionalRequirement> extractFunctionalRequirements(JsonElement functionalRequirementsStringArrayElement){
+		
+		Set<FunctionalRequirement> functionalRequirements = new HashSet<FunctionalRequirement>();
+		
+		for(String functionalRequirementName : extractStringCollection(functionalRequirementsStringArrayElement)) {
+			functionalRequirements.add(new FunctionalRequirement(functionalRequirementName));
+		}
+		
+		return functionalRequirements;
+		
+	}
+	
+	private Set<Asset> extractAssets(JsonElement assetStringArrayElement){
+		HashSet<Asset> assets = new HashSet<Asset>();
+		
+		for(String assetName : extractStringCollection(assetStringArrayElement)) {
+			assets.add(new Asset(assetName));
+		}
+		return assets;
+	}
+	
+	private Asset getAsset(String assetName) {
+		for(Asset asset : assets) {
+			if (asset.getName().equals(assetName)) {
+				return asset;
+			}
+		}
+		
+		return null;
+	}
 
 	
-private Map<String, Component> generateServiceObjectsFromJson(JsonElement serviceArrayJsonElement){
+private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArrayJsonElement){
 		
-		HashMap<String, Component> services = new HashMap<String, Component>(); 
+		HashSet<Component> services = new HashSet<Component>(); 
 		Collection<String> serviceNames = extractStringCollection(serviceArrayJsonElement);
 		
 		for (String serviceName : serviceNames) {
-			services.put(serviceName, new Component(serviceName));
+			services.add(new Component(serviceName));
+			
 		}
 		
 		return services;
@@ -188,26 +221,49 @@ private Map<String, Component> generateServiceObjectsFromJson(JsonElement servic
 	}
 	
 	
-	private Multimap<Component, String> extractServiceFunctionalReqSets(JsonElement relationElement){
-		Multimap<Component, String> serviceFuReqRelationships = ListMultimapBuilder.hashKeys().linkedListValues().build();
+	private Multimap<Component, FunctionalRequirement> extractServiceFunctionalReqSets(JsonElement relationElement){
+		Multimap<Component, FunctionalRequirement> serviceFuReqRelationships = ListMultimapBuilder.hashKeys().linkedListValues().build();
 		
 		Multimap<String, String> relationships = extractRelationshipSets(relationElement);
 		
 		for(String functionalRequirement : relationships.keySet()) {
+			FunctionalRequirement functionalRequirementObject = getFunctionalRequirement(functionalRequirement);
 			for(String serviceName : relationships.get(functionalRequirement)) {
-						serviceFuReqRelationships.put(services.get(serviceName), functionalRequirement);
-						break;
+						getService(serviceName).addFunctionalRequirement(functionalRequirementObject);
+//						serviceFuReqRelationships.put(getService(serviceName), functionalRequirementObject);
 				}
 			}
 		
 		return serviceFuReqRelationships;
 	}
 	
-	
-	
-	private Map<String, BlackBoxMechanism> extractBlackBoxMechanisms(JsonElement blackBoxMechanismsElement){
+	private void appendFunctionalRequirementsToServices(JsonElement relationElement){
+		Multimap<Component, FunctionalRequirement> serviceFuReqRelationships = ListMultimapBuilder.hashKeys().linkedListValues().build();
 		
-		HashMap<String, BlackBoxMechanism> blackBoxMechanisms = new HashMap<String, BlackBoxMechanism>();
+		Multimap<String, String> relationships = extractRelationshipSets(relationElement);
+		
+		for(String functionalRequirement : relationships.keySet()) {
+			FunctionalRequirement functionalRequirementObject = getFunctionalRequirement(functionalRequirement);
+			for(String serviceName : relationships.get(functionalRequirement)) {
+						getService(serviceName).addFunctionalRequirement(functionalRequirementObject);				
+				}
+			}
+	}
+	
+	private FunctionalRequirement getFunctionalRequirement(String requirementName) {		
+		for(FunctionalRequirement requirement : functionalRequirements) {
+			if(requirement.getName().equals(requirementName)) {
+				return requirement;
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	private Set<BlackBoxMechanism> extractBlackBoxMechanisms(JsonElement blackBoxMechanismsElement){
+		
+		Set<BlackBoxMechanism> blackBoxMechanisms = new HashSet<BlackBoxMechanism>();
 		
 		if(blackBoxMechanismsElement.isJsonObject()) {
 			JsonObject blackBoxMechanismsObject = blackBoxMechanismsElement.getAsJsonObject();
@@ -222,7 +278,7 @@ private Map<String, Component> generateServiceObjectsFromJson(JsonElement servic
 						blackBoxMechanismJsonObject.get("integrity").getAsBoolean(), 
 						extraHg);
 				
-				blackBoxMechanisms.put(mechanism.getName(), mechanism);
+				blackBoxMechanisms.add(mechanism);
 			}
 		}
 		return blackBoxMechanisms;
@@ -237,9 +293,13 @@ private Map<String, Component> generateServiceObjectsFromJson(JsonElement servic
 			
 			for(Entry<String, JsonElement> entry : softGoalRootObject.entrySet()) {
 				String cbValue = checkNullableJsonString(entry.getValue().getAsJsonObject(), "cb_value");
+				Asset asset = getAssetByCBValue(cbValue);
+				
+				assets.add(asset);
 				
 				softGoals.add(new SoftGoal(entry.getKey(), 
-						cbValue,
+						extractConcern(cbValue),
+						asset,
 						entry.getValue().getAsJsonObject().get("priority").getAsBoolean()));
 			}
 		}
@@ -256,18 +316,18 @@ private Map<String, Component> generateServiceObjectsFromJson(JsonElement servic
 			for(Entry<String,JsonElement> entry : hardGoalsRootObject.entrySet()) {
 				
 				Component hgService = null;
-				String hgFunctionalRequirement = "";
+				FunctionalRequirement hgFunctionalRequirement = null;
 				SoftGoal hgSg = null;
 				
-				for(Component service : getServicesAsCollection()) {
+				for(Component service : services) {
 					if(entry.getKey().contains(service.getName())) {
 						hgService = service;
 						break;
 					} 
 				}
 				
-				for(String functionalRequirement : functionalRequirements) {
-					if(entry.getKey().contains(functionalRequirement)) {
+				for(FunctionalRequirement functionalRequirement : functionalRequirements) {
+					if(entry.getKey().contains(functionalRequirement.getName())) {
 							hgFunctionalRequirement = functionalRequirement;
 							break;
 					}
@@ -280,19 +340,15 @@ private Map<String, Component> generateServiceObjectsFromJson(JsonElement servic
 					}
 				}
 				
-				if(hgService == null || hgFunctionalRequirement == "" || hgSg == null) {
+				if(hgService == null || hgFunctionalRequirement == null || hgSg == null) {
 					System.out.println("Error, Hard Goal could not be recreated");
 					continue;
 				}
+				HardGoal hg = new HardGoal(entry.getKey(), hgService.getName(), hgSg, hgFunctionalRequirement);
+				hgFunctionalRequirement.addAsset(hgSg.getAsset());
 				
-				String extraHg = checkNullableJsonString(entry.getValue().getAsJsonObject(), "extra_hg");
-				String extraHgUsed = checkNullableJsonString(entry.getValue().getAsJsonObject(), "extra_hg_used");
-				String originalHg = checkNullableJsonString(entry.getValue().getAsJsonObject(), "original_hg");
-				HardGoal hg = new HardGoal(entry.getKey(), hgService.getName(), hgSg, hgFunctionalRequirement, 
-						extraHg,
-						extraHgUsed,
-						originalHg);
-				
+				hgService.getHardGoals().add(hg);
+				hgService.getProvidedFunctionalRequirements().add(hgFunctionalRequirement);
 		
 				hardGoals.put(hg.getName(), hg);
 			}
@@ -300,10 +356,46 @@ private Map<String, Component> generateServiceObjectsFromJson(JsonElement servic
 		return hardGoals;
 	}
 
-private Multimap<HardGoal, BlackBoxMechanism> extractHardGoalBBMRelationship(JsonElement hardMechanismRelationshipRootElement){
+//private Multimap<HardGoal, BlackBoxMechanism> extractHardGoalBBMRelationship(JsonElement hardMechanismRelationshipRootElement){
+//	
+//	Multimap<HardGoal, BlackBoxMechanism> hardMechanismRelationship = ListMultimapBuilder.hashKeys().linkedListValues().build();
+////	serviceBBMMap = ListMultimapBuilder.hashKeys().linkedListValues().build();
+//	
+//	if(hardMechanismRelationshipRootElement.isJsonObject()) {
+//		JsonObject hardMechanismRelationshipRootObject = hardMechanismRelationshipRootElement.getAsJsonObject();
+//		
+//		
+//		Collection<Entry<String, JsonElement>> relationshipEntries = hardMechanismRelationshipRootObject.entrySet();
+//		
+//		for(Entry<String,JsonElement> entry : relationshipEntries) {
+//	
+//			HardGoal hardGoal = hardGoals.get(entry.getKey());
+//			
+//			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(entry.getValue().getAsString());
+//			if(hardGoal == null || blackBoxMechanism == null) {
+//				System.out.println("HardGoal BBM Relationship not found");
+//				continue;
+//			}
+//			
+//			Component hgRelatedService = getService(hardGoal.getServiceName());
+//			
+//			if(hgRelatedService != null) {
+////				serviceBBMMap.put(hgRelatedService, blackBoxMechanism);
+//				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
+//			}
+//			
+//			hardGoal.addBlackBoxMechanism(blackBoxMechanism);
+//			
+//			hardMechanismRelationship.put(hardGoal, blackBoxMechanism);
+//		}
+//	}
+//	return hardMechanismRelationship; 
+//}
+
+private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElement){
 	
-	Multimap<HardGoal, BlackBoxMechanism> hardMechanismRelationship = ListMultimapBuilder.hashKeys().linkedListValues().build();
-	serviceBBMMap = ListMultimapBuilder.hashKeys().linkedListValues().build();
+	
+//	serviceBBMMap = ListMultimapBuilder.hashKeys().linkedListValues().build();
 	
 	if(hardMechanismRelationshipRootElement.isJsonObject()) {
 		JsonObject hardMechanismRelationshipRootObject = hardMechanismRelationshipRootElement.getAsJsonObject();
@@ -314,23 +406,25 @@ private Multimap<HardGoal, BlackBoxMechanism> extractHardGoalBBMRelationship(Jso
 		for(Entry<String,JsonElement> entry : relationshipEntries) {
 	
 			HardGoal hardGoal = hardGoals.get(entry.getKey());
-			BlackBoxMechanism blackBoxMechanism = blackBoxMechanisms.get(entry.getValue().getAsString());
+			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(entry.getValue().getAsString());
 			
 			if(hardGoal == null || blackBoxMechanism == null) {
 				System.out.println("HardGoal BBM Relationship not found");
 				continue;
 			}
 			
-			Component hgRelatedService = services.get(hardGoal.getServiceName());
+			Component hgRelatedService = getService(hardGoal.getServiceName());
 			
-			if(hgRelatedService != null && !serviceBBMMap.containsEntry(hgRelatedService, blackBoxMechanism)) {
-				serviceBBMMap.put(hgRelatedService, blackBoxMechanism);
+			if(hgRelatedService != null) {
+//				serviceBBMMap.put(hgRelatedService, blackBoxMechanism);
+				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
 			}
 			
-			hardMechanismRelationship.put(hardGoal, blackBoxMechanism);
+			hardGoal.addBlackBoxMechanism(blackBoxMechanism);
+		
 		}
 	}
-	return hardMechanismRelationship; 
+	
 }
 	
 	private String checkNullableJsonString(JsonObject element, String key) {
@@ -345,23 +439,56 @@ private Multimap<HardGoal, BlackBoxMechanism> extractHardGoalBBMRelationship(Jso
 		return string;
 	}
 	
-	public Multimap<Component, String> getServiceFuReqRelationships() {
-		return serviceFuReqRelationships;
-	}
+//	public Multimap<Component, FunctionalRequirement> getServiceFuReqRelationships() {
+//		return serviceFuReqRelationships;
+//	}
 
-	public Multimap<HardGoal, BlackBoxMechanism> getHardMechanismRelationship() {
-		return hardMechanismRelationship;
-	}
+//	public Multimap<HardGoal, BlackBoxMechanism> getHardMechanismRelationship() {
+//		return hardMechanismRelationship;
+//	}
 
-	public Collection<Component> getServicesAsCollection() {
-		return services.values();
-	}
-	
-	public Map<String, Component> getServicesAsMap(){
+	public Set<Component> getServices() {
 		return services;
 	}
-
-	public Collection<String> getFunctionalRequirements() {
+	
+	public Component getService(String serviceName) {
+		for(Component component : services) {
+			if(component.getName().equals(serviceName))
+				return component;
+		}
+		
+		return null;
+	}
+	
+	public Collection<FunctionalRequirement> getFunctionalRequirements() {
 		return functionalRequirements;
+	}
+	
+	public String[] splitCbValue(String cbValue) {
+		return cbValue.split("\u00a1");
+	}
+	public Asset getAssetByCBValue(String cbValue) {
+		String assetName = splitCbValue(cbValue)[1];
+		
+		for(Asset asset : assets) {
+			if(asset.getName().equals(assetName)) {
+				return asset;
+			}
+		}
+		
+		return null;
+	}
+	
+	public String extractConcern(String cbValue) {
+		return splitCbValue(cbValue)[0];
+	}
+	
+	public BlackBoxMechanism getBlackBoxMechanism(String bbmName) {
+		for(BlackBoxMechanism bbm : getBlackBoxMechanisms()) {
+			if(bbm.getName().equals(bbmName)) {
+				return bbm;
+			}
+		}
+		return null;
 	}
 }

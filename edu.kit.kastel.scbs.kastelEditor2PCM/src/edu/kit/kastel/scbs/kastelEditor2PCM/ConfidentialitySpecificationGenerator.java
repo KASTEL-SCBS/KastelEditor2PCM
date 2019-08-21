@@ -14,6 +14,7 @@ import edu.kit.kastel.scbs.confidentiality.data.DataIdentifying;
 import edu.kit.kastel.scbs.confidentiality.data.DataSet;
 import edu.kit.kastel.scbs.confidentiality.repository.ParametersAndDataPair;
 import edu.kit.kastel.scbs.confidentiality.repository.RepositoryFactory;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
  
 
@@ -46,18 +47,18 @@ public class ConfidentialitySpecificationGenerator {
 		}
 	}
 	
-	public DataSet findOrGenerateDataSet(String asset) {
+	public DataSet findOrGenerateDataSet(Asset asset) {
 		
 		
 		
 		for(DataIdentifying set : spec.getDataIdentifier()) {
-			if(((DataSet) set).getName().equals(asset)) {
+			if(((DataSet) set).getName().equals(asset.getName())) {
 				return (DataSet)set;
 			}
 		}
 		
 		DataSet dataSet = DataFactory.eINSTANCE.createDataSet();
-		dataSet.setName(asset);
+		dataSet.setName(asset.getName());
 		spec.getDataIdentifier().add(dataSet);
 		return dataSet;
 	}
@@ -71,7 +72,7 @@ public class ConfidentialitySpecificationGenerator {
 			ParametersAndDataPair localPair = null;
 			
 			for(ParametersAndDataPair p : spec.getParametersAndDataPairs()) {
-				if(p.getName().equals(hg.getFunctionalRequirement())) {
+				if(p.getName().equals(hg.getFunctionalRequirement().getName())) {
 				  localPair = p;
 				  break;
 				}	
@@ -83,7 +84,7 @@ public class ConfidentialitySpecificationGenerator {
 			}
 			
 			localPair = RepositoryFactory.eINSTANCE.createParametersAndDataPair();
-			localPair.setName(hg.getFunctionalRequirement());
+			localPair.setName(hg.getFunctionalRequirement().getName());
 			localPair.getDataTargets().add(set);
 			localPair.getParameterSources().add("\\call");
 			spec.getParametersAndDataPairs().add(localPair);

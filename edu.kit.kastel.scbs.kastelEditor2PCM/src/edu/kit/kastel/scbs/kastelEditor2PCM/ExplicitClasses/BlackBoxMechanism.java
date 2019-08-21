@@ -1,16 +1,16 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
-public class BlackBoxMechanism {
+import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
-	private final String name;
+public class BlackBoxMechanism extends AbstractEditorElement {
+
 	private final boolean authenticity;
 	private final boolean confidentiality;
 	private final boolean integrity;
 	private final String extraHg;
-	private String bbmComponentId;
 	
 	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity, String extraHg) {
-		this.name = name;
+		super.setName(name);
 		this.authenticity = authenticity;
 		this.confidentiality = confidentiality;
 		this.integrity = integrity;
@@ -34,15 +34,15 @@ public class BlackBoxMechanism {
 	}
 
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 
 	public String getBbmComponentId() {
-		return bbmComponentId;
+		return super.getPcmElementId();
 	}
 
 	public void setBbmComponentId(String bbmComponentId) {
-		this.bbmComponentId = bbmComponentId;
+		super.setPcmElementId(bbmComponentId);
 	}
 	
 	

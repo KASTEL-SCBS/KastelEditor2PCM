@@ -120,7 +120,7 @@ public class KASTELEditorImportFileChooser extends JPanel implements ActionListe
         	File file = fc.getSelectedFile();
         	log.append("Starting generating PCM-Model out of KASTELEditor JSON " + newline);
         	reader.extractKastelEditorModelFromJson(file);
-        	log.append("Generation successful" + newline);
+        	log.append("Generating successful" + newline);
         	savePCMModelButton.setEnabled(true);
         } else {
             log.append("Open command cancelled by user." + newline);

@@ -4,16 +4,16 @@ public class SoftGoal {
 
 	private final String name;
 	private final String concern;
-	private final String asset;
+	private final Asset asset;
 	private final boolean priority;
 	
 	
-	public SoftGoal(String name, String cbValue, boolean priority) {
+	public SoftGoal(String name, String concern, Asset asset ,boolean priority) {
 		this.name = name;
 		
-		String[] cbValues = cbValue.split("\u00a1");
-		this.concern = cbValues[0];
-		this.asset = cbValues[1];
+	
+		this.concern = concern;
+		this.asset = asset;
 		this.priority = priority;
 	}
 
@@ -21,7 +21,7 @@ public class SoftGoal {
 		return concern;
 	}
 
-	public String getAsset() {
+	public Asset getAsset() {
 		return asset;
 	}
 
