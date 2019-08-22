@@ -23,7 +23,7 @@ public class ConfidentialitySpecificationGenerator {
 	ConfidentialitySpecification spec;
 	Resource res;
 	
-	public void generateConfidentialitySpecification(KastelEditorJsonReader reader, File confidentialityModelFile) {
+	public void generateConfidentialitySpecification(KASTELGoalModelReader reader, File confidentialityModelFile) {
 		String resultPath = confidentialityModelFile.getAbsolutePath();
 
 	

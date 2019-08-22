@@ -11,11 +11,13 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry kind="src" output="target/classes" path="xtend-gen">
 		<attributes>
+			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="C:/Users/Frederik Reiche/git/kasteleditor2pcm/edu.kit.kastel.scbs.kastelEditor2PCM/lib/gson-2.8.5.jar" sourcepath="C:/Users/Frederik Reiche/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

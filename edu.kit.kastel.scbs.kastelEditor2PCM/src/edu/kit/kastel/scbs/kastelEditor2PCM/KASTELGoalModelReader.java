@@ -25,9 +25,11 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.SoftGoal;
+import edu.kit.kastel.scbs.kastelEditor2PCM.Util.IOUtil;
+import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
 
-public class KastelEditorJsonReader {
+public class KASTELGoalModelReader {
 	
 	private Set<Component> services;
 	private Set<BlackBoxMechanism> blackBoxMechanisms;
@@ -36,21 +38,16 @@ public class KastelEditorJsonReader {
 	private Collection<SoftGoal> softGoals;
 	private Map<String, HardGoal> hardGoals;
 
-//	private Multimap<Component, FunctionalRequirement> serviceFuReqRelationships;
-	//private Multimap<HardGoal, BlackBoxMechanism> hardMechanismRelationship;
-//	private Multimap<Component, BlackBoxMechanism> serviceBBMMap;
-	
-
 	public boolean extractKastelEditorModelFromJson(File file) {
-		String jsonString = IOUtility.readFromFile(file);
+		String goalModelStringRepresentation = IOUtil.readFromFile(file);
 		
-		if(jsonString == "") {
-			return false;
+		if(goalModelStringRepresentation == "") {
+			return false ;
 		}
-				return startKASTELJsonParsing(jsonString);
+		return readGoalModel(goalModelStringRepresentation);
 	}
 	
-	public boolean save(File f) {
+	public boolean saveTrackingFile(File f) {
 		
 		File json;
 		
@@ -68,10 +65,10 @@ public class KastelEditorJsonReader {
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String s = gson.toJson(services);
-		return IOUtility.writeToFile( json, s);
+		return IOUtil.writeToFile( json, s);
 	}
 	
-	private boolean startKASTELJsonParsing(String jsonString) {
+	private boolean readGoalModel(String jsonString) {
 
 	
 		JsonParser parser = new JsonParser();
@@ -90,6 +87,7 @@ public class KastelEditorJsonReader {
 		}
 		
 	
+		
 		return true;
 	}
 	
@@ -173,17 +171,6 @@ public class KastelEditorJsonReader {
 		}
 		return assets;
 	}
-	
-	private Asset getAsset(String assetName) {
-		for(Asset asset : assets) {
-			if (asset.getName().equals(assetName)) {
-				return asset;
-			}
-		}
-		
-		return null;
-	}
-
 	
 private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArrayJsonElement){
 		
@@ -471,7 +458,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		String assetName = splitCbValue(cbValue)[1];
 		
 		for(Asset asset : assets) {
-			if(asset.getName().equals(assetName)) {
+			if(asset.getName().equals(StringUtil.removeCharAndStringSymbols(assetName))) {
 				return asset;
 			}
 		}

@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCM;
+package edu.kit.kastel.scbs.kastelEditor2PCM.Util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class IOUtility {
+public class IOUtil {
 	
 	public static String readFromFile(File file) {
 		String json = "";

@@ -2,24 +2,18 @@ package edu.kit.kastel.scbs.kastelEditor2PCM;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.eclipse.net4j.util.collection.MultiMap;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
-import org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.repository.CompleteComponentType;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
@@ -42,29 +36,27 @@ import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
-import com.google.common.collect.Multimap;
-
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
+import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 
 
 
-public class PCMElementGenerator {
+public class GoalModelToPCMElementTransformator {
 	Repository repo;
 	Resource res;
 	
-	public void generateRepositoryModel(KastelEditorJsonReader reader, File pcmModelFile) {
+	public void generateRepositoryModel(KASTELGoalModelReader reader, String pcmModelFilePath) {
 		
-		String resultPath = pcmModelFile.getAbsolutePath();
-		
-		if(!resultPath.endsWith(".repository")) {
-			resultPath += ".repository";
+
+		if(!pcmModelFilePath.endsWith(".repository")) {
+			pcmModelFilePath += ".repository";
 		}
 		
-		this.res = new XMLResourceImpl(URI.createFileURI(resultPath));
+		this.res = new XMLResourceImpl(URI.createFileURI(pcmModelFilePath));
 		repo = RepositoryFactory.eINSTANCE.createRepository();
 		this.res.getContents().add(repo);
 		
@@ -84,7 +76,7 @@ public class PCMElementGenerator {
 		}
 	}
 	
-	public void extendPalladioComponents(KastelEditorJsonReader reader) {
+	private void extendPalladioComponents(KASTELGoalModelReader reader) {
 		Set<Component> components = reader.getServices();
 		
 		extendComponentsWithFunctionalRequirementInterfaces(components);
@@ -94,7 +86,7 @@ public class PCMElementGenerator {
 		
 	}
 	
-	public void generateInterfacesFromKASTELFunctionalRequirements(Collection<FunctionalRequirement> functionalRequirements) {
+	private void generateInterfacesFromKASTELFunctionalRequirements(Collection<FunctionalRequirement> functionalRequirements) {
 		
 		for(FunctionalRequirement functionalRequirement : functionalRequirements) {
 			OperationInterface functionalRequirementInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
@@ -123,7 +115,7 @@ public class PCMElementGenerator {
 		}
 	}
 	
-	public CompositeDataType generateDataTypeFromAssetWhenNotExisting(Asset asset) {
+	private CompositeDataType generateDataTypeFromAssetWhenNotExisting(Asset asset) {
 		for(DataType datatype : repo.getDataTypes__Repository()) {
 			if((trimWhiteSpace(((CompositeDataType)datatype).getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(asset.getName(), UpperOrLower.UPPER)))){
 				return (CompositeDataType)datatype;
@@ -138,7 +130,7 @@ public class PCMElementGenerator {
 		return dataType;
 	}
 	
-	public void generateComponentsFromKASTELServices(Collection<Component> services) {
+	private void generateComponentsFromKASTELServices(Collection<Component> services) {
 		for(Component service : services) {
 			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
 			
@@ -158,27 +150,7 @@ public class PCMElementGenerator {
 		}
 	}
 	
-//	public void generateComponentsFromKASTELServicesFromMap(Map<String, Component> services) {
-//		for(Component service : services.values()) {
-//			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
-//			
-//			component.setEntityName(trimWhiteSpace(service.getName())+" Composite");
-//			repo.getComponents__Repository().add(component);
-//			service.setPcmCompositeComponentId(component.getId());
-//			
-//			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
-//			base.setEntityName(trimWhiteSpace(service.getName())+"Functionality");
-//			repo.getComponents__Repository().add(base);
-//			service.setPcmFunctionalComponentId(base.getId());
-//			
-//			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
-//			mainContext.setEntityName(service.getName());
-//			mainContext.setEncapsulatedComponent__AssemblyContext(base);
-//			component.getAssemblyContexts__ComposedStructure().add(mainContext);
-//		}
-//	}
-	
-	public void generateBBMComponentsFromKASTELBBM(Collection<BlackBoxMechanism> bbms) {
+	private void generateBBMComponentsFromKASTELBBM(Collection<BlackBoxMechanism> bbms) {
 		
 		for(BlackBoxMechanism bbm : bbms) {
 			BasicComponent bbmComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
@@ -206,7 +178,7 @@ public class PCMElementGenerator {
 		}
 	}
 	
-	public void extendComponentsWithFunctionalRequirementInterfaces(Set<Component> components) {
+	private void extendComponentsWithFunctionalRequirementInterfaces(Set<Component> components) {
 		
 		
 		for(Component service : components) {
@@ -241,7 +213,7 @@ public class PCMElementGenerator {
 	}
 	
 	
-	public void extendComponentsWithHardGoalsAndMechanisms(Set<Component> components) {
+	private void extendComponentsWithHardGoalsAndMechanisms(Set<Component> components) {
 		
 		
 		for(Component service : components) {
@@ -489,6 +461,4 @@ public class PCMElementGenerator {
 		result = String.valueOf(characters);
 		return result;
 	}
-
-
 }
