@@ -18,6 +18,7 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 	val GOAL_MODEL_FILE_ENDING = ".json";
 	val PCM_REPOSITORY_FILE_ENDING = ".repository";
 	val TRACKING_FILE_ENDING = ".json";
+	val GENERATION_DIRECTORY_NAME = "gen";
 	
 	override execute(ExecutionEvent event) throws ExecutionException {
 		val selection = HandlerUtil.getCurrentSelection(event);
@@ -61,12 +62,19 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 	}
 	
 	def processReadGoalModel(KASTELGoalModelReader goalModelReader, String projectPath, String fileName){
-		val pcmRepositoryModelPath = projectPath + fileName + PCM_REPOSITORY_FILE_ENDING;
+		
+		var genDirectoryFile =  new File(projectPath + "/" + GENERATION_DIRECTORY_NAME);
+		
+		if(!genDirectoryFile.exists){
+			genDirectoryFile.mkdirs();
+		}
+		
+		val pcmRepositoryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + fileName + PCM_REPOSITORY_FILE_ENDING;
 		var goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
 		goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
 		goalModelToPCMTransformer.savePCMModel();
 		
-		var trackingFile = new File(projectPath  + fileName + "_Tracking" + TRACKING_FILE_ENDING);
+		var trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + fileName + "_Tracking" + TRACKING_FILE_ENDING);
 		goalModelReader.saveTrackingFile(trackingFile);
 	}
 	

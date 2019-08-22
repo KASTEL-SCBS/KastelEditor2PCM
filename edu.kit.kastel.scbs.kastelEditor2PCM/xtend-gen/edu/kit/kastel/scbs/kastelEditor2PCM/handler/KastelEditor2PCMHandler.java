@@ -25,6 +25,8 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
   
   private final String TRACKING_FILE_ENDING = ".json";
   
+  private final String GENERATION_DIRECTORY_NAME = "gen";
+  
   @Override
   public Object execute(final ExecutionEvent event) throws ExecutionException {
     final ISelection selection = HandlerUtil.getCurrentSelection(event);
@@ -82,11 +84,17 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
   public boolean processReadGoalModel(final KASTELGoalModelReader goalModelReader, final String projectPath, final String fileName) {
     boolean _xblockexpression = false;
     {
-      final String pcmRepositoryModelPath = ((projectPath + fileName) + this.PCM_REPOSITORY_FILE_ENDING);
+      File genDirectoryFile = new File(((projectPath + "/") + this.GENERATION_DIRECTORY_NAME));
+      boolean _exists = genDirectoryFile.exists();
+      boolean _not = (!_exists);
+      if (_not) {
+        genDirectoryFile.mkdirs();
+      }
+      final String pcmRepositoryModelPath = (((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + fileName) + this.PCM_REPOSITORY_FILE_ENDING);
       GoalModelToPCMElementTransformator goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
       goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
       goalModelToPCMTransformer.savePCMModel();
-      File trackingFile = new File((((projectPath + fileName) + "_Tracking") + this.TRACKING_FILE_ENDING));
+      File trackingFile = new File(((((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + fileName) + "_Tracking") + this.TRACKING_FILE_ENDING));
       _xblockexpression = goalModelReader.saveTrackingFile(trackingFile);
     }
     return _xblockexpression;

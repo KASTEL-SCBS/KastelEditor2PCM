@@ -1,252 +1,252 @@
 <?xml version="1.0" encoding="ASCII"?>
-<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_V9yucL0EEemTRLC7bq2b7w">
-  <components__Repository xsi:type="repository:CompositeComponent" id="_V-tUcL0EEemTRLC7bq2b7w" entityName="CrashCamAppComposite">
-    <assemblyContexts__ComposedStructure id="_V-vwsL0EEemTRLC7bq2b7w" entityName="CrashCamApp" encapsulatedComponent__AssemblyContext="_V-vJoL0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-1QQb0EEemTRLC7bq2b7w" entityName="HybridEncryption" encapsulatedComponent__AssemblyContext="_V-wXwb0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-13Ur0EEemTRLC7bq2b7w" entityName="CryptographicHashFunction" encapsulatedComponent__AssemblyContext="_V-wX0b0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-13Vb0EEemTRLC7bq2b7w" entityName="AccessControl" encapsulatedComponent__AssemblyContext="_V-wX1b0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-xl4L0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-w-0b0EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-w-0L0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vwsL0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0CIr0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0CIb0EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0CIL0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vwsL0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0CKL0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0CJ70EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0CJr0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vwsL0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0CLr0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0CLb0EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0CLL0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vwsL0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-13UL0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vwsL0EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-1QQb0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wXxL0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-1QQL0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-13U70EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vwsL0EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-13Ur0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX1L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-13Ub0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-13Vr0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vwsL0EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-13Vb0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX2L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-13VL0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-w-0L0EEemTRLC7bq2b7w" entityName="storingData" providedInterface__OperationProvidedRole="_V-sGVb0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CIL0EEemTRLC7bq2b7w" entityName="uploadingData" providedInterface__OperationProvidedRole="_V-sGV70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CJr0EEemTRLC7bq2b7w" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_V-sGX70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CLL0EEemTRLC7bq2b7w" entityName="recordingData" providedInterface__OperationProvidedRole="_V-sGUL0EEemTRLC7bq2b7w"/>
+<repository:Repository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_sVqgAMSyEemTIbDUfZcTJA">
+  <components__Repository xsi:type="repository:CompositeComponent" id="_sWoJZMSyEemTIbDUfZcTJA" entityName="CrashCamAppComposite">
+    <assemblyContexts__ComposedStructure id="_sWxTQMSyEemTIbDUfZcTJA" entityName="CrashCamApp" encapsulatedComponent__AssemblyContext="_sWoJZcSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7EQcSyEemTIbDUfZcTJA" entityName="AccessControl" encapsulatedComponent__AssemblyContext="_sWxTWMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7ERMSyEemTIbDUfZcTJA" entityName="HybridEncryption" encapsulatedComponent__AssemblyContext="_sWxTYMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7ER8SyEemTIbDUfZcTJA" entityName="CryptographicHashFunction" encapsulatedComponent__AssemblyContext="_sWxTVMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTcsSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTccSyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTcMSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTeMSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTd8SyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTdsSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTfsSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTfcSyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTfMSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxThMSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTg8SyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTgsSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7EQsSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQMSyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7EQcSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTW8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7EQMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7ERcSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQMSyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7ERMSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTY8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7EQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7ESMSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQMSyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7ER8SyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTV8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7ERsSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTcMSyEemTIbDUfZcTJA" entityName="recordingData" providedInterface__OperationProvidedRole="_sWoJUcSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTdsSyEemTIbDUfZcTJA" entityName="storingData" providedInterface__OperationProvidedRole="_sWoJW8SyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTfMSyEemTIbDUfZcTJA" entityName="uploadingData" providedInterface__OperationProvidedRole="_sWoJX8SyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTgsSyEemTIbDUfZcTJA" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_sWoJWMSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-vJoL0EEemTRLC7bq2b7w" entityName="CrashCamAppFunctionality">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-w-0b0EEemTRLC7bq2b7w" entityName="storingData" providedInterface__OperationProvidedRole="_V-sGVb0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CIb0EEemTRLC7bq2b7w" entityName="uploadingData" providedInterface__OperationProvidedRole="_V-sGV70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CJ70EEemTRLC7bq2b7w" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_V-sGX70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CLb0EEemTRLC7bq2b7w" entityName="recordingData" providedInterface__OperationProvidedRole="_V-sGUL0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-1QQL0EEemTRLC7bq2b7w" entityName="hybridEncryption" requiredInterface__OperationRequiredRole="_V-wXwr0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-13Ub0EEemTRLC7bq2b7w" entityName="cryptographicHashFunction" requiredInterface__OperationRequiredRole="_V-wX0r0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-13VL0EEemTRLC7bq2b7w" entityName="accessControl" requiredInterface__OperationRequiredRole="_V-wX1r0EEemTRLC7bq2b7w"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-yM8L0EEemTRLC7bq2b7w" describedService__SEFF="_V-sGVr0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-zbEL0EEemTRLC7bq2b7w" successor_AbstractAction="_V-zbEb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-zbEb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-zbEL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3Fcr0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wXw70EEemTRLC7bq2b7w" role_ExternalService="_V-1QQL0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWoJZcSyEemTIbDUfZcTJA" entityName="CrashCamAppFunctionality">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTccSyEemTIbDUfZcTJA" entityName="recordingData" providedInterface__OperationProvidedRole="_sWoJUcSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTd8SyEemTIbDUfZcTJA" entityName="storingData" providedInterface__OperationProvidedRole="_sWoJW8SyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTfcSyEemTIbDUfZcTJA" entityName="uploadingData" providedInterface__OperationProvidedRole="_sWoJX8SyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTg8SyEemTIbDUfZcTJA" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_sWoJWMSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7EQMSyEemTIbDUfZcTJA" entityName="accessControl" requiredInterface__OperationRequiredRole="_sWxTWcSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7EQ8SyEemTIbDUfZcTJA" entityName="hybridEncryption" requiredInterface__OperationRequiredRole="_sWxTYcSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7ERsSyEemTIbDUfZcTJA" entityName="cryptographicHashFunction" requiredInterface__OperationRequiredRole="_sWxTVcSyEemTIbDUfZcTJA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTc8SyEemTIbDUfZcTJA" describedService__SEFF="_sWoJUsSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTdMSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTdcSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTdcSyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTdMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EW8SyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTVsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ERsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EXMSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTYsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EQ8SyEemTIbDUfZcTJA"/>
     </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0CI70EEemTRLC7bq2b7w" describedService__SEFF="_V-sGWL0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0CJL0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0CJb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0CJb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0CJL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3Fc70EEemTRLC7bq2b7w" calledService_ExternalService="_V-wXw70EEemTRLC7bq2b7w" role_ExternalService="_V-1QQL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3FdL0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX070EEemTRLC7bq2b7w" role_ExternalService="_V-13Ub0EEemTRLC7bq2b7w"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTecSyEemTIbDUfZcTJA" describedService__SEFF="_sWoJXMSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTesSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTe8SyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTe8SyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTesSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EXcSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTYsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EQ8SyEemTIbDUfZcTJA"/>
     </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0CKb0EEemTRLC7bq2b7w" describedService__SEFF="_V-sGYL0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0CKr0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0CK70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0CK70EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0CKr0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3Fdb0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX170EEemTRLC7bq2b7w" role_ExternalService="_V-13VL0EEemTRLC7bq2b7w"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTf8SyEemTIbDUfZcTJA" describedService__SEFF="_sWoJYMSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTgMSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTgcSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTgcSyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTgMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EX8SyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTVsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ERsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EYMSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTYsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EQ8SyEemTIbDUfZcTJA"/>
     </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0CL70EEemTRLC7bq2b7w" describedService__SEFF="_V-sGUb0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0CML0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0CMb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0CMb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0CML0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3FcL0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wXw70EEemTRLC7bq2b7w" role_ExternalService="_V-1QQL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3Fcb0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX070EEemTRLC7bq2b7w" role_ExternalService="_V-13Ub0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-  </components__Repository>
-  <components__Repository xsi:type="repository:CompositeComponent" id="_V-vwsb0EEemTRLC7bq2b7w" entityName="AnonymizationServiceComposite">
-    <assemblyContexts__ComposedStructure id="_V-vws70EEemTRLC7bq2b7w" entityName="AnonymizationService" encapsulatedComponent__AssemblyContext="_V-vwsr0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-2eYL0EEemTRLC7bq2b7w" entityName="HybridEncryption" encapsulatedComponent__AssemblyContext="_V-wXwb0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-2eY70EEemTRLC7bq2b7w" entityName="PasswordAuthenticationScheme" encapsulatedComponent__AssemblyContext="_V-wX2b0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-2eZr0EEemTRLC7bq2b7w" entityName="DigitalSignature" encapsulatedComponent__AssemblyContext="_V-wX4b0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-2eab0EEemTRLC7bq2b7w" entityName="AsymmetricCryptoAuthenticationScheme" encapsulatedComponent__AssemblyContext="_V-wXzb0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-2ebL0EEemTRLC7bq2b7w" entityName="CryptographicHashFunction" encapsulatedComponent__AssemblyContext="_V-wX0b0EEemTRLC7bq2b7w"/>
-    <assemblyContexts__ComposedStructure id="_V-2eb70EEemTRLC7bq2b7w" entityName="Role-BasedAccessControl" encapsulatedComponent__AssemblyContext="_V-wX5b0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0CNL0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0CM70EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0CMr0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0pNL0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0pM70EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0pMr0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0pOr0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0pOb0EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0pOL0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0pQL0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0pP70EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0pPr0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0pRr0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0pRb0EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0pRL0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0pTL0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0pS70EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0pSr0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_V-0pUr0EEemTRLC7bq2b7w" innerProvidedRole_ProvidedDelegationConnector="_V-0pUb0EEemTRLC7bq2b7w" outerProvidedRole_ProvidedDelegationConnector="_V-0pUL0EEemTRLC7bq2b7w" assemblyContext_ProvidedDelegationConnector="_V-vws70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-2eYb0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vws70EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-2eYL0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wXxL0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-13V70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-2eZL0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vws70EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-2eY70EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX3L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-2eYr0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-2eZ70EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vws70EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-2eZr0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX5L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-2eZb0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-2ear0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vws70EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-2eab0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX0L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-2eaL0EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-2ebb0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vws70EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-2ebL0EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX1L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-2ea70EEemTRLC7bq2b7w"/>
-    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_V-2ecL0EEemTRLC7bq2b7w" requiringAssemblyContext_AssemblyConnector="_V-vws70EEemTRLC7bq2b7w" providingAssemblyContext_AssemblyConnector="_V-2eb70EEemTRLC7bq2b7w" providedRole_AssemblyConnector="_V-wX6L0EEemTRLC7bq2b7w" requiredRole_AssemblyConnector="_V-2ebr0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CMr0EEemTRLC7bq2b7w" entityName="downloadingAnonymizedData" providedInterface__OperationProvidedRole="_V-sGUr0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pMr0EEemTRLC7bq2b7w" entityName="storingData" providedInterface__OperationProvidedRole="_V-sGVb0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pOL0EEemTRLC7bq2b7w" entityName="storingAnonymizedData" providedInterface__OperationProvidedRole="_V-sGWb0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pPr0EEemTRLC7bq2b7w" entityName="authenticatingProsecutionAuthority" providedInterface__OperationProvidedRole="_V-sGW70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pRL0EEemTRLC7bq2b7w" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_V-sGX70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pSr0EEemTRLC7bq2b7w" entityName="explicitlyGrantingAccessToRawData" providedInterface__OperationProvidedRole="_V-nN0L0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pUL0EEemTRLC7bq2b7w" entityName="anonymizingData" providedInterface__OperationProvidedRole="_V-sGYb0EEemTRLC7bq2b7w"/>
-  </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-vwsr0EEemTRLC7bq2b7w" entityName="AnonymizationServiceFunctionality">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0CM70EEemTRLC7bq2b7w" entityName="downloadingAnonymizedData" providedInterface__OperationProvidedRole="_V-sGUr0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pM70EEemTRLC7bq2b7w" entityName="storingData" providedInterface__OperationProvidedRole="_V-sGVb0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pOb0EEemTRLC7bq2b7w" entityName="storingAnonymizedData" providedInterface__OperationProvidedRole="_V-sGWb0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pP70EEemTRLC7bq2b7w" entityName="authenticatingProsecutionAuthority" providedInterface__OperationProvidedRole="_V-sGW70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pRb0EEemTRLC7bq2b7w" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_V-sGX70EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pS70EEemTRLC7bq2b7w" entityName="explicitlyGrantingAccessToRawData" providedInterface__OperationProvidedRole="_V-nN0L0EEemTRLC7bq2b7w"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-0pUb0EEemTRLC7bq2b7w" entityName="anonymizingData" providedInterface__OperationProvidedRole="_V-sGYb0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-13V70EEemTRLC7bq2b7w" entityName="hybridEncryption" requiredInterface__OperationRequiredRole="_V-wXwr0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-2eYr0EEemTRLC7bq2b7w" entityName="passwordAuthenticationScheme" requiredInterface__OperationRequiredRole="_V-wX2r0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-2eZb0EEemTRLC7bq2b7w" entityName="digitalSignature" requiredInterface__OperationRequiredRole="_V-wX4r0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-2eaL0EEemTRLC7bq2b7w" entityName="asymmetricCryptoAuthenticationScheme" requiredInterface__OperationRequiredRole="_V-wXzr0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-2ea70EEemTRLC7bq2b7w" entityName="cryptographicHashFunction" requiredInterface__OperationRequiredRole="_V-wX0r0EEemTRLC7bq2b7w"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_V-2ebr0EEemTRLC7bq2b7w" entityName="role-BasedAccessControl" requiredInterface__OperationRequiredRole="_V-wX5r0EEemTRLC7bq2b7w"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0CNb0EEemTRLC7bq2b7w" describedService__SEFF="_V-sGU70EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pML0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pMb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pMb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pML0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sgr0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX470EEemTRLC7bq2b7w" role_ExternalService="_V-2eZb0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0pNb0EEemTRLC7bq2b7w" describedService__SEFF="_V-sGVr0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pNr0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pN70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pN70EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pNr0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sg70EEemTRLC7bq2b7w" calledService_ExternalService="_V-wXw70EEemTRLC7bq2b7w" role_ExternalService="_V-13V70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3shL0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX070EEemTRLC7bq2b7w" role_ExternalService="_V-2ea70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3shb0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX470EEemTRLC7bq2b7w" role_ExternalService="_V-2eZb0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0pO70EEemTRLC7bq2b7w" describedService__SEFF="_V-sGWr0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pPL0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pPb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pPb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pPL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3shr0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX470EEemTRLC7bq2b7w" role_ExternalService="_V-2eZb0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0pQb0EEemTRLC7bq2b7w" describedService__SEFF="_V-sGXL0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pQr0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pQ70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pQ70EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pQr0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sh70EEemTRLC7bq2b7w" calledService_ExternalService="_V-wXz70EEemTRLC7bq2b7w" role_ExternalService="_V-2eaL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3siL0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX570EEemTRLC7bq2b7w" role_ExternalService="_V-2ebr0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0pR70EEemTRLC7bq2b7w" describedService__SEFF="_V-sGYL0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pSL0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pSb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pSb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pSL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sir0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX270EEemTRLC7bq2b7w" role_ExternalService="_V-2eYr0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3si70EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX570EEemTRLC7bq2b7w" role_ExternalService="_V-2ebr0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0pTb0EEemTRLC7bq2b7w" describedService__SEFF="_V-n04L0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pTr0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pT70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pT70EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pTr0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sgL0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX070EEemTRLC7bq2b7w" role_ExternalService="_V-2ea70EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sgb0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX570EEemTRLC7bq2b7w" role_ExternalService="_V-2ebr0EEemTRLC7bq2b7w"/>
-    </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_V-0pU70EEemTRLC7bq2b7w" describedService__SEFF="_V-sGYr0EEemTRLC7bq2b7w">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_V-0pVL0EEemTRLC7bq2b7w" successor_AbstractAction="_V-0pVb0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_V-0pVb0EEemTRLC7bq2b7w" predecessor_AbstractAction="_V-0pVL0EEemTRLC7bq2b7w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_V-3sib0EEemTRLC7bq2b7w" calledService_ExternalService="_V-wX470EEemTRLC7bq2b7w" role_ExternalService="_V-2eZb0EEemTRLC7bq2b7w"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxThcSyEemTIbDUfZcTJA" describedService__SEFF="_sWoJWcSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxThsSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTh8SyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTh8SyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxThsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EXsSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTWsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EQMSyEemTIbDUfZcTJA"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-vwtL0EEemTRLC7bq2b7w" entityName="StrongAuthenticationProcedure">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wXwL0EEemTRLC7bq2b7w" entityName="strongAuthenticationProcedure" providedInterface__OperationProvidedRole="_V-vwtb0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_sWxTQcSyEemTIbDUfZcTJA" entityName="AnonymizationServiceComposite">
+    <assemblyContexts__ComposedStructure id="_sWxTQ8SyEemTIbDUfZcTJA" entityName="AnonymizationService" encapsulatedComponent__AssemblyContext="_sWxTQsSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7ESsSyEemTIbDUfZcTJA" entityName="AsymmetricCryptoAuthenticationScheme" encapsulatedComponent__AssemblyContext="_sWxTUMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7ETcSyEemTIbDUfZcTJA" entityName="DigitalSignature" encapsulatedComponent__AssemblyContext="_sWxTXMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7EUMSyEemTIbDUfZcTJA" entityName="HybridEncryption" encapsulatedComponent__AssemblyContext="_sWxTYMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7EU8SyEemTIbDUfZcTJA" entityName="Role-BasedAccessControl" encapsulatedComponent__AssemblyContext="_sWxTSMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7EVsSyEemTIbDUfZcTJA" entityName="PasswordAuthenticationScheme" encapsulatedComponent__AssemblyContext="_sWxTRMSyEemTIbDUfZcTJA"/>
+    <assemblyContexts__ComposedStructure id="_sW7EWcSyEemTIbDUfZcTJA" entityName="CryptographicHashFunction" encapsulatedComponent__AssemblyContext="_sWxTVMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTisSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTicSyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTiMSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTkMSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTj8SyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTjsSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTlsSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTlcSyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTlMSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTnMSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTm8SyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTmsSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTosSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTocSyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxToMSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTqMSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTp8SyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTpsSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_sWxTrsSyEemTIbDUfZcTJA" innerProvidedRole_ProvidedDelegationConnector="_sWxTrcSyEemTIbDUfZcTJA" outerProvidedRole_ProvidedDelegationConnector="_sWxTrMSyEemTIbDUfZcTJA" assemblyContext_ProvidedDelegationConnector="_sWxTQ8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7ES8SyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQ8SyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7ESsSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTU8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7EScSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7ETsSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQ8SyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7ETcSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTX8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7ETMSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7EUcSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQ8SyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7EUMSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTY8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7ET8SyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7EVMSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQ8SyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7EU8SyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTS8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7EUsSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7EV8SyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQ8SyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7EVsSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTR8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7EVcSyEemTIbDUfZcTJA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_sW7EWsSyEemTIbDUfZcTJA" requiringAssemblyContext_AssemblyConnector="_sWxTQ8SyEemTIbDUfZcTJA" providingAssemblyContext_AssemblyConnector="_sW7EWcSyEemTIbDUfZcTJA" providedRole_AssemblyConnector="_sWxTV8SyEemTIbDUfZcTJA" requiredRole_AssemblyConnector="_sW7EWMSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTiMSyEemTIbDUfZcTJA" entityName="storingData" providedInterface__OperationProvidedRole="_sWoJW8SyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTjsSyEemTIbDUfZcTJA" entityName="storingAnonymizedData" providedInterface__OperationProvidedRole="_sWoJXcSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTlMSyEemTIbDUfZcTJA" entityName="authenticatingProsecutionAuthority" providedInterface__OperationProvidedRole="_sWoJYcSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTmsSyEemTIbDUfZcTJA" entityName="downloadingAnonymizedData" providedInterface__OperationProvidedRole="_sWoJVMSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxToMSyEemTIbDUfZcTJA" entityName="anonymizingData" providedInterface__OperationProvidedRole="_sWeYUMSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTpsSyEemTIbDUfZcTJA" entityName="explicitlyGrantingAccessToRawData" providedInterface__OperationProvidedRole="_sWoJVsSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTrMSyEemTIbDUfZcTJA" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_sWoJWMSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wXwb0EEemTRLC7bq2b7w" entityName="HybridEncryption">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wXxL0EEemTRLC7bq2b7w" entityName="hybridEncryption" providedInterface__OperationProvidedRole="_V-wXwr0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTQsSyEemTIbDUfZcTJA" entityName="AnonymizationServiceFunctionality">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTicSyEemTIbDUfZcTJA" entityName="storingData" providedInterface__OperationProvidedRole="_sWoJW8SyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTj8SyEemTIbDUfZcTJA" entityName="storingAnonymizedData" providedInterface__OperationProvidedRole="_sWoJXcSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTlcSyEemTIbDUfZcTJA" entityName="authenticatingProsecutionAuthority" providedInterface__OperationProvidedRole="_sWoJYcSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTm8SyEemTIbDUfZcTJA" entityName="downloadingAnonymizedData" providedInterface__OperationProvidedRole="_sWoJVMSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTocSyEemTIbDUfZcTJA" entityName="anonymizingData" providedInterface__OperationProvidedRole="_sWeYUMSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTp8SyEemTIbDUfZcTJA" entityName="explicitlyGrantingAccessToRawData" providedInterface__OperationProvidedRole="_sWoJVsSyEemTIbDUfZcTJA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTrcSyEemTIbDUfZcTJA" entityName="authenticatingCrashCamOperator" providedInterface__OperationProvidedRole="_sWoJWMSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7EScSyEemTIbDUfZcTJA" entityName="asymmetricCryptoAuthenticationScheme" requiredInterface__OperationRequiredRole="_sWxTUcSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7ETMSyEemTIbDUfZcTJA" entityName="digitalSignature" requiredInterface__OperationRequiredRole="_sWxTXcSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7ET8SyEemTIbDUfZcTJA" entityName="hybridEncryption" requiredInterface__OperationRequiredRole="_sWxTYcSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7EUsSyEemTIbDUfZcTJA" entityName="role-BasedAccessControl" requiredInterface__OperationRequiredRole="_sWxTScSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7EVcSyEemTIbDUfZcTJA" entityName="passwordAuthenticationScheme" requiredInterface__OperationRequiredRole="_sWxTRcSyEemTIbDUfZcTJA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sW7EWMSyEemTIbDUfZcTJA" entityName="cryptographicHashFunction" requiredInterface__OperationRequiredRole="_sWxTVcSyEemTIbDUfZcTJA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTi8SyEemTIbDUfZcTJA" describedService__SEFF="_sWoJXMSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTjMSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTjcSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTjcSyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTjMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EZcSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTVsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EWMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EZsSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTXsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ETMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EZ8SyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTYsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ET8SyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTkcSyEemTIbDUfZcTJA" describedService__SEFF="_sWoJXsSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTksSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTk8SyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTk8SyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTksSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EasSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTXsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ETMSyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTl8SyEemTIbDUfZcTJA" describedService__SEFF="_sWoJYsSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTmMSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTmcSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTmcSyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTmMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7Ea8SyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTSsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EUsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EbMSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTUsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EScSyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTncSyEemTIbDUfZcTJA" describedService__SEFF="_sWoJVcSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTnsSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTn8SyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTn8SyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTnsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EZMSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTXsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ETMSyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTo8SyEemTIbDUfZcTJA" describedService__SEFF="_sWeYUcSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTpMSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTpcSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTpcSyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTpMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EYcSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTXsSyEemTIbDUfZcTJA" role_ExternalService="_sW7ETMSyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTqcSyEemTIbDUfZcTJA" describedService__SEFF="_sWoJV8SyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTqsSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTq8SyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTq8SyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTqsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EYsSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTSsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EUsSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EY8SyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTVsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EWMSyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sWxTr8SyEemTIbDUfZcTJA" describedService__SEFF="_sWoJWcSyEemTIbDUfZcTJA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sWxTsMSyEemTIbDUfZcTJA" successor_AbstractAction="_sWxTscSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sWxTscSyEemTIbDUfZcTJA" predecessor_AbstractAction="_sWxTsMSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EaMSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTRsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EVcSyEemTIbDUfZcTJA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sW7EacSyEemTIbDUfZcTJA" calledService_ExternalService="_sWxTSsSyEemTIbDUfZcTJA" role_ExternalService="_sW7EUsSyEemTIbDUfZcTJA"/>
+    </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wXxb0EEemTRLC7bq2b7w" entityName="AuthenticationProcedure">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wXyL0EEemTRLC7bq2b7w" entityName="authenticationProcedure" providedInterface__OperationProvidedRole="_V-wXxr0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTRMSyEemTIbDUfZcTJA" entityName="PasswordAuthenticationScheme">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTR8SyEemTIbDUfZcTJA" entityName="passwordAuthenticationScheme" providedInterface__OperationProvidedRole="_sWxTRcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wXyb0EEemTRLC7bq2b7w" entityName="AsymmetricEncryption">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wXzL0EEemTRLC7bq2b7w" entityName="asymmetricEncryption" providedInterface__OperationProvidedRole="_V-wXyr0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTSMSyEemTIbDUfZcTJA" entityName="Role-BasedAccessControl">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTS8SyEemTIbDUfZcTJA" entityName="role-BasedAccessControl" providedInterface__OperationProvidedRole="_sWxTScSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wXzb0EEemTRLC7bq2b7w" entityName="AsymmetricCryptoAuthenticationScheme">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX0L0EEemTRLC7bq2b7w" entityName="asymmetricCryptoAuthenticationScheme" providedInterface__OperationProvidedRole="_V-wXzr0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTTMSyEemTIbDUfZcTJA" entityName="AnonymizationOfProtectionWorthyImageAreas">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTT8SyEemTIbDUfZcTJA" entityName="anonymizationOfProtectionWorthyImageAreas" providedInterface__OperationProvidedRole="_sWxTTcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wX0b0EEemTRLC7bq2b7w" entityName="CryptographicHashFunction">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX1L0EEemTRLC7bq2b7w" entityName="cryptographicHashFunction" providedInterface__OperationProvidedRole="_V-wX0r0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTUMSyEemTIbDUfZcTJA" entityName="AsymmetricCryptoAuthenticationScheme">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTU8SyEemTIbDUfZcTJA" entityName="asymmetricCryptoAuthenticationScheme" providedInterface__OperationProvidedRole="_sWxTUcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wX1b0EEemTRLC7bq2b7w" entityName="AccessControl">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX2L0EEemTRLC7bq2b7w" entityName="accessControl" providedInterface__OperationProvidedRole="_V-wX1r0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTVMSyEemTIbDUfZcTJA" entityName="CryptographicHashFunction">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTV8SyEemTIbDUfZcTJA" entityName="cryptographicHashFunction" providedInterface__OperationProvidedRole="_sWxTVcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wX2b0EEemTRLC7bq2b7w" entityName="PasswordAuthenticationScheme">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX3L0EEemTRLC7bq2b7w" entityName="passwordAuthenticationScheme" providedInterface__OperationProvidedRole="_V-wX2r0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTWMSyEemTIbDUfZcTJA" entityName="AccessControl">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTW8SyEemTIbDUfZcTJA" entityName="accessControl" providedInterface__OperationProvidedRole="_sWxTWcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wX3b0EEemTRLC7bq2b7w" entityName="AnonymizationOfProtectionWorthyImageAreas">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX4L0EEemTRLC7bq2b7w" entityName="anonymizationOfProtectionWorthyImageAreas" providedInterface__OperationProvidedRole="_V-wX3r0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTXMSyEemTIbDUfZcTJA" entityName="DigitalSignature">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTX8SyEemTIbDUfZcTJA" entityName="digitalSignature" providedInterface__OperationProvidedRole="_sWxTXcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wX4b0EEemTRLC7bq2b7w" entityName="DigitalSignature">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX5L0EEemTRLC7bq2b7w" entityName="digitalSignature" providedInterface__OperationProvidedRole="_V-wX4r0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTYMSyEemTIbDUfZcTJA" entityName="HybridEncryption">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTY8SyEemTIbDUfZcTJA" entityName="hybridEncryption" providedInterface__OperationProvidedRole="_sWxTYcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_V-wX5b0EEemTRLC7bq2b7w" entityName="Role-BasedAccessControl">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_V-wX6L0EEemTRLC7bq2b7w" entityName="role-BasedAccessControl" providedInterface__OperationProvidedRole="_V-wX5r0EEemTRLC7bq2b7w"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTZMSyEemTIbDUfZcTJA" entityName="AsymmetricEncryption">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTZ8SyEemTIbDUfZcTJA" entityName="asymmetricEncryption" providedInterface__OperationProvidedRole="_sWxTZcSyEemTIbDUfZcTJA"/>
   </components__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-nN0L0EEemTRLC7bq2b7w" entityName="ExplicitlyGrantingAccessToRawData">
-    <signatures__OperationInterface id="_V-n04L0EEemTRLC7bq2b7w" entityName="explicitlyGrantingAccessToRawData">
-      <parameters__OperationSignature dataType__Parameter="_V-qRIL0EEemTRLC7bq2b7w" parameterName="data"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTaMSyEemTIbDUfZcTJA" entityName="AuthenticationProcedure">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTa8SyEemTIbDUfZcTJA" entityName="authenticationProcedure" providedInterface__OperationProvidedRole="_sWxTacSyEemTIbDUfZcTJA"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_sWxTbMSyEemTIbDUfZcTJA" entityName="StrongAuthenticationProcedure">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sWxTb8SyEemTIbDUfZcTJA" entityName="strongAuthenticationProcedure" providedInterface__OperationProvidedRole="_sWxTbcSyEemTIbDUfZcTJA"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWeYUMSyEemTIbDUfZcTJA" entityName="AnonymizingData">
+    <signatures__OperationInterface id="_sWeYUcSyEemTIbDUfZcTJA" entityName="anonymizingData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJUMSyEemTIbDUfZcTJA" parameterName="anonymizedData"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGUL0EEemTRLC7bq2b7w" entityName="RecordingData">
-    <signatures__OperationInterface id="_V-sGUb0EEemTRLC7bq2b7w" entityName="recordingData">
-      <parameters__OperationSignature dataType__Parameter="_V-qRIL0EEemTRLC7bq2b7w" parameterName="data"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJUcSyEemTIbDUfZcTJA" entityName="RecordingData">
+    <signatures__OperationInterface id="_sWoJUsSyEemTIbDUfZcTJA" entityName="recordingData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJU8SyEemTIbDUfZcTJA" parameterName="data"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGUr0EEemTRLC7bq2b7w" entityName="DownloadingAnonymizedData">
-    <signatures__OperationInterface id="_V-sGU70EEemTRLC7bq2b7w" entityName="downloadingAnonymizedData">
-      <parameters__OperationSignature dataType__Parameter="_V-sGVL0EEemTRLC7bq2b7w" parameterName="anonymizedData"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJVMSyEemTIbDUfZcTJA" entityName="DownloadingAnonymizedData">
+    <signatures__OperationInterface id="_sWoJVcSyEemTIbDUfZcTJA" entityName="downloadingAnonymizedData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJUMSyEemTIbDUfZcTJA" parameterName="anonymizedData"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGVb0EEemTRLC7bq2b7w" entityName="StoringData">
-    <signatures__OperationInterface id="_V-sGVr0EEemTRLC7bq2b7w" entityName="storingData">
-      <parameters__OperationSignature dataType__Parameter="_V-sGVL0EEemTRLC7bq2b7w" parameterName="anonymizedData"/>
-      <parameters__OperationSignature dataType__Parameter="_V-qRIL0EEemTRLC7bq2b7w" parameterName="data"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJVsSyEemTIbDUfZcTJA" entityName="ExplicitlyGrantingAccessToRawData">
+    <signatures__OperationInterface id="_sWoJV8SyEemTIbDUfZcTJA" entityName="explicitlyGrantingAccessToRawData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJU8SyEemTIbDUfZcTJA" parameterName="data"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGV70EEemTRLC7bq2b7w" entityName="UploadingData">
-    <signatures__OperationInterface id="_V-sGWL0EEemTRLC7bq2b7w" entityName="uploadingData">
-      <parameters__OperationSignature dataType__Parameter="_V-qRIL0EEemTRLC7bq2b7w" parameterName="data"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJWMSyEemTIbDUfZcTJA" entityName="AuthenticatingCrashCamOperator">
+    <signatures__OperationInterface id="_sWoJWcSyEemTIbDUfZcTJA" entityName="authenticatingCrashCamOperator">
+      <parameters__OperationSignature dataType__Parameter="_sWoJWsSyEemTIbDUfZcTJA" parameterName="crashCamOperatorsUserAccounts"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGWb0EEemTRLC7bq2b7w" entityName="StoringAnonymizedData">
-    <signatures__OperationInterface id="_V-sGWr0EEemTRLC7bq2b7w" entityName="storingAnonymizedData">
-      <parameters__OperationSignature dataType__Parameter="_V-sGVL0EEemTRLC7bq2b7w" parameterName="anonymizedData"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJW8SyEemTIbDUfZcTJA" entityName="StoringData">
+    <signatures__OperationInterface id="_sWoJXMSyEemTIbDUfZcTJA" entityName="storingData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJUMSyEemTIbDUfZcTJA" parameterName="anonymizedData"/>
+      <parameters__OperationSignature dataType__Parameter="_sWoJU8SyEemTIbDUfZcTJA" parameterName="data"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGW70EEemTRLC7bq2b7w" entityName="AuthenticatingProsecutionAuthority">
-    <signatures__OperationInterface id="_V-sGXL0EEemTRLC7bq2b7w" entityName="authenticatingProsecutionAuthority">
-      <parameters__OperationSignature dataType__Parameter="_V-sGXb0EEemTRLC7bq2b7w" parameterName="crashCamOperators'UserAccounts"/>
-      <parameters__OperationSignature dataType__Parameter="_V-sGXr0EEemTRLC7bq2b7w" parameterName="privilegedUserAccount"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJXcSyEemTIbDUfZcTJA" entityName="StoringAnonymizedData">
+    <signatures__OperationInterface id="_sWoJXsSyEemTIbDUfZcTJA" entityName="storingAnonymizedData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJUMSyEemTIbDUfZcTJA" parameterName="anonymizedData"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGX70EEemTRLC7bq2b7w" entityName="AuthenticatingCrashCamOperator">
-    <signatures__OperationInterface id="_V-sGYL0EEemTRLC7bq2b7w" entityName="authenticatingCrashCamOperator">
-      <parameters__OperationSignature dataType__Parameter="_V-sGXb0EEemTRLC7bq2b7w" parameterName="crashCamOperators'UserAccounts"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJX8SyEemTIbDUfZcTJA" entityName="UploadingData">
+    <signatures__OperationInterface id="_sWoJYMSyEemTIbDUfZcTJA" entityName="uploadingData">
+      <parameters__OperationSignature dataType__Parameter="_sWoJU8SyEemTIbDUfZcTJA" parameterName="data"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-sGYb0EEemTRLC7bq2b7w" entityName="AnonymizingData">
-    <signatures__OperationInterface id="_V-sGYr0EEemTRLC7bq2b7w" entityName="anonymizingData">
-      <parameters__OperationSignature dataType__Parameter="_V-sGVL0EEemTRLC7bq2b7w" parameterName="anonymizedData"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWoJYcSyEemTIbDUfZcTJA" entityName="AuthenticatingProsecutionAuthority">
+    <signatures__OperationInterface id="_sWoJYsSyEemTIbDUfZcTJA" entityName="authenticatingProsecutionAuthority">
+      <parameters__OperationSignature dataType__Parameter="_sWoJWsSyEemTIbDUfZcTJA" parameterName="crashCamOperatorsUserAccounts"/>
+      <parameters__OperationSignature dataType__Parameter="_sWoJY8SyEemTIbDUfZcTJA" parameterName="privilegedUserAccount"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-vwtb0EEemTRLC7bq2b7w" entityName="StrongAuthenticationProcedure">
-    <signatures__OperationInterface id="_V-vwtr0EEemTRLC7bq2b7w" entityName="strongAuthenticationProcedure"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTRcSyEemTIbDUfZcTJA" entityName="PasswordAuthenticationScheme">
+    <signatures__OperationInterface id="_sWxTRsSyEemTIbDUfZcTJA" entityName="passwordAuthenticationScheme"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wXwr0EEemTRLC7bq2b7w" entityName="HybridEncryption">
-    <signatures__OperationInterface id="_V-wXw70EEemTRLC7bq2b7w" entityName="hybridEncryption"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTScSyEemTIbDUfZcTJA" entityName="Role-BasedAccessControl">
+    <signatures__OperationInterface id="_sWxTSsSyEemTIbDUfZcTJA" entityName="role-BasedAccessControl"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wXxr0EEemTRLC7bq2b7w" entityName="AuthenticationProcedure">
-    <signatures__OperationInterface id="_V-wXx70EEemTRLC7bq2b7w" entityName="authenticationProcedure"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTTcSyEemTIbDUfZcTJA" entityName="AnonymizationOfProtectionWorthyImageAreas">
+    <signatures__OperationInterface id="_sWxTTsSyEemTIbDUfZcTJA" entityName="anonymizationOfProtectionWorthyImageAreas"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wXyr0EEemTRLC7bq2b7w" entityName="AsymmetricEncryption">
-    <signatures__OperationInterface id="_V-wXy70EEemTRLC7bq2b7w" entityName="asymmetricEncryption"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTUcSyEemTIbDUfZcTJA" entityName="AsymmetricCryptoAuthenticationScheme">
+    <signatures__OperationInterface id="_sWxTUsSyEemTIbDUfZcTJA" entityName="asymmetricCryptoAuthenticationScheme"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wXzr0EEemTRLC7bq2b7w" entityName="AsymmetricCryptoAuthenticationScheme">
-    <signatures__OperationInterface id="_V-wXz70EEemTRLC7bq2b7w" entityName="asymmetricCryptoAuthenticationScheme"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTVcSyEemTIbDUfZcTJA" entityName="CryptographicHashFunction">
+    <signatures__OperationInterface id="_sWxTVsSyEemTIbDUfZcTJA" entityName="cryptographicHashFunction"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wX0r0EEemTRLC7bq2b7w" entityName="CryptographicHashFunction">
-    <signatures__OperationInterface id="_V-wX070EEemTRLC7bq2b7w" entityName="cryptographicHashFunction"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTWcSyEemTIbDUfZcTJA" entityName="AccessControl">
+    <signatures__OperationInterface id="_sWxTWsSyEemTIbDUfZcTJA" entityName="accessControl"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wX1r0EEemTRLC7bq2b7w" entityName="AccessControl">
-    <signatures__OperationInterface id="_V-wX170EEemTRLC7bq2b7w" entityName="accessControl"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTXcSyEemTIbDUfZcTJA" entityName="DigitalSignature">
+    <signatures__OperationInterface id="_sWxTXsSyEemTIbDUfZcTJA" entityName="digitalSignature"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wX2r0EEemTRLC7bq2b7w" entityName="PasswordAuthenticationScheme">
-    <signatures__OperationInterface id="_V-wX270EEemTRLC7bq2b7w" entityName="passwordAuthenticationScheme"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTYcSyEemTIbDUfZcTJA" entityName="HybridEncryption">
+    <signatures__OperationInterface id="_sWxTYsSyEemTIbDUfZcTJA" entityName="hybridEncryption"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wX3r0EEemTRLC7bq2b7w" entityName="AnonymizationOfProtectionWorthyImageAreas">
-    <signatures__OperationInterface id="_V-wX370EEemTRLC7bq2b7w" entityName="anonymizationOfProtectionWorthyImageAreas"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTZcSyEemTIbDUfZcTJA" entityName="AsymmetricEncryption">
+    <signatures__OperationInterface id="_sWxTZsSyEemTIbDUfZcTJA" entityName="asymmetricEncryption"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wX4r0EEemTRLC7bq2b7w" entityName="DigitalSignature">
-    <signatures__OperationInterface id="_V-wX470EEemTRLC7bq2b7w" entityName="digitalSignature"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTacSyEemTIbDUfZcTJA" entityName="AuthenticationProcedure">
+    <signatures__OperationInterface id="_sWxTasSyEemTIbDUfZcTJA" entityName="authenticationProcedure"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-wX5r0EEemTRLC7bq2b7w" entityName="Role-BasedAccessControl">
-    <signatures__OperationInterface id="_V-wX570EEemTRLC7bq2b7w" entityName="role-BasedAccessControl"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_sWxTbcSyEemTIbDUfZcTJA" entityName="StrongAuthenticationProcedure">
+    <signatures__OperationInterface id="_sWxTbsSyEemTIbDUfZcTJA" entityName="strongAuthenticationProcedure"/>
   </interfaces__Repository>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_V-qRIL0EEemTRLC7bq2b7w" entityName="Data"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_V-sGVL0EEemTRLC7bq2b7w" entityName="AnonymizedData"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_V-sGXb0EEemTRLC7bq2b7w" entityName="CrashCamOperators'UserAccounts"/>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_V-sGXr0EEemTRLC7bq2b7w" entityName="PrivilegedUserAccount"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_sWoJUMSyEemTIbDUfZcTJA" entityName="AnonymizedData"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_sWoJU8SyEemTIbDUfZcTJA" entityName="Data"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_sWoJWsSyEemTIbDUfZcTJA" entityName="CrashCamOperatorsUserAccounts"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_sWoJY8SyEemTIbDUfZcTJA" entityName="PrivilegedUserAccount"/>
 </repository:Repository>
