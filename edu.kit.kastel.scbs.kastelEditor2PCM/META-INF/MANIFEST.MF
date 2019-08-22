@@ -1,13 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: KastelEditor2DSL
+Bundle-Name: KastelEditor2PCM
 Bundle-SymbolicName: edu.kit.kastel.scbs.kastelEditor2PCM;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: kastelEditor2DSL.jar, lib/gson-2.8.5.jar
+Bundle-ClassPath: kastelEditor2PCM.jar, lib/gson-2.8.5.jar
 Export-Package: edu.kit.kastel.scbs.kastelEditor2PCM
 Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.1.0",
  edu.kit.kastel.scbs.confidentialitymm;bundle-version="1.1.0",
- edu.kit.kastel.scbs.pcm2java4KeY;bundle-version="1.0.0",
  org.eclipse.ui,
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
