@@ -6,6 +6,7 @@ import java.util.Set;
 public class FunctionalRequirement extends AbstractEditorElement {
 	
 	public Set<Asset> assets;
+	public String functionalRequirementOperationSignaturePCMId; 
 
 	public FunctionalRequirement(String name) {
 		super.setName(name);
@@ -23,4 +24,13 @@ public class FunctionalRequirement extends AbstractEditorElement {
 	public Set<Asset> getAssets(){
 		return assets;
 	}
+
+	public String getFunctionalRequirementOperationSignaturePCMId() {
+		return functionalRequirementOperationSignaturePCMId;
+	}
+
+	public void setFunctionalRequirementOperationSignaturePCMId(String functionalRequirementOperationSignaturePCMId) {
+		this.functionalRequirementOperationSignaturePCMId = functionalRequirementOperationSignaturePCMId;
+	}
+	
 }

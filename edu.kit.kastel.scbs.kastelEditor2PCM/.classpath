@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" output="target/classes" path="src">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -17,7 +18,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="C:/Users/Frederik Reiche/git/kasteleditor2pcm/edu.kit.kastel.scbs.kastelEditor2PCM/lib/gson-2.8.5.jar" sourcepath="C:/Users/Frederik Reiche/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5-sources.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/edu.kit.kastel.scbs.JOANAFlow4Palladio"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/edu.kit.ipd.sdq.composition.securityanalyses.basic"/>
+	<classpathentry exported="true" kind="lib" path="lib/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

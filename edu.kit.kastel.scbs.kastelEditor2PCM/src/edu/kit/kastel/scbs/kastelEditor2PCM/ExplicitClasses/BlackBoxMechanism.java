@@ -8,6 +8,8 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 	private final boolean confidentiality;
 	private final boolean integrity;
 	private final String extraHg;
+	private String pcmInterfaceId;
+	private String pcmOperationId;
 	
 	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity, String extraHg) {
 		super.setName(name);
@@ -43,6 +45,22 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 
 	public void setBbmComponentId(String bbmComponentId) {
 		super.setPcmElementId(bbmComponentId);
+	}
+
+	public String getPcmInterfaceId() {
+		return pcmInterfaceId;
+	}
+
+	public void setPcmInterfaceId(String pcmInterfaceId) {
+		this.pcmInterfaceId = pcmInterfaceId;
+	}
+
+	public String getPcmOperationId() {
+		return pcmOperationId;
+	}
+
+	public void setPcmOperationId(String pcmOperationId) {
+		this.pcmOperationId = pcmOperationId;
 	}
 	
 	

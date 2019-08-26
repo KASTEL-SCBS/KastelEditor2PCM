@@ -12,6 +12,7 @@ import org.eclipse.jface.viewers.ISelection
 import java.io.File
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator
+import edu.kit.kastel.scbs.kastelEditor2PCM.JoanaFlow4PCMGenerator
 
 class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 	
@@ -73,6 +74,11 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 		var goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
 		goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
 		goalModelToPCMTransformer.savePCMModel();
+		
+		val joanaFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + "My.joanaflow4palladio";
+		var joanaFlow4PCMGenerator = new JoanaFlow4PCMGenerator();
+		joanaFlow4PCMGenerator.generateModel(goalModelReader, goalModelToPCMTransformer.repositoryModel, joanaFlowModelPath);
+		
 		
 		var trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + fileName + "_Tracking" + TRACKING_FILE_ENDING);
 		goalModelReader.saveTrackingFile(trackingFile);

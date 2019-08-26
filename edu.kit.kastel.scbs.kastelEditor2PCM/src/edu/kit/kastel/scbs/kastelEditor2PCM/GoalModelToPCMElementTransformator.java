@@ -1,6 +1,5 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -49,14 +48,14 @@ public class GoalModelToPCMElementTransformator {
 	Repository repo;
 	Resource res;
 	
-	public void generateRepositoryModel(KASTELGoalModelReader reader, String pcmModelFilePath) {
+	public void generateRepositoryModel(KASTELGoalModelReader reader, String modelFilePath) {
 		
 
-		if(!pcmModelFilePath.endsWith(".repository")) {
-			pcmModelFilePath += ".repository";
+		if(!modelFilePath.endsWith(".repository")) {
+			modelFilePath += ".repository";
 		}
 		
-		this.res = new XMLResourceImpl(URI.createFileURI(pcmModelFilePath));
+		this.res = new XMLResourceImpl(URI.createFileURI(modelFilePath));
 		repo = RepositoryFactory.eINSTANCE.createRepository();
 		this.res.getContents().add(repo);
 		
@@ -95,6 +94,7 @@ public class GoalModelToPCMElementTransformator {
 
 			OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 			signature.setEntityName(trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.LOWER));
+			functionalRequirement.setFunctionalRequirementOperationSignaturePCMId(signature.getId());
 			
 			for(Asset asset : functionalRequirement.getAssets()) {
 				Parameter parameter = RepositoryFactory.eINSTANCE.createParameter();
@@ -160,10 +160,12 @@ public class GoalModelToPCMElementTransformator {
 			
 			OperationInterface bbmInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
 			bbmInterface.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
+			bbm.setPcmInterfaceId(bbmInterface.getId());
 			
 			OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 			signature.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
 			bbmInterface.getSignatures__OperationInterface().add(signature);
+			bbm.setPcmOperationId(signature.getId());
 			
 			
 			repo.getInterfaces__Repository().add(bbmInterface);
@@ -367,8 +369,6 @@ public class GoalModelToPCMElementTransformator {
 	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(FunctionalRequirement requirement, BasicComponent component){
 		
 		for(ServiceEffectSpecification seff : component.getServiceEffectSpecifications__BasicComponent()) {
-		
-			String s = seff.getDescribedService__SEFF().getEntityName();
 			if(trimWhiteSpace(seff.getDescribedService__SEFF().getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(requirement.getName(),UpperOrLower.UPPER))) {
 				return seff;
 			}
@@ -460,5 +460,9 @@ public class GoalModelToPCMElementTransformator {
 		
 		result = String.valueOf(characters);
 		return result;
+	}
+	
+	public Repository getRepositoryModel() {
+		return repo;
 	}
 }

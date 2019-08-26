@@ -2,6 +2,7 @@ package edu.kit.kastel.scbs.kastelEditor2PCM.handler;
 
 import com.google.common.collect.Iterables;
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator;
+import edu.kit.kastel.scbs.kastelEditor2PCM.JoanaFlow4PCMGenerator;
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 import java.io.File;
 import java.net.URI;
@@ -94,6 +95,9 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
       GoalModelToPCMElementTransformator goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
       goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
       goalModelToPCMTransformer.savePCMModel();
+      final String joanaFlowModelPath = ((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + "My.joanaflow4palladio");
+      JoanaFlow4PCMGenerator joanaFlow4PCMGenerator = new JoanaFlow4PCMGenerator();
+      joanaFlow4PCMGenerator.generateModel(goalModelReader, goalModelToPCMTransformer.getRepositoryModel(), joanaFlowModelPath);
       File trackingFile = new File(((((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + fileName) + "_Tracking") + this.TRACKING_FILE_ENDING));
       _xblockexpression = goalModelReader.saveTrackingFile(trackingFile);
     }

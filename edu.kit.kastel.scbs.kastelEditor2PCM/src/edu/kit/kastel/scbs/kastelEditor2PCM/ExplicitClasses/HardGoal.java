@@ -1,8 +1,5 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class HardGoal {
 
 	private final String name;
