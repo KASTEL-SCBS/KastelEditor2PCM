@@ -67,7 +67,7 @@ public class ConfidentialitySpecificationGenerator {
 		for(HardGoal hg : hardgoals) {
 			
 			
-			DataSet set = findOrGenerateDataSet(hg.getSg().getAsset());
+			DataSet set = findOrGenerateDataSet(hg.getSoftGoal().getAsset());
 			
 			ParametersAndDataPair localPair = null;
 			

@@ -70,10 +70,9 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
       if (validGoalModel) {
         boolean _xblockexpression_1 = false;
         {
-          final String fileName = file.getName().split(this.GOAL_MODEL_FILE_ENDING)[0];
           String _replaceFirst = file.getProject().getLocationURI().getPath().replaceFirst("/", "");
           final String projectPath = (_replaceFirst + "/");
-          _xblockexpression_1 = this.processReadGoalModel(goalModelReader, projectPath, fileName);
+          _xblockexpression_1 = this.processReadGoalModel(goalModelReader, projectPath);
         }
         _xifexpression = _xblockexpression_1;
       }
@@ -82,7 +81,7 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
     return _xblockexpression;
   }
   
-  public boolean processReadGoalModel(final KASTELGoalModelReader goalModelReader, final String projectPath, final String fileName) {
+  public boolean processReadGoalModel(final KASTELGoalModelReader goalModelReader, final String projectPath) {
     boolean _xblockexpression = false;
     {
       File genDirectoryFile = new File(((projectPath + "/") + this.GENERATION_DIRECTORY_NAME));
@@ -91,14 +90,20 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
       if (_not) {
         genDirectoryFile.mkdirs();
       }
-      final String pcmRepositoryModelPath = (((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + fileName) + this.PCM_REPOSITORY_FILE_ENDING);
+      String _modelName = goalModelReader.getModelName();
+      String _plus = ((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + _modelName);
+      final String pcmRepositoryModelPath = (_plus + this.PCM_REPOSITORY_FILE_ENDING);
       GoalModelToPCMElementTransformator goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
       goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
       goalModelToPCMTransformer.savePCMModel();
       final String joanaFlowModelPath = ((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + "My.joanaflow4palladio");
       JoanaFlow4PCMGenerator joanaFlow4PCMGenerator = new JoanaFlow4PCMGenerator();
       joanaFlow4PCMGenerator.generateModel(goalModelReader, goalModelToPCMTransformer.getRepositoryModel(), joanaFlowModelPath);
-      File trackingFile = new File(((((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + fileName) + "_Tracking") + this.TRACKING_FILE_ENDING));
+      String _modelName_1 = goalModelReader.getModelName();
+      String _plus_1 = ((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + _modelName_1);
+      String _plus_2 = (_plus_1 + "_Tracking");
+      String _plus_3 = (_plus_2 + this.TRACKING_FILE_ENDING);
+      File trackingFile = new File(_plus_3);
       _xblockexpression = goalModelReader.saveTrackingFile(trackingFile);
     }
     return _xblockexpression;

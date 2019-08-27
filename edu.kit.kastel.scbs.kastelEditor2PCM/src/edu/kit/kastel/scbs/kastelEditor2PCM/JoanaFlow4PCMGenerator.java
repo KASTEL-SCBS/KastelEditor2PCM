@@ -3,7 +3,7 @@ package edu.kit.kastel.scbs.kastelEditor2PCM;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
+
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -13,6 +13,7 @@ import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.Interface;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 
@@ -21,12 +22,12 @@ import JOANAFlow4Palladio.FlowSpecification;
 import JOANAFlow4Palladio.JOANAFlow4PalladioFactory;
 import JOANAFlow4Palladio.JOANARoot;
 import JOANAFlow4Palladio.ParameterSink;
-import JOANAFlow4Palladio.Sink;
 import JOANAFlow4Palladio.Source;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
+
 
 
 public class JoanaFlow4PCMGenerator {
@@ -64,57 +65,61 @@ public class JoanaFlow4PCMGenerator {
 			}
 			
 			for(FunctionalRequirement fReq : component.getProvidedFunctionalRequirements()) {
-				FlowSpecification flowSpec = JOANAFlow4PalladioFactory.eINSTANCE.createFlowSpecification();
-				flowSpec.setId(EcoreUtil.generateUUID());
-		
-				EntryPoint ep = JOANAFlow4PalladioFactory.eINSTANCE.createEntryPoint();
-				OperationSignature signature = getOperationSignatureById(fReq.getFunctionalRequirementOperationSignaturePCMId(), repository);
+				for(Asset asset : fReq.getAssets()) {
+					FlowSpecification flowSpec = JOANAFlow4PalladioFactory.eINSTANCE.createFlowSpecification();
+					flowSpec.setId(EcoreUtil.generateUUID());
+					EntryPoint ep = JOANAFlow4PalladioFactory.eINSTANCE.createEntryPoint();
+					
+					OperationSignature signature = getOperationSignatureById(fReq.getOperationSignaturePCMIdForAsset(asset), repository);
 				
-				if(signature == null) {
-					continue;
-				}
+					ep.setComponent(bc);
+					ep.setSignature(signature);
+					
+					flowSpec.setEntrypoint(ep);
 				
-				ep.setFlowAllowed(true);
-				ep.setComponent(bc);
-				ep.setSignature(signature);
-				
-				flowSpec.setEntrypoint(ep);
-				Source source = null;
-				
-				Collection<ParameterSink> sinks = new ArrayList<ParameterSink>();
-				for(HardGoal hg : component.getHardGoals()) {
-					if(hg.getFunctionalRequirement().equals(fReq)) {
-						
-						if(source == null) {
-						source = JOANAFlow4PalladioFactory.eINSTANCE.createSource();
-						source.setComponent(bc);
-						source.setSignature(signature);
-						flowSpec.getSource().add(source);
+					
+					Collection<ParameterSink> sinks = new ArrayList<ParameterSink>();
+					for(HardGoal hg : component.getHardGoals()) {
+						if(hg.getFunctionalRequirement().equals(fReq) && hg.getSoftGoal().getAsset().equals(asset)) {
+							
+							if(flowSpec.getSource().isEmpty()) {
+							Source source = JOANAFlow4PalladioFactory.eINSTANCE.createSource();
+							source.setComponent(bc);
+							source.setSignature(signature);
+							
+							Parameter parameter = getParameterEqualingAssetFromOperationSignature(signature, asset);
+								if(parameter != null) {
+									source.getParameter().add(parameter);
+								}
+							
+							flowSpec.getSource().add(source);
+							}
+							
+							BasicComponent bbmComponent = getBasicComponentById(hg.getBBM().getPcmElementId(), repository);
+							OperationSignature bbmOperationSignature = getOperationSignatureById(hg.getBBM().getPcmOperationSignatureIdForTargetAsset(hg.getSoftGoal().getAsset()), repository);
+							
+							ParameterSink sink = JOANAFlow4PalladioFactory.eINSTANCE.createParameterSink();
+							sink.setComponent(bbmComponent);
+							sink.setSignature(bbmOperationSignature);
+							
+							addSinkForBBMWhenNotExisting(sinks, sink);
 						}
-						
-						BasicComponent bbmComponent = getBasicComponentById(hg.getBBM().getPcmElementId(), repository);
-						OperationSignature bbmOperationSignature = getOperationSignatureById(hg.getBBM().getPcmOperationId(), repository);
-						
-						ParameterSink sink = JOANAFlow4PalladioFactory.eINSTANCE.createParameterSink();
-						sink.setComponent(bbmComponent);
-						sink.setSignature(bbmOperationSignature);
-						
-						addSinkForBBMWhenNotExisting(sinks, sink);
 					}
+					
+					for(ParameterSink sink : sinks) {
+						flowSpec.getSink().add(sink);
+					}
+					
+					
+					if(!flowSpec.getSource().isEmpty() && !flowSpec.getSource().isEmpty()) {
+						model.getFlowspecification().add(flowSpec);
+					}
+				
 				}
-				
-				for(ParameterSink sink : sinks) {
-					flowSpec.getSink().add(sink);
-				}
-				
-				
-				if(!flowSpec.getSource().isEmpty() && !flowSpec.getSource().isEmpty()) {
-					model.getFlowspecification().add(flowSpec);
-				}
-				
 			}
 		}
 	}
+	
 	
 	private BasicComponent getBasicComponentById(String id, Repository repository) {
 		
@@ -146,6 +151,16 @@ public class JoanaFlow4PCMGenerator {
 		}
 		
 		sinks.add(sink);
+	}
+	
+	private Parameter getParameterEqualingAssetFromOperationSignature(OperationSignature operationSignature, Asset asset) {
+		for(Parameter parameter : operationSignature.getParameters__OperationSignature()) {
+			if(parameter.getParameterName().equals(asset.getName())) {
+				return parameter;
+			}
+		}
+		
+		return null;
 	}
 	
 }

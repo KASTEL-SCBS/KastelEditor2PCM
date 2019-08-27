@@ -4,7 +4,7 @@ public class HardGoal {
 
 	private final String name;
 	private final String serviceName;
-	private final FunctionalRequirement functionalRequirement;
+	private FunctionalRequirement functionalRequirement;
 	private BlackBoxMechanism bbm;
 	private final SoftGoal SoftGoal;
 
@@ -15,10 +15,9 @@ public class HardGoal {
 		this.serviceName = serviceName;
 		this.functionalRequirement = functionalRequirement;
 		this.SoftGoal = sg;
-		this.bbm = null;
 	}
 
-	public SoftGoal getSg() {
+	public SoftGoal getSoftGoal() {
 		return SoftGoal;
 	}
 
@@ -41,13 +40,11 @@ public class HardGoal {
 		return serviceName;
 	}
 	
-	public void addBlackBoxMechanism(BlackBoxMechanism bbm){
-		if(this.bbm == null) {
-		this.bbm = bbm;
-		}
-	}
-	
 	public BlackBoxMechanism getBBM() {
 		return bbm;
+	}
+	
+	public void setFunctionalRequirement(FunctionalRequirement functionalRequirement) {
+		this.functionalRequirement = functionalRequirement;
 	}
 }

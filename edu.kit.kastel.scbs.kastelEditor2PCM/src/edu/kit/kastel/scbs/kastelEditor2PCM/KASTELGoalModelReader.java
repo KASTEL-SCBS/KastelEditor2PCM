@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -19,6 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
@@ -37,6 +39,7 @@ public class KASTELGoalModelReader {
 	private Set<Asset> assets;
 	private Collection<SoftGoal> softGoals;
 	private Map<String, HardGoal> hardGoals;
+	private String modelName;
 
 	public boolean extractKastelEditorModelFromJson(File file) {
 		String goalModelStringRepresentation = IOUtil.readFromFile(file);
@@ -44,7 +47,12 @@ public class KASTELGoalModelReader {
 		if(goalModelStringRepresentation == "") {
 			return false ;
 		}
-		return readGoalModel(goalModelStringRepresentation);
+		readGoalModel(goalModelStringRepresentation);
+		
+		postProcessFunctionalRequirementsAndComponents();
+		
+		return true;
+		
 	}
 	
 	public boolean saveTrackingFile(File f) {
@@ -77,7 +85,7 @@ public class KASTELGoalModelReader {
 		if(rootElement.isJsonObject()) {
 			
 			JsonObject root = rootElement.getAsJsonObject();
-			
+			extractGoalModelName(root);
 			extractBaseEntities(root);
 			extractRelationships(root);
 			
@@ -110,11 +118,6 @@ public class KASTELGoalModelReader {
 	}
 
 
-//	public Multimap<Component, BlackBoxMechanism> getServiceBBMMap() {
-//		return serviceBBMMap;
-//	}
-
-
 	private void extractBaseEntities(JsonObject rootElement) {
 		services = generateServiceObjectsFromJson(rootElement.get("Services"));
 		functionalRequirements = extractFunctionalRequirements(rootElement.get("Functional Requirements"));
@@ -123,17 +126,16 @@ public class KASTELGoalModelReader {
 	}
 	
 	private void extractRelationships(JsonObject rootElement) {
-//		serviceFuReqRelationships = extractServiceFunctionalReqSets(rootElement.get("Functional Requirements and Services Relationships"));
 		appendFunctionalRequirementsToServices(rootElement.get("Functional Requirements and Services Relationships"));
 		softGoals = extractSoftGoals(rootElement.get("Soft Goals"));
 		hardGoals = extractHardGoals(rootElement.get("Hard Goals"));
-		//hardMechanismRelationship = extractHardGoalBBMRelationship(rootElement.get("Hard Mechanism Relationship"));
 		appendBBMsToHardgoals(rootElement.get("Hard Mechanism Relationship"));
 	}
 	
+	private void extractGoalModelName(JsonObject rootElement) {
+		modelName = rootElement.get("Project").getAsString();
+	}
 	
-	//Required because collection elements in the KASTEL-Editor Json are saved as Strings general 
-	//Avoid redundand specifications.
 	private Collection<String> extractStringCollection(JsonElement stringArrayElement){
 		
 		Collection<String> stringCollection = new ArrayList<String>();
@@ -207,26 +209,7 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 		return relationships;
 	}
 	
-	
-	private Multimap<Component, FunctionalRequirement> extractServiceFunctionalReqSets(JsonElement relationElement){
-		Multimap<Component, FunctionalRequirement> serviceFuReqRelationships = ListMultimapBuilder.hashKeys().linkedListValues().build();
-		
-		Multimap<String, String> relationships = extractRelationshipSets(relationElement);
-		
-		for(String functionalRequirement : relationships.keySet()) {
-			FunctionalRequirement functionalRequirementObject = getFunctionalRequirement(functionalRequirement);
-			for(String serviceName : relationships.get(functionalRequirement)) {
-						getService(serviceName).addFunctionalRequirement(functionalRequirementObject);
-//						serviceFuReqRelationships.put(getService(serviceName), functionalRequirementObject);
-				}
-			}
-		
-		return serviceFuReqRelationships;
-	}
-	
 	private void appendFunctionalRequirementsToServices(JsonElement relationElement){
-		Multimap<Component, FunctionalRequirement> serviceFuReqRelationships = ListMultimapBuilder.hashKeys().linkedListValues().build();
-		
 		Multimap<String, String> relationships = extractRelationshipSets(relationElement);
 		
 		for(String functionalRequirement : relationships.keySet()) {
@@ -343,47 +326,8 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 		return hardGoals;
 	}
 
-//private Multimap<HardGoal, BlackBoxMechanism> extractHardGoalBBMRelationship(JsonElement hardMechanismRelationshipRootElement){
-//	
-//	Multimap<HardGoal, BlackBoxMechanism> hardMechanismRelationship = ListMultimapBuilder.hashKeys().linkedListValues().build();
-////	serviceBBMMap = ListMultimapBuilder.hashKeys().linkedListValues().build();
-//	
-//	if(hardMechanismRelationshipRootElement.isJsonObject()) {
-//		JsonObject hardMechanismRelationshipRootObject = hardMechanismRelationshipRootElement.getAsJsonObject();
-//		
-//		
-//		Collection<Entry<String, JsonElement>> relationshipEntries = hardMechanismRelationshipRootObject.entrySet();
-//		
-//		for(Entry<String,JsonElement> entry : relationshipEntries) {
-//	
-//			HardGoal hardGoal = hardGoals.get(entry.getKey());
-//			
-//			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(entry.getValue().getAsString());
-//			if(hardGoal == null || blackBoxMechanism == null) {
-//				System.out.println("HardGoal BBM Relationship not found");
-//				continue;
-//			}
-//			
-//			Component hgRelatedService = getService(hardGoal.getServiceName());
-//			
-//			if(hgRelatedService != null) {
-////				serviceBBMMap.put(hgRelatedService, blackBoxMechanism);
-//				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
-//			}
-//			
-//			hardGoal.addBlackBoxMechanism(blackBoxMechanism);
-//			
-//			hardMechanismRelationship.put(hardGoal, blackBoxMechanism);
-//		}
-//	}
-//	return hardMechanismRelationship; 
-//}
-
 private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElement){
-	
-	
-//	serviceBBMMap = ListMultimapBuilder.hashKeys().linkedListValues().build();
-	
+		
 	if(hardMechanismRelationshipRootElement.isJsonObject()) {
 		JsonObject hardMechanismRelationshipRootObject = hardMechanismRelationshipRootElement.getAsJsonObject();
 		
@@ -395,6 +339,8 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 			HardGoal hardGoal = hardGoals.get(entry.getKey());
 			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(entry.getValue().getAsString());
 			
+			blackBoxMechanism.addTargetAsset(hardGoal.getSoftGoal().getAsset());
+			
 			if(hardGoal == null || blackBoxMechanism == null) {
 				System.out.println("HardGoal BBM Relationship not found");
 				continue;
@@ -403,11 +349,10 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 			Component hgRelatedService = getService(hardGoal.getServiceName());
 			
 			if(hgRelatedService != null) {
-//				serviceBBMMap.put(hgRelatedService, blackBoxMechanism);
 				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
 			}
 			
-			hardGoal.addBlackBoxMechanism(blackBoxMechanism);
+			hardGoal.setBlackBoxMechansims(blackBoxMechanism);
 		
 		}
 	}
@@ -426,14 +371,6 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		return string;
 	}
 	
-//	public Multimap<Component, FunctionalRequirement> getServiceFuReqRelationships() {
-//		return serviceFuReqRelationships;
-//	}
-
-//	public Multimap<HardGoal, BlackBoxMechanism> getHardMechanismRelationship() {
-//		return hardMechanismRelationship;
-//	}
-
 	public Set<Component> getServices() {
 		return services;
 	}
@@ -477,5 +414,133 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 			}
 		}
 		return null;
+	}
+	
+	public void postProcessFunctionalRequirementsAndComponents() {
+		
+		splitFunctionalRequirementsForComponentsWhenNecessary();
+			
+	}
+	
+	private void splitFunctionalRequirementsForComponentsWhenNecessary() {
+		Collection<Component> visitedServices = new ArrayList<Component>();
+		for(Component component1 : services) {
+			
+			for( Component component2 : services ) {
+				if(!component1.equals(component2) && !visitedServices.contains(component1) && !visitedServices.contains(component2)) {
+				modifySimilarButDifferentFunctionalRequirementsInComponent(component1, component2);
+				}
+			}
+			
+			visitedServices.add(component1);
+		}
+	}
+
+	public void modifySimilarButDifferentFunctionalRequirementsInComponent(Component component1, Component component2) {
+		
+		HashSet<FunctionalRequirement> fuReqsOfComponent1 = new HashSet<FunctionalRequirement>();
+		HashSet<FunctionalRequirement> fuReqsOfComponent2 = new HashSet<FunctionalRequirement>();
+		for(FunctionalRequirement fuReq1 : component1.getProvidedFunctionalRequirements()) {
+			for(FunctionalRequirement fuReq2 : component2.getProvidedFunctionalRequirements()) {
+				if(fuReq1.equals(fuReq2)) {
+					FunctionalRequirement requirement = fuReq1;
+					Collection<Asset> fuReq1ReallyUsedAssets = getAssetsReallyUsedInFunctionalRequirementForComponent(component1, requirement);
+					Collection<Asset> fuReq2ReallyUsedAssets = getAssetsReallyUsedInFunctionalRequirementForComponent(component2, requirement);
+					
+					boolean fuReq1UsedAssetsComplete = fuReq1.assets.size() == fuReq1ReallyUsedAssets.size();
+					boolean fuReq2UsedAssetsComplete = fuReq2.assets.size() == fuReq2ReallyUsedAssets.size();
+					
+					if(fuReq1UsedAssetsComplete && fuReq2UsedAssetsComplete) {
+						fuReqsOfComponent1.add(fuReq1);
+						fuReqsOfComponent2.add(fuReq2);
+						break;
+					}
+					
+					
+					if(assetsEqual(fuReq1ReallyUsedAssets, fuReq2ReallyUsedAssets)) {
+						FunctionalRequirement fuReq = new FunctionalRequirement(requirement.getName());
+						fillFunctionalRequirementAssets(fuReq,fuReq1ReallyUsedAssets);
+						fuReqsOfComponent1.add(fuReq);
+						fuReqsOfComponent2.add(fuReq);
+						
+						functionalRequirements.add(fuReq);
+						break;
+					} else {
+						FunctionalRequirement fuReqForC1 = new FunctionalRequirement(requirement.getName()+"_"+component1.getName());
+						fillFunctionalRequirementAssets(fuReqForC1, fuReq1ReallyUsedAssets);
+						
+						FunctionalRequirement fuReqForC2 = new FunctionalRequirement(requirement.getName()+"_"+component2.getName());
+						fillFunctionalRequirementAssets(fuReqForC2, fuReq2ReallyUsedAssets);
+						if(fuReq1UsedAssetsComplete) {
+							fuReqForC1 = requirement;
+						} else if (fuReq2UsedAssetsComplete) {
+							fuReqForC2 = requirement;
+						} 
+						fuReqsOfComponent1.add(fuReqForC1);
+						fuReqsOfComponent2.add(fuReqForC2);
+						
+						functionalRequirements.add(fuReqForC1);
+						functionalRequirements.add(fuReqForC2);
+					}
+				}
+			}
+		}
+		
+		component1.exchangeFunctionalRequirements(fuReqsOfComponent1);
+		component2.exchangeFunctionalRequirements(fuReqsOfComponent2);
+	}
+	
+	public Set<Asset> getAssetsReallyUsedInFunctionalRequirementForComponent(Component component, FunctionalRequirement fuReq) {
+		Set<Asset> assets = new HashSet<Asset>();
+		for(Asset asset : fuReq.assets) {
+			for(HardGoal hg : component.getHardGoals()) {
+				if(hg.getSoftGoal().getAsset().equals(asset)) {
+					assets.add(asset);
+				}
+			}
+		}
+		
+		return assets;
+	}
+	
+	public boolean assetsEqual(Collection<Asset> assets1, Collection<Asset> assets2) {
+		boolean assetFound = false;
+		if(assets1.size() != assets2.size()) {
+			return false;
+		}
+		
+		for(Asset asset1 : assets1) {
+			for(Asset asset2 : assets2) {
+				if(asset1.equals(asset2)) {
+					assetFound = true;
+				}
+			}
+			if(!assetFound){
+				return false;
+			}
+			assetFound = false;
+		}
+		
+		return true;
+	}
+	
+	public void fillFunctionalRequirementAssets(FunctionalRequirement fuReq, Collection<Asset> assets) {
+		for(Asset asset : assets) {
+			fuReq.addAsset(asset);
+		}
+	}
+	
+	public FunctionalRequirement getFunctionalRequirementByName(String name) {
+		for(FunctionalRequirement requirement : functionalRequirements) {
+			if(requirement.getName().equals(name)) {
+				return requirement;
+			}
+		}
+		
+		return null;
+	}
+	
+	public String getModelName() {
+		return modelName;
 	}
 }

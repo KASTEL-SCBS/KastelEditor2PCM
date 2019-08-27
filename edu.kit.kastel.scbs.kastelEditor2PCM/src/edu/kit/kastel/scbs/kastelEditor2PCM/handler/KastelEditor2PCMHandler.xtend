@@ -56,13 +56,12 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 		val validGoalModel = goalModelReader.extractKastelEditorModelFromJson(goalModelFile);
 		
 		if(validGoalModel){
-			val fileName = file.name.split(GOAL_MODEL_FILE_ENDING).get(0);
 			val projectPath = file.project.locationURI.path.replaceFirst("/", "") + "/";
-			processReadGoalModel(goalModelReader, projectPath, fileName);
+			processReadGoalModel(goalModelReader, projectPath);
 		}
 	}
 	
-	def processReadGoalModel(KASTELGoalModelReader goalModelReader, String projectPath, String fileName){
+	def processReadGoalModel(KASTELGoalModelReader goalModelReader, String projectPath){
 		
 		var genDirectoryFile =  new File(projectPath + "/" + GENERATION_DIRECTORY_NAME);
 		
@@ -70,7 +69,7 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 			genDirectoryFile.mkdirs();
 		}
 		
-		val pcmRepositoryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + fileName + PCM_REPOSITORY_FILE_ENDING;
+		val pcmRepositoryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.modelName + PCM_REPOSITORY_FILE_ENDING;
 		var goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
 		goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
 		goalModelToPCMTransformer.savePCMModel();
@@ -80,7 +79,7 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 		joanaFlow4PCMGenerator.generateModel(goalModelReader, goalModelToPCMTransformer.repositoryModel, joanaFlowModelPath);
 		
 		
-		var trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + fileName + "_Tracking" + TRACKING_FILE_ENDING);
+		var trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.modelName + "_Tracking" + TRACKING_FILE_ENDING);
 		goalModelReader.saveTrackingFile(trackingFile);
 	}
 	

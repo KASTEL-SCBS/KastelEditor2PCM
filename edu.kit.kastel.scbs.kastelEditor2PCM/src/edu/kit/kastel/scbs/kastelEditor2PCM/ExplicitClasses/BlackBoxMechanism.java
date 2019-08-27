@@ -1,6 +1,9 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
-import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class BlackBoxMechanism extends AbstractEditorElement {
 
@@ -9,7 +12,8 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 	private final boolean integrity;
 	private final String extraHg;
 	private String pcmInterfaceId;
-	private String pcmOperationId;
+	private Set<Asset> targetAssets;
+	private Map<Asset, String> assetToPCMOperationSignatureIdMapping;
 	
 	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity, String extraHg) {
 		super.setName(name);
@@ -17,6 +21,8 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 		this.confidentiality = confidentiality;
 		this.integrity = integrity;
 		this.extraHg = extraHg;
+		targetAssets = new HashSet<Asset>();
+		assetToPCMOperationSignatureIdMapping = new HashMap<Asset, String>();
 	}
 
 	public boolean providesAuthenticity() {
@@ -55,14 +61,26 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 		this.pcmInterfaceId = pcmInterfaceId;
 	}
 
-	public String getPcmOperationId() {
-		return pcmOperationId;
-	}
-
-	public void setPcmOperationId(String pcmOperationId) {
-		this.pcmOperationId = pcmOperationId;
+	public boolean addTargetAsset(Asset asset) {
+		return targetAssets.add(asset);
 	}
 	
+	public void addPcmOperationSignatureIdForTargetAsset(String pcmOperationSignatureId, Asset targetAsset) {
+		if(targetAssets.contains(targetAsset)) {
+			assetToPCMOperationSignatureIdMapping.put(targetAsset, pcmOperationSignatureId);
+		}
+	}
+	
+	public String getPcmOperationSignatureIdForTargetAsset(Asset targetAsset) {
+		if(targetAssets.contains(targetAsset)) {
+			return assetToPCMOperationSignatureIdMapping.get(targetAsset);
+		}
+		return null;
+	}
+	
+	public Set<Asset> getTargetAssets(){
+		return targetAssets;
+	}
 	
 	
 }

@@ -40,6 +40,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
+import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 
 
@@ -58,7 +59,7 @@ public class GoalModelToPCMElementTransformator {
 		this.res = new XMLResourceImpl(URI.createFileURI(modelFilePath));
 		repo = RepositoryFactory.eINSTANCE.createRepository();
 		this.res.getContents().add(repo);
-		
+		repo.setEntityName(reader.getModelName());
 		generateInterfacesFromKASTELFunctionalRequirements(reader.getFunctionalRequirements());
 		generateComponentsFromKASTELServices(reader.getServices());
 		generateBBMComponentsFromKASTELBBM(reader.getBlackBoxMechanisms());
@@ -89,41 +90,37 @@ public class GoalModelToPCMElementTransformator {
 		
 		for(FunctionalRequirement functionalRequirement : functionalRequirements) {
 			OperationInterface functionalRequirementInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
-			functionalRequirementInterface.setEntityName(trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.UPPER));
+			functionalRequirementInterface.setEntityName(StringUtil.trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.UPPER));
 
 
-			OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
-			signature.setEntityName(trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.LOWER));
-			functionalRequirement.setFunctionalRequirementOperationSignaturePCMId(signature.getId());
 			
 			for(Asset asset : functionalRequirement.getAssets()) {
+				OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
+				signature.setEntityName(StringUtil.trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.LOWER));
+				functionalRequirement.includeOperationSignatureAndAssetMapping(asset, signature.getId());
+				
 				Parameter parameter = RepositoryFactory.eINSTANCE.createParameter();
-				parameter.setParameterName(trimWhiteSpace(asset.getName(), UpperOrLower.LOWER));
+				parameter.setParameterName(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.LOWER));
 				parameter.setDataType__Parameter(generateDataTypeFromAssetWhenNotExisting(asset));
 				
 				signature.getParameters__OperationSignature().add(parameter);
+				functionalRequirementInterface.getSignatures__OperationInterface().add(signature);
 			}
 			
 			functionalRequirement.setPcmElementId(functionalRequirementInterface.getId());
-			
-			functionalRequirementInterface.getSignatures__OperationInterface().add(signature);
-			
 			repo.getInterfaces__Repository().add(functionalRequirementInterface);
-		
-			
-			
 		}
 	}
 	
 	private CompositeDataType generateDataTypeFromAssetWhenNotExisting(Asset asset) {
 		for(DataType datatype : repo.getDataTypes__Repository()) {
-			if((trimWhiteSpace(((CompositeDataType)datatype).getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(asset.getName(), UpperOrLower.UPPER)))){
+			if((StringUtil.trimWhiteSpace(((CompositeDataType)datatype).getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.UPPER)))){
 				return (CompositeDataType)datatype;
 			}
 		}
 		
 		CompositeDataType dataType = RepositoryFactory.eINSTANCE.createCompositeDataType();
-		dataType.setEntityName(trimWhiteSpace(asset.getName(), UpperOrLower.UPPER));
+		dataType.setEntityName(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.UPPER));
 		asset.setPcmElementId(dataType.getId());
 		repo.getDataTypes__Repository().add(dataType);
 		
@@ -134,17 +131,17 @@ public class GoalModelToPCMElementTransformator {
 		for(Component service : services) {
 			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
 			
-			component.setEntityName(trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Composite");
+			component.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Composite");
 			repo.getComponents__Repository().add(component);
 			service.setPcmCompositeComponentId(component.getId());
 			
 			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
-			base.setEntityName(trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Functionality");
+			base.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Functionality");
 			repo.getComponents__Repository().add(base);
 			service.setPcmFunctionalComponentId(base.getId());
 			
 			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
-			mainContext.setEntityName(trimWhiteSpace(service.getName(),UpperOrLower.UPPER));
+			mainContext.setEntityName(StringUtil.trimWhiteSpace(service.getName(),UpperOrLower.UPPER));
 			mainContext.setEncapsulatedComponent__AssemblyContext(base);
 			component.getAssemblyContexts__ComposedStructure().add(mainContext);
 		}
@@ -154,26 +151,31 @@ public class GoalModelToPCMElementTransformator {
 		
 		for(BlackBoxMechanism bbm : bbms) {
 			BasicComponent bbmComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
-			bbmComponent.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
+			bbmComponent.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
 			repo.getComponents__Repository().add(bbmComponent);
 			bbm.setBbmComponentId(bbmComponent.getId());
 			
 			OperationInterface bbmInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
-			bbmInterface.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
+			bbmInterface.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
 			bbm.setPcmInterfaceId(bbmInterface.getId());
 			
-			OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
-			signature.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
-			bbmInterface.getSignatures__OperationInterface().add(signature);
-			bbm.setPcmOperationId(signature.getId());
-			
+			for(Asset asset : bbm.getTargetAssets()) {
+				OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
+				signature.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
+				Parameter parameter = RepositoryFactory.eINSTANCE.createParameter();
+				parameter.setDataType__Parameter(generateDataTypeFromAssetWhenNotExisting(asset));
+				parameter.setParameterName(asset.getName());
+				signature.getParameters__OperationSignature().add(parameter);
+				bbmInterface.getSignatures__OperationInterface().add(signature);
+				bbm.addPcmOperationSignatureIdForTargetAsset(signature.getId(), asset);
+			}
 			
 			repo.getInterfaces__Repository().add(bbmInterface);
 			
 			
 			
 			OperationProvidedRole bbmOpProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-			bbmOpProvidedRole.setEntityName(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
+			bbmOpProvidedRole.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
 			
 			bbmOpProvidedRole.setProvidedInterface__OperationProvidedRole(bbmInterface);
 			bbmComponent.getProvidedRoles_InterfaceProvidingEntity().add(bbmOpProvidedRole);
@@ -251,13 +253,13 @@ public class GoalModelToPCMElementTransformator {
 					OperationRequiredRole  bbmReqRole = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
 					OperationInterface bbmOpInt = ((OperationProvidedRole)role).getProvidedInterface__OperationProvidedRole();
 					
-					bbmReqRole.setEntityName(trimWhiteSpace(bbmOpInt.getEntityName(),UpperOrLower.LOWER));
+					bbmReqRole.setEntityName(StringUtil.trimWhiteSpace(bbmOpInt.getEntityName(),UpperOrLower.LOWER));
 					bbmReqRole.setRequiredInterface__OperationRequiredRole(bbmOpInt);
 					functionalComponent.getRequiredRoles_InterfaceRequiringEntity().add(bbmReqRole);
 					
 					AssemblyContext bbCompoContext = CompositionFactory.eINSTANCE.createAssemblyContext();
 					bbCompoContext.setEncapsulatedComponent__AssemblyContext(bbCompo);
-					bbCompoContext.setEntityName(trimWhiteSpace(bbCompo.getEntityName(),UpperOrLower.UPPER));
+					bbCompoContext.setEntityName(StringUtil.trimWhiteSpace(bbCompo.getEntityName(),UpperOrLower.UPPER));
 					compositeComponent.getAssemblyContexts__ComposedStructure().add(bbCompoContext);
 					
 					AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
@@ -287,7 +289,7 @@ public class GoalModelToPCMElementTransformator {
 		
 		for(Interface opInt : repo.getInterfaces__Repository()) {
 			for(FunctionalRequirement functionalRequirement : component.getProvidedFunctionalRequirements()) {
-				if(trimWhiteSpace(opInt.getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
+				if(StringUtil.trimWhiteSpace(opInt.getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
 					interfacesForComponent.add((OperationInterface) opInt);
 				}
 			}
@@ -299,12 +301,12 @@ public class GoalModelToPCMElementTransformator {
 	private void connectInterfacesToCompositeAndFunctionalComponents(CompositeComponent compositeComponent, RepositoryComponent functionalityComponent, OperationInterface opInterface) {
 		
 		OperationProvidedRole compositeProvRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		compositeProvRole.setEntityName(trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
+		compositeProvRole.setEntityName(StringUtil.trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
 		compositeProvRole.setProvidedInterface__OperationProvidedRole(opInterface);
 		compositeComponent.getProvidedRoles_InterfaceProvidingEntity().add(compositeProvRole);
 	
 		OperationProvidedRole baseProvRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		baseProvRole.setEntityName(trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
+		baseProvRole.setEntityName(StringUtil.trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
 		baseProvRole.setProvidedInterface__OperationProvidedRole(opInterface);
 		functionalityComponent.getProvidedRoles_InterfaceProvidingEntity().add(baseProvRole);
 		
@@ -369,7 +371,7 @@ public class GoalModelToPCMElementTransformator {
 	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(FunctionalRequirement requirement, BasicComponent component){
 		
 		for(ServiceEffectSpecification seff : component.getServiceEffectSpecifications__BasicComponent()) {
-			if(trimWhiteSpace(seff.getDescribedService__SEFF().getEntityName(),UpperOrLower.UPPER).equals(trimWhiteSpace(requirement.getName(),UpperOrLower.UPPER))) {
+			if(StringUtil.trimWhiteSpace(seff.getDescribedService__SEFF().getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(requirement.getName(),UpperOrLower.UPPER))) {
 				return seff;
 			}
 		}
@@ -390,10 +392,10 @@ public class GoalModelToPCMElementTransformator {
 			for(RequiredRole role : palladioComponent.getRequiredRoles_InterfaceRequiringEntity()) {
 				OperationRequiredRole operationRequiredRole = (OperationRequiredRole) role;
 				
-				if (trimWhiteSpace(operationRequiredRole.getRequiredInterface__OperationRequiredRole().getEntityName(),UpperOrLower.LOWER).equals(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER))) {
+				if (StringUtil.trimWhiteSpace(operationRequiredRole.getRequiredInterface__OperationRequiredRole().getEntityName(),UpperOrLower.LOWER).equals(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER))) {
 					action.setRole_ExternalService(operationRequiredRole);
 					for(Signature signature : operationRequiredRole.getRequiredInterface__OperationRequiredRole().getSignatures__OperationInterface()) {
-						if(trimWhiteSpace(signature.getEntityName(),UpperOrLower.LOWER).equals(trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER))) {
+						if(StringUtil.trimWhiteSpace(signature.getEntityName(),UpperOrLower.LOWER).equals(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER))) {
 							action.setCalledService_ExternalService((OperationSignature)signature);
 							break;
 						}
@@ -425,42 +427,6 @@ public class GoalModelToPCMElementTransformator {
 		KEEP;
 	};
 	
-	public String trimWhiteSpace(String name, UpperOrLower first) {
-		char[] characters = "".toCharArray();
-		String result = "";
-		
-		if(!name.contains(" ")){
-			result = name;
-		} else {
-			
-		String[] nameParts = name.split(" ");
-	
-		for (int i = 0; i < nameParts.length; i++) {
-			characters = nameParts[i].toCharArray();
-			
-			characters[0] = Character.toUpperCase(characters[0]);
-
-			result += String.valueOf(characters);
-			}
-		}
-		
-	
-		
-		characters = result.toCharArray();
-		switch (first) {
-		case UPPER:
-			characters[0] = Character.toUpperCase(characters[0]);
-			break;
-		case LOWER:
-			characters[0] = Character.toLowerCase(characters[0]);
-			break;
-		default:
-			break;
-		}
-		
-		result = String.valueOf(characters);
-		return result;
-	}
 	
 	public Repository getRepositoryModel() {
 		return repo;
