@@ -352,8 +352,11 @@ public class GoalModelToPCMElementTransformator {
 		BasicComponent functionalityComponent = getFunctionalityComponentFromRepository(component);
 		
 		for(FunctionalRequirement req : component.getProvidedFunctionalRequirements()) {
-			ResourceDemandingSEFF seff = (ResourceDemandingSEFF)getSeffForFunctionalRequirementAndComponent(req, functionalityComponent);
-			fillSeffWithBlackBoxMechanismCalls(component, seff, req);
+			//TODO: make for all interfaces
+			for(String operationSignatureId : req.getAssetOperationSignatureIdRelation().values()) {
+			ResourceDemandingSEFF seff = (ResourceDemandingSEFF)getSeffForFunctionalRequirementAndComponent(operationSignatureId, functionalityComponent);
+				fillSeffWithBlackBoxMechanismCalls(component, seff, req);
+			}
 		}
 		
 	}
@@ -368,10 +371,10 @@ public class GoalModelToPCMElementTransformator {
 		return null;
 	}
 	
-	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(FunctionalRequirement requirement, BasicComponent component){
+	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(String operationSignatureId, BasicComponent component){
 		
 		for(ServiceEffectSpecification seff : component.getServiceEffectSpecifications__BasicComponent()) {
-			if(StringUtil.trimWhiteSpace(seff.getDescribedService__SEFF().getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(requirement.getName(),UpperOrLower.UPPER))) {
+			if(seff.getDescribedService__SEFF().getId().equals(operationSignatureId)) {
 				return seff;
 			}
 		}

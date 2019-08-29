@@ -36,4 +36,8 @@ public class FunctionalRequirement extends AbstractEditorElement {
 		operationSignatureAssetMap.put(asset, operationSignaturePCMId);
 	}
 	
+	public Map<Asset,String> getAssetOperationSignatureIdRelation(){
+		return operationSignatureAssetMap;
+	}
+	
 }
