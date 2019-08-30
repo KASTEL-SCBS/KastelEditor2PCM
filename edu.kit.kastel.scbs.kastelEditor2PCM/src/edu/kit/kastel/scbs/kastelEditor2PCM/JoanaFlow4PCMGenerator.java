@@ -95,7 +95,7 @@ public class JoanaFlow4PCMGenerator {
 							flowSpec.getSource().add(source);
 							}
 							
-							BasicComponent bbmComponent = getBasicComponentById(hg.getBBM().getPcmElementId(), repository);
+							BasicComponent bbmComponent = getBasicComponentById(hg.getBBM().getBbmComponentId(), repository);
 							OperationSignature bbmOperationSignature = getOperationSignatureById(hg.getBBM().getPcmOperationSignatureIdForTargetAsset(hg.getSoftGoal().getAsset()), repository);
 							
 							ParameterSink sink = JOANAFlow4PalladioFactory.eINSTANCE.createParameterSink();

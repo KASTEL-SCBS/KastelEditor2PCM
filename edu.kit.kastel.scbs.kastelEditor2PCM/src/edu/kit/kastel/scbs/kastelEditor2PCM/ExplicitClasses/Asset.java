@@ -1,6 +1,6 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
-public class Asset extends AbstractEditorElement {
+public class Asset extends EditorElement {
 	
 	public Asset(String name) {
 		super.setName(name);

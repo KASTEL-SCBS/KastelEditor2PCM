@@ -107,7 +107,7 @@ public class GoalModelToPCMElementTransformator {
 				functionalRequirementInterface.getSignatures__OperationInterface().add(signature);
 			}
 			
-			functionalRequirement.setPcmElementId(functionalRequirementInterface.getId());
+			functionalRequirement.setId(functionalRequirementInterface.getId());
 			repo.getInterfaces__Repository().add(functionalRequirementInterface);
 		}
 	}
@@ -121,7 +121,7 @@ public class GoalModelToPCMElementTransformator {
 		
 		CompositeDataType dataType = RepositoryFactory.eINSTANCE.createCompositeDataType();
 		dataType.setEntityName(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.UPPER));
-		asset.setPcmElementId(dataType.getId());
+		asset.setId(dataType.getId());
 		repo.getDataTypes__Repository().add(dataType);
 		
 		return dataType;
@@ -164,7 +164,7 @@ public class GoalModelToPCMElementTransformator {
 				signature.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.LOWER));
 				Parameter parameter = RepositoryFactory.eINSTANCE.createParameter();
 				parameter.setDataType__Parameter(generateDataTypeFromAssetWhenNotExisting(asset));
-				parameter.setParameterName(asset.getName());
+				parameter.setParameterName(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.LOWER));
 				signature.getParameters__OperationSignature().add(parameter);
 				bbmInterface.getSignatures__OperationInterface().add(signature);
 				bbm.addPcmOperationSignatureIdForTargetAsset(signature.getId(), asset);

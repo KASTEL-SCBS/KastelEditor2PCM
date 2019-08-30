@@ -11,7 +11,7 @@ import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
-public class Component extends AbstractEditorElement {
+public class Component extends EditorElement {
 	
 	private String pcmCompositeComponentId;
 	
@@ -42,11 +42,11 @@ public class Component extends AbstractEditorElement {
 	}
 
 	public String getPcmFunctionalComponentId() {
-		return super.getPcmElementId();
+		return super.getId();
 	}
 
 	public void setPcmFunctionalComponentId(String pcmFunctionalComponentId) {
-		super.setPcmElementId(pcmFunctionalComponentId);
+		super.setId(pcmFunctionalComponentId);
 	}
 
 	public Collection<HardGoal> getHardGoals() {

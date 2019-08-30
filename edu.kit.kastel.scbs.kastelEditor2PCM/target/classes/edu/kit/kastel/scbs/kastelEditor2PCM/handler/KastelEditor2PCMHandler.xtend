@@ -13,6 +13,8 @@ import java.io.File
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator
 import edu.kit.kastel.scbs.kastelEditor2PCM.JoanaFlow4PCMGenerator
+import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader_ActorAttackerExtension
+import edu.kit.kastel.scbs.kastelEditor2PCM.AdversaryGenerator
 
 class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 	
@@ -51,7 +53,7 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 	
 	def processGoalModelingEditorModel(IFile file){
 
-		var goalModelReader = new KASTELGoalModelReader();
+		var goalModelReader = new KASTELGoalModelReader_ActorAttackerExtension();
 		var goalModelFile = new File(file.locationURI);
 		val validGoalModel = goalModelReader.extractKastelEditorModelFromJson(goalModelFile);
 		
@@ -81,6 +83,11 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 		
 		var trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.modelName + "_Tracking" + TRACKING_FILE_ENDING);
 		goalModelReader.saveTrackingFile(trackingFile);
+		
+		val adversaryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" +goalModelReader.modelName + ".adversary";
+		var adversaryGenerator = new AdversaryGenerator();
+		adversaryGenerator.generateAdversaryModel(goalModelReader as KASTELGoalModelReader_ActorAttackerExtension,adversaryModelPath);
+		
 	}
 	
 	

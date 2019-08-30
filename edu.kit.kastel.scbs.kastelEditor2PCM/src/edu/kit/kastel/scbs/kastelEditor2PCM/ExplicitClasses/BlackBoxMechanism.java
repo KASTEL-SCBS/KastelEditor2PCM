@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class BlackBoxMechanism extends AbstractEditorElement {
+public class BlackBoxMechanism extends EditorElement {
 
 	private final boolean authenticity;
 	private final boolean confidentiality;
@@ -41,16 +41,12 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 		return extraHg;
 	}
 
-	public String getName() {
-		return super.getName();
-	}
-
 	public String getBbmComponentId() {
-		return super.getPcmElementId();
+		return super.getId();
 	}
 
 	public void setBbmComponentId(String bbmComponentId) {
-		super.setPcmElementId(bbmComponentId);
+		super.setId(bbmComponentId);
 	}
 
 	public String getPcmInterfaceId() {

@@ -47,14 +47,18 @@ public class KASTELGoalModelReader {
 		if(goalModelStringRepresentation == "") {
 			return false ;
 		}
-		readGoalModel(goalModelStringRepresentation);
-		
+		readBaseGoalModel(goalModelStringRepresentation);
+		readExtensionModelInformation(goalModelStringRepresentation);
 		postProcessFunctionalRequirementsAndComponents();
 		
 		return true;
 		
 	}
 	
+	protected void readExtensionModelInformation(String goalModelStringRepresentation) {
+		// In Basic Reader, no extension expected
+	}
+
 	public boolean saveTrackingFile(File f) {
 		
 		File json;
@@ -76,7 +80,7 @@ public class KASTELGoalModelReader {
 		return IOUtil.writeToFile( json, s);
 	}
 	
-	private boolean readGoalModel(String jsonString) {
+	private boolean readBaseGoalModel(String jsonString) {
 
 	
 		JsonParser parser = new JsonParser();
@@ -136,7 +140,7 @@ public class KASTELGoalModelReader {
 		modelName = rootElement.get("Project").getAsString();
 	}
 	
-	private Collection<String> extractStringCollection(JsonElement stringArrayElement){
+	protected Collection<String> extractStringCollection(JsonElement stringArrayElement){
 		
 		Collection<String> stringCollection = new ArrayList<String>();
 		JsonArray stringArray;
@@ -240,12 +244,15 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 			
 			for(Entry<String,JsonElement> entry : blackBoxMechanismsObject.entrySet()) {
 				JsonObject blackBoxMechanismJsonObject = entry.getValue().getAsJsonObject();
+				JsonObject baseBlackBoxMechanismInformation = blackBoxMechanismJsonObject.getAsJsonObject("base");
 				
-				String extraHg = checkNullableJsonString(blackBoxMechanismJsonObject, "extra_hg");
 				
-				BlackBoxMechanism mechanism = new BlackBoxMechanism(entry.getKey(), blackBoxMechanismJsonObject.get("authenticity").getAsBoolean(), 
-						blackBoxMechanismJsonObject.get("confidentiality").getAsBoolean(), 
-						blackBoxMechanismJsonObject.get("integrity").getAsBoolean(), 
+				
+				String extraHg = checkNullableJsonString(baseBlackBoxMechanismInformation, "extra_hg");
+				
+				BlackBoxMechanism mechanism = new BlackBoxMechanism(entry.getKey(), baseBlackBoxMechanismInformation.get("authenticity").getAsBoolean(), 
+						baseBlackBoxMechanismInformation.get("confidentiality").getAsBoolean(), 
+						baseBlackBoxMechanismInformation.get("integrity").getAsBoolean(), 
 						extraHg);
 				
 				blackBoxMechanisms.add(mechanism);
@@ -266,11 +273,18 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 				Asset asset = getAssetByCBValue(cbValue);
 				
 				assets.add(asset);
+				if(entry.getValue().getAsJsonObject().get("priority").isJsonNull()) {
+					softGoals.add(new SoftGoal(entry.getKey(), 
+							extractConcern(cbValue),
+							asset));
+				} else {
+					Boolean priority = entry.getValue().getAsJsonObject().get("priority").getAsBoolean();
+					softGoals.add(new SoftGoal(entry.getKey(), 
+							extractConcern(cbValue),
+							asset, priority));
+				}
 				
-				softGoals.add(new SoftGoal(entry.getKey(), 
-						extractConcern(cbValue),
-						asset,
-						entry.getValue().getAsJsonObject().get("priority").getAsBoolean()));
+				
 			}
 		}
 		return softGoals;
@@ -416,12 +430,17 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		return null;
 	}
 	
-	public void postProcessFunctionalRequirementsAndComponents() {
+	private void postProcessFunctionalRequirementsAndComponents() {
 		
 		splitFunctionalRequirementsForComponentsWhenNecessary();
+		postProcessExtensions();
 			
 	}
 	
+	protected void postProcessExtensions() {
+		//Noting to do here due to basic reader
+	}
+
 	private void splitFunctionalRequirementsForComponentsWhenNecessary() {
 		Collection<Component> visitedServices = new ArrayList<Component>();
 		for(Component component1 : services) {

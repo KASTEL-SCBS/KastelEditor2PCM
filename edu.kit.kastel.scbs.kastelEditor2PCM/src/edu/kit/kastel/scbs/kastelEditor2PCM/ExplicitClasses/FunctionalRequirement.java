@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class FunctionalRequirement extends AbstractEditorElement {
+public class FunctionalRequirement extends EditorElement {
 	
 	public Set<Asset> assets;
 	public Map<Asset, String> operationSignatureAssetMap; 
