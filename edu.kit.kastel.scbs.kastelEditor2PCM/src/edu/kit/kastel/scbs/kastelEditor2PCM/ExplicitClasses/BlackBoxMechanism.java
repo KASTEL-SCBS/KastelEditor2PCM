@@ -5,22 +5,25 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
+
 public class BlackBoxMechanism extends EditorElement {
 
+	@Expose(serialize = false, deserialize = false) 
 	private final boolean authenticity;
+	@Expose(serialize = false, deserialize = false) 
 	private final boolean confidentiality;
+	@Expose(serialize = false, deserialize = false) 
 	private final boolean integrity;
-	private final String extraHg;
 	private String pcmInterfaceId;
 	private Set<Asset> targetAssets;
 	private Map<Asset, String> assetToPCMOperationSignatureIdMapping;
 	
-	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity, String extraHg) {
+	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity) {
 		super.setName(name);
 		this.authenticity = authenticity;
 		this.confidentiality = confidentiality;
 		this.integrity = integrity;
-		this.extraHg = extraHg;
 		targetAssets = new HashSet<Asset>();
 		assetToPCMOperationSignatureIdMapping = new HashMap<Asset, String>();
 	}
@@ -35,10 +38,6 @@ public class BlackBoxMechanism extends EditorElement {
 
 	public boolean providesIntegrity() {
 		return integrity;
-	}
-
-	public String getExtraHg() {
-		return extraHg;
 	}
 
 	public String getBbmComponentId() {

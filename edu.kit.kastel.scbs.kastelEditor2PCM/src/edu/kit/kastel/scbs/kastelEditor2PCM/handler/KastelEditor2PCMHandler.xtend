@@ -76,7 +76,7 @@ class KastelEditor2PCMHandler extends AbstractHandler implements IHandler {
 		goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
 		goalModelToPCMTransformer.savePCMModel();
 		
-		val joanaFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + "My.joanaflow4palladio";
+		val joanaFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.modelName + ".joanaflow4palladio";
 		var joanaFlow4PCMGenerator = new JoanaFlow4PCMGenerator();
 		joanaFlow4PCMGenerator.generateModel(goalModelReader, goalModelToPCMTransformer.repositoryModel, joanaFlowModelPath);
 		

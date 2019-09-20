@@ -44,7 +44,7 @@ public class KASTELGoalModelReader {
 	public boolean extractKastelEditorModelFromJson(File file) {
 		String goalModelStringRepresentation = IOUtil.readFromFile(file);
 		
-		if(goalModelStringRepresentation == "") {
+		if(goalModelStringRepresentation.isEmpty()) {
 			return false ;
 		}
 		readBaseGoalModel(goalModelStringRepresentation);
@@ -217,22 +217,13 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 		Multimap<String, String> relationships = extractRelationshipSets(relationElement);
 		
 		for(String functionalRequirement : relationships.keySet()) {
-			FunctionalRequirement functionalRequirementObject = getFunctionalRequirement(functionalRequirement);
+			FunctionalRequirement functionalRequirementObject = getFunctionalRequirementByName(functionalRequirement);
 			for(String serviceName : relationships.get(functionalRequirement)) {
-						getService(serviceName).addFunctionalRequirement(functionalRequirementObject);				
+						getServiceByName(serviceName).addFunctionalRequirement(functionalRequirementObject);				
 				}
 			}
 	}
-	
-	private FunctionalRequirement getFunctionalRequirement(String requirementName) {		
-		for(FunctionalRequirement requirement : functionalRequirements) {
-			if(requirement.getName().equals(requirementName)) {
-				return requirement;
-			}
-		}
-		return null;
-	}
-	
+
 	
 	
 	private Set<BlackBoxMechanism> extractBlackBoxMechanisms(JsonElement blackBoxMechanismsElement){
@@ -247,13 +238,9 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 				JsonObject baseBlackBoxMechanismInformation = blackBoxMechanismJsonObject.getAsJsonObject("base");
 				
 				
-				
-				String extraHg = checkNullableJsonString(baseBlackBoxMechanismInformation, "extra_hg");
-				
 				BlackBoxMechanism mechanism = new BlackBoxMechanism(entry.getKey(), baseBlackBoxMechanismInformation.get("authenticity").getAsBoolean(), 
 						baseBlackBoxMechanismInformation.get("confidentiality").getAsBoolean(), 
-						baseBlackBoxMechanismInformation.get("integrity").getAsBoolean(), 
-						extraHg);
+						baseBlackBoxMechanismInformation.get("integrity").getAsBoolean());
 				
 				blackBoxMechanisms.add(mechanism);
 			}
@@ -299,36 +286,41 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 			
 			for(Entry<String,JsonElement> entry : hardGoalsRootObject.entrySet()) {
 				
-				Component hgService = null;
-				FunctionalRequirement hgFunctionalRequirement = null;
-				SoftGoal hgSg = null;
+				if(!entry.getValue().isJsonObject()) {
+					break;
+				} 
 				
-				for(Component service : services) {
-					if(entry.getKey().contains(service.getName())) {
-						hgService = service;
-						break;
-					} 
-				}
+				JsonObject hardGoalJson = entry.getValue().getAsJsonObject();
 				
-				for(FunctionalRequirement functionalRequirement : functionalRequirements) {
-					if(entry.getKey().contains(functionalRequirement.getName())) {
-							hgFunctionalRequirement = functionalRequirement;
-							break;
-					}
-				}
 				
-				for(SoftGoal sg : softGoals) {
-					if(entry.getKey().contains(sg.getName())) {
-						hgSg = sg;
-						break;
-					}
-				}
 				
-				if(hgService == null || hgFunctionalRequirement == null || hgSg == null) {
+				
+				
+			
+			
+				
+				
+				String hgJsonServiceEntry = hardGoalJson.get(HardGoal.COMPONENT_ID).getAsString();
+				Component hgService = getServiceByName(hgJsonServiceEntry);
+				
+				
+				String hgJsonFunctionalRequirementEntry = hardGoalJson.get(HardGoal.FUNCTIONAL_REQUIREMENT_ID).getAsString();
+				FunctionalRequirement hgFunctionalRequirement = getFunctionalRequirementByName(hgJsonFunctionalRequirementEntry);
+				
+				String hgJsonSoftGoalEntry = hardGoalJson.get(HardGoal.SOFTGOAL_ID).getAsString();
+				SoftGoal hgSg = getSoftGoalByName(hgJsonSoftGoalEntry);
+			
+				String uId = hardGoalJson.get(HardGoal.UNIQUE_ID).getAsString();
+				
+				if(hgService == null || hgFunctionalRequirement == null || hgSg == null || uId.isEmpty()) {
 					System.out.println("Error, Hard Goal could not be recreated");
 					continue;
 				}
-				HardGoal hg = new HardGoal(entry.getKey(), hgService.getName(), hgSg, hgFunctionalRequirement);
+				
+			
+			
+				
+				HardGoal hg = new HardGoal(entry.getKey(), hgService.getName(), hgSg, hgFunctionalRequirement, uId);
 				hgFunctionalRequirement.addAsset(hgSg.getAsset());
 				
 				hgService.getHardGoals().add(hg);
@@ -360,7 +352,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 				continue;
 			}
 			
-			Component hgRelatedService = getService(hardGoal.getServiceName());
+			Component hgRelatedService = getServiceByName(hardGoal.getServiceName());
 			
 			if(hgRelatedService != null) {
 				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
@@ -389,14 +381,6 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		return services;
 	}
 	
-	public Component getService(String serviceName) {
-		for(Component component : services) {
-			if(component.getName().equals(serviceName))
-				return component;
-		}
-		
-		return null;
-	}
 	
 	public Collection<FunctionalRequirement> getFunctionalRequirements() {
 		return functionalRequirements;
@@ -549,9 +533,10 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		}
 	}
 	
-	public FunctionalRequirement getFunctionalRequirementByName(String name) {
+	public FunctionalRequirement getFunctionalRequirementByName(String searchedFunctionalRequirementName) {
+		String modifiedSearched = StringUtil.removeCharAndStringSymbols(searchedFunctionalRequirementName);
 		for(FunctionalRequirement requirement : functionalRequirements) {
-			if(requirement.getName().equals(name)) {
+			if(requirement.getName().equals(modifiedSearched)) {
 				return requirement;
 			}
 		}
@@ -561,5 +546,29 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 	
 	public String getModelName() {
 		return modelName;
+	}
+	
+	public Component getServiceByName(String searchedServiceName) {
+		String modifiedSearched = StringUtil.removeCharAndStringSymbols(searchedServiceName);
+		
+		for(Component component : services) {
+			if(component.getName().equals(modifiedSearched)) {
+				return component;
+			}
+		}
+		
+		return null;
+	}
+	
+	public SoftGoal getSoftGoalByName(String searchedSoftGoalName) {
+		
+		
+		for(SoftGoal sg : softGoals){
+			if(sg.getName().equals(searchedSoftGoalName)) {
+				return sg;
+			}
+		}
+		
+		return null;
 	}
 }

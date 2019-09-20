@@ -94,7 +94,9 @@ public class JoanaFlow4PCMGenerator {
 							
 							flowSpec.getSource().add(source);
 							}
-							
+							if(hg.getBBM() == null) {
+								continue;
+							}
 							BasicComponent bbmComponent = getBasicComponentById(hg.getBBM().getBbmComponentId(), repository);
 							OperationSignature bbmOperationSignature = getOperationSignatureById(hg.getBBM().getPcmOperationSignatureIdForTargetAsset(hg.getSoftGoal().getAsset()), repository);
 							

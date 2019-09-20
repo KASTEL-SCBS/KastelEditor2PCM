@@ -415,7 +415,7 @@ public class GoalModelToPCMElementTransformator {
 	private Set<BlackBoxMechanism> extractBlackBoxMechanismsForRequirement(Component component, FunctionalRequirement requirement){
 		Set<BlackBoxMechanism> bbms = new HashSet<BlackBoxMechanism>();
 		for(HardGoal hg : component.getHardGoals()) {
-			if(hg.getFunctionalRequirement().equals(requirement)) {
+			if(hg.getFunctionalRequirement().equals(requirement) && !(hg.getBBM() == null)) {
 				bbms.add(hg.getBBM());
 			}
 		}
