@@ -5,7 +5,7 @@ public class SoftGoal {
 	private final String name;
 	private final String concern;
 	private final Asset asset;
-	private final boolean priority;
+	private final Boolean priority;
 	
 	
 	public SoftGoal(String name, String concern, Asset asset ,boolean priority) {
@@ -15,6 +15,15 @@ public class SoftGoal {
 		this.concern = concern;
 		this.asset = asset;
 		this.priority = priority;
+	}
+	
+	public SoftGoal(String name, String concern, Asset asset) {
+		this.name = name;
+		
+	
+		this.concern = concern;
+		this.asset = asset;
+		this.priority = null;
 	}
 
 	public String getConcern() {

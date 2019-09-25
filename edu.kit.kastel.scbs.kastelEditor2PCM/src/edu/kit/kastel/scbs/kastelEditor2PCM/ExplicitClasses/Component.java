@@ -8,9 +8,10 @@ import java.util.Set;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 
+import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
-public class Component extends AbstractEditorElement {
+public class Component extends EditorElement {
 	
 	private String pcmCompositeComponentId;
 	
@@ -41,11 +42,11 @@ public class Component extends AbstractEditorElement {
 	}
 
 	public String getPcmFunctionalComponentId() {
-		return super.getPcmElementId();
+		return super.getId();
 	}
 
 	public void setPcmFunctionalComponentId(String pcmFunctionalComponentId) {
-		super.setPcmElementId(pcmFunctionalComponentId);
+		super.setId(pcmFunctionalComponentId);
 	}
 
 	public Collection<HardGoal> getHardGoals() {
@@ -71,10 +72,41 @@ public class Component extends AbstractEditorElement {
 		for(HardGoal hg : hardGoals) {
 			correspondences.put(hg.getFunctionalRequirement(), hg.getBBM());
 		}
-		
-		
 		return null;
 		
+	}
+	
+	public void exchangeFunctionalRequirements(Set<FunctionalRequirement> functionalRequirements) {
+		Set<FunctionalRequirement> temp = new HashSet<FunctionalRequirement>();
+		
+		boolean found = false;
+		
+		for(FunctionalRequirement fuReq : providedFunctionalRequirements) {
+			for(FunctionalRequirement toExchange : functionalRequirements) {
+				if(fuReq.getName().equals(toExchange.getName()) || toExchange.getName().equals(fuReq.getName() + "_" + this.getName())) {
+					found = true;
+					temp.add(toExchange);
+					findAndExchangeHardGoalFunctionalRequirement(fuReq, toExchange);
+					break;
+				}
+			}
+			
+			if(!found) {
+				temp.add(fuReq);
+			}
+			
+			found = false;
+		}
+		
+		providedFunctionalRequirements = temp;
+	}
+	
+	public void findAndExchangeHardGoalFunctionalRequirement(FunctionalRequirement toFind, FunctionalRequirement toExchange) {
+		for(HardGoal hg : hardGoals) {
+			if(hg.getFunctionalRequirement().equals(toFind)) {
+				hg.setFunctionalRequirement(toExchange);
+			}
+		}
 	}
 	
 }

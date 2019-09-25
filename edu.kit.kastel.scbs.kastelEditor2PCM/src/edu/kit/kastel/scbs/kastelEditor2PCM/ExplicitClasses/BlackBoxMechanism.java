@@ -1,20 +1,31 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
-import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-public class BlackBoxMechanism extends AbstractEditorElement {
+import com.google.gson.annotations.Expose;
 
+public class BlackBoxMechanism extends EditorElement {
+
+	@Expose(serialize = false, deserialize = false) 
 	private final boolean authenticity;
+	@Expose(serialize = false, deserialize = false) 
 	private final boolean confidentiality;
+	@Expose(serialize = false, deserialize = false) 
 	private final boolean integrity;
-	private final String extraHg;
+	private String pcmInterfaceId;
+	private Set<Asset> targetAssets;
+	private Map<Asset, String> assetToPCMOperationSignatureIdMapping;
 	
-	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity, String extraHg) {
+	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity) {
 		super.setName(name);
 		this.authenticity = authenticity;
 		this.confidentiality = confidentiality;
 		this.integrity = integrity;
-		this.extraHg = extraHg;
+		targetAssets = new HashSet<Asset>();
+		assetToPCMOperationSignatureIdMapping = new HashMap<Asset, String>();
 	}
 
 	public boolean providesAuthenticity() {
@@ -29,22 +40,42 @@ public class BlackBoxMechanism extends AbstractEditorElement {
 		return integrity;
 	}
 
-	public String getExtraHg() {
-		return extraHg;
-	}
-
-	public String getName() {
-		return super.getName();
-	}
-
 	public String getBbmComponentId() {
-		return super.getPcmElementId();
+		return super.getId();
 	}
 
 	public void setBbmComponentId(String bbmComponentId) {
-		super.setPcmElementId(bbmComponentId);
+		super.setId(bbmComponentId);
+	}
+
+	public String getPcmInterfaceId() {
+		return pcmInterfaceId;
+	}
+
+	public void setPcmInterfaceId(String pcmInterfaceId) {
+		this.pcmInterfaceId = pcmInterfaceId;
+	}
+
+	public boolean addTargetAsset(Asset asset) {
+		return targetAssets.add(asset);
 	}
 	
+	public void addPcmOperationSignatureIdForTargetAsset(String pcmOperationSignatureId, Asset targetAsset) {
+		if(targetAssets.contains(targetAsset)) {
+			assetToPCMOperationSignatureIdMapping.put(targetAsset, pcmOperationSignatureId);
+		}
+	}
+	
+	public String getPcmOperationSignatureIdForTargetAsset(Asset targetAsset) {
+		if(targetAssets.contains(targetAsset)) {
+			return assetToPCMOperationSignatureIdMapping.get(targetAsset);
+		}
+		return null;
+	}
+	
+	public Set<Asset> getTargetAssets(){
+		return targetAssets;
+	}
 	
 	
 }

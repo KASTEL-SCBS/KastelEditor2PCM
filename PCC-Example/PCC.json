@@ -1,4 +1,31 @@
 {
+    "Actor Roles": [
+        "External",
+        "User",
+        "Admin"
+    ],
+    "Actors": {
+        "Judge": {
+            "attackers": [],
+            "details": [
+                {
+                    "component": "ProsecutionInterface",
+                    "role": "User"
+                }
+            ]
+        },
+        "Officer": {
+            "attackers": [
+                "Malicious Officer"
+            ],
+            "details": [
+                {
+                    "component": "ProsecutionInterface",
+                    "role": "User"
+                }
+            ]
+        }
+    },
     "Asset and Stakeholder Relationships": {
         "Anonymized data": [
             "Operator of the crash cam"
@@ -23,6 +50,26 @@
         "Crash cam operators' user accounts",
         "Privileged user account"
     ],
+    "Attackers": [
+        "Malicious Officer",
+        "Malicious User"
+    ],
+    "Attackers and Soft Goal Relationships": {
+        "Malicious Officer": {
+            "authenticity": [],
+            "confidentiality": [
+                "Confidentiality of Data"
+            ],
+            "integrity": []
+        },
+        "Malicious User": {
+            "authenticity": [],
+            "confidentiality": [],
+            "integrity": [
+                "Integrity of Crash cam operators' user accounts"
+            ]
+        }
+    },
     "Assumptions": [
         "Security of the Scheme",
         "Implementation Correctness",
@@ -82,70 +129,103 @@
     },
     "Black Box Mechanisms": {
         "Access Control": {
-            "authenticity": false,
-            "confidentiality": true,
-            "extra_hg": null,
-            "integrity": true
+            "base": {
+                "authenticity": false,
+                "confidentiality": true,
+                "extra_hg": null,
+                "integrity": true
+            },
+            "role": []
         },
         "Anonymization of Protection Worthy Image Areas": {
-            "authenticity": false,
-            "confidentiality": true,
-            "extra_hg": null,
-            "integrity": false
+            "base": {
+                "authenticity": false,
+                "confidentiality": true,
+                "extra_hg": null,
+                "integrity": false
+            },
+            "role": []
         },
         "Asymmetric Crypto Authentication Scheme": {
-            "authenticity": true,
-            "confidentiality": false,
-            "extra_hg": null,
-            "integrity": false
+            "base": {
+                "authenticity": true,
+                "confidentiality": false,
+                "extra_hg": null,
+                "integrity": false
+            },
+            "role": []
         },
         "Asymmetric Encryption": {
-            "authenticity": false,
-            "confidentiality": true,
-            "extra_hg": "Private Key Protection",
-            "integrity": true
+            "base": {
+                "authenticity": false,
+                "confidentiality": true,
+                "extra_hg": "Private Key Protection",
+                "integrity": true
+            },
+            "role": []
         },
         "Authentication Procedure": {
-            "authenticity": true,
-            "confidentiality": false,
-            "extra_hg": null,
-            "integrity": false
+            "base": {
+                "authenticity": true,
+                "confidentiality": false,
+                "extra_hg": null,
+                "integrity": false
+            },
+            "role": []
         },
         "Cryptographic Hash Function": {
-            "authenticity": true,
-            "confidentiality": false,
-            "extra_hg": null,
-            "integrity": true
+            "base": {
+                "authenticity": true,
+                "confidentiality": false,
+                "extra_hg": null,
+                "integrity": true
+            },
+            "role": []
         },
         "Digital Signature": {
-            "authenticity": true,
-            "confidentiality": false,
-            "extra_hg": "Signature Key Protection",
-            "integrity": true
+            "base": {
+                "authenticity": true,
+                "confidentiality": false,
+                "extra_hg": "Signature Key Protection",
+                "integrity": true
+            },
+            "role": []
         },
         "Hybrid Encryption": {
-            "authenticity": false,
-            "confidentiality": true,
-            "extra_hg": "Private Key Protection",
-            "integrity": true
+            "base": {
+                "authenticity": false,
+                "confidentiality": true,
+                "extra_hg": "Private Key Protection",
+                "integrity": true
+            },
+            "role": []
         },
         "Password Authentication Scheme": {
-            "authenticity": true,
-            "confidentiality": false,
-            "extra_hg": "User input is correctly checked or masked",
-            "integrity": false
+            "base": {
+                "authenticity": true,
+                "confidentiality": false,
+                "extra_hg": "User input is correctly checked or masked",
+                "integrity": false
+            },
+            "role": []
         },
         "Role-Based Access Control": {
-            "authenticity": false,
-            "confidentiality": true,
-            "extra_hg": null,
-            "integrity": true
+            "base": {
+                "authenticity": false,
+                "confidentiality": true,
+                "extra_hg": null,
+                "integrity": true
+            },
+            "role": []
         },
         "Strong Authentication Procedure": {
-            "authenticity": true,
-            "confidentiality": false,
-            "extra_hg": null,
-            "integrity": false
+            "base": {
+                "authenticity": true,
+                "confidentiality": false,
+                "extra_hg": null,
+                "integrity": false
+            },
+            "role": []
         }
     },
     "Contact Info": "pascal.birnstill@partner.kit.edu",
@@ -195,12 +275,20 @@
     "Hard Goals": {
         "Anonymization service ensures the Authenticity of Anonymized data during the Downloading anonymized data": {
             "authenticity": "yes",
+            "component_id": "Anonymization service",
+            "freq_id": "Downloading anonymized data",
+            "sg_id": "Authenticity of Anonymized data",
+            "unique_id": "1",
             "extra_hg": null,
             "extra_hg_used": null,
             "original_hg": null,
             "priority": true
         },
         "Anonymization service ensures the Authenticity of Anonymized data during the Storing anonymized data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing anonymized data",
+            "sg_id": "Authenticity of Anonymized data",
+            "unique_id": "2",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -208,6 +296,10 @@
             "priority": true
         },
         "Anonymization service ensures the Authenticity of Anonymized data during the Storing data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing data",
+            "sg_id": "Authenticity of Anonymized data",
+            "unique_id": "3",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -215,6 +307,10 @@
             "priority": true
         },
         "Anonymization service ensures the Authenticity of Crash cam operators' user accounts during the Authenticating crash cam operator": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating crash cam operator",
+            "sg_id": "Authenticity of Crash cam operators' user accounts",
+            "unique_id": "4",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -222,6 +318,10 @@
             "priority": true
         },
         "Anonymization service ensures the Authenticity of Data during the Explicitly granting access to raw data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Explicitly granting access to raw data",
+            "sg_id": "Authenticity of Data",
+            "unique_id": "5",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -229,6 +329,10 @@
             "priority": true
         },
         "Anonymization service ensures the Authenticity of Data during the Storing data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing data",
+            "sg_id": "Authenticity of Data",
+            "unique_id": "6",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -236,6 +340,10 @@
             "priority": true
         },
         "Anonymization service ensures the Authenticity of Privileged user account during the Authenticating prosecution authority": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating prosecution authority",
+            "sg_id": "Authenticity of Privileged user account",
+            "unique_id": "7",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -243,6 +351,10 @@
             "priority": true
         },
         "Anonymization service ensures the Confidentiality of Crash cam operators' user accounts during the Authenticating crash cam operator": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating crash cam operator",
+            "sg_id": "Confidentiality of Crash cam operators' user accounts",
+            "unique_id": "8",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -250,6 +362,10 @@
             "priority": true
         },
         "Anonymization service ensures the Confidentiality of Crash cam operators' user accounts during the Authenticating prosecution authority": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating prosecution authority",
+            "sg_id": "Confidentiality of Crash cam operators' user accounts",
+            "unique_id": "9",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -257,6 +373,10 @@
             "priority": true
         },
         "Anonymization service ensures the Confidentiality of Data during the Explicitly granting access to raw data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Explicitly granting access to raw data",
+            "sg_id": "Confidentiality of Data",
+            "unique_id": "10",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -264,6 +384,10 @@
             "priority": true
         },
         "Anonymization service ensures the Confidentiality of Data during the Storing data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing data",
+            "sg_id": "Confidentiality of Data",
+            "unique_id": "11",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -271,6 +395,10 @@
             "priority": true
         },
         "Anonymization service ensures the Confidentiality of Privileged user account during the Authenticating prosecution authority": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating prosecution authority",
+            "sg_id": "Confidentiality of Privileged user account",
+            "unique_id": "12",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -278,6 +406,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Anonymized data during the Anonymizing data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Anonymizing data",
+            "sg_id": "Integrity of Anonymized data",
+            "unique_id": "13",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -285,6 +417,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Anonymized data during the Downloading anonymized data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Downloading anonymized data",
+            "sg_id": "Integrity of Anonymized data",
+            "unique_id": "14",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -292,6 +428,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Anonymized data during the Storing anonymized data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing anonymized data",
+            "sg_id": "Integrity of Anonymized data",
+            "unique_id": "15",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -299,6 +439,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Anonymized data during the Storing data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing data",
+            "sg_id": "Integrity of Anonymized data",
+            "unique_id": "16",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -306,6 +450,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Crash cam operators' user accounts during the Authenticating crash cam operator": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating crash cam operator",
+            "sg_id": "Integrity of Crash cam operators' user accounts",
+            "unique_id": "17",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -313,6 +461,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Crash cam operators' user accounts during the Authenticating prosecution authority": {
+            "component_id": "Anonymization service",
+            "freq_id": "Authenticating prosecution authority",
+            "sg_id": "Integrity of Crash cam operators' user accounts",
+            "unique_id": "18",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -320,6 +472,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Data during the Explicitly granting access to raw data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Explicitly granting access to raw data",
+            "sg_id": "Integrity of Data",
+            "unique_id": "19",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -327,6 +483,10 @@
             "priority": true
         },
         "Anonymization service ensures the Integrity of Data during the Storing data": {
+            "component_id": "Anonymization service",
+            "freq_id": "Storing data",
+            "sg_id": "Integrity of Data",
+            "unique_id": "20",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -334,6 +494,10 @@
             "priority": true
         },
         "Crash cam app ensures the Authenticity of Data during the Recording data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Recording data",
+            "sg_id": "Authenticity of Data",
+            "unique_id": "21",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -341,6 +505,10 @@
             "priority": true
         },
         "Crash cam app ensures the Authenticity of Data during the Uploading data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Uploading data",
+            "sg_id": "Authenticity of Data",
+            "unique_id": "22",
             "authenticity": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -348,6 +516,10 @@
             "priority": true
         },
         "Crash cam app ensures the Confidentiality of Crash cam operators' user accounts during the Authenticating crash cam operator": {
+            "component_id": "Crash cam app",
+            "freq_id": "Authenticating crash cam operator",
+            "sg_id": "Confidentiality of Crash cam operators' user accounts",
+            "unique_id": "23",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -355,6 +527,10 @@
             "priority": true
         },
         "Crash cam app ensures the Confidentiality of Data during the Recording data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Recording data",
+            "sg_id": "Confidentiality of Data",
+            "unique_id": "24",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -362,6 +538,10 @@
             "priority": true
         },
         "Crash cam app ensures the Confidentiality of Data during the Storing data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Storing data",
+            "sg_id": "Confidentiality of Data",
+            "unique_id": "25",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -369,6 +549,10 @@
             "priority": true
         },
         "Crash cam app ensures the Confidentiality of Data during the Uploading data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Uploading data",
+            "sg_id": "Confidentiality of Data",
+            "unique_id": "26",
             "confidentiality": "yes",
             "extra_hg": null,
             "extra_hg_used": null,
@@ -376,6 +560,10 @@
             "priority": true
         },
         "Crash cam app ensures the Integrity of Crash cam operators' user accounts during the Authenticating crash cam operator": {
+            "component_id": "Crash cam app",
+            "freq_id": "Authenticating crash cam operator",
+            "sg_id": "Integrity of Crash cam operators' user accounts",
+            "unique_id": "27",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -383,6 +571,10 @@
             "priority": true
         },
         "Crash cam app ensures the Integrity of Data during the Recording data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Recording data",
+            "sg_id": "Integrity of Data",
+            "unique_id": "28",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
@@ -390,6 +582,10 @@
             "priority": true
         },
         "Crash cam app ensures the Integrity of Data during the Uploading data": {
+            "component_id": "Crash cam app",
+            "freq_id": "Uploading data",
+            "sg_id": "Integrity of Data",
+            "unique_id": "29",
             "extra_hg": null,
             "extra_hg_used": null,
             "integrity": "yes",
