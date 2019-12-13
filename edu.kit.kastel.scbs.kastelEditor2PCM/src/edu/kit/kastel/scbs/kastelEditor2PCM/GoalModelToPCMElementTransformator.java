@@ -34,10 +34,12 @@ import org.palladiosimulator.pcm.seff.SeffFactory;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
+import org.palladiosimulator.pcm.system.SystemFactory;
+import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
@@ -48,6 +50,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 public class GoalModelToPCMElementTransformator {
 	Repository repo;
 	Resource res;
+	Collection<System> systems;
 	
 	public void generateRepositoryModel(KASTELGoalModelReader reader, String modelFilePath) {
 		
@@ -76,14 +79,32 @@ public class GoalModelToPCMElementTransformator {
 		}
 	}
 	
+	public boolean saveSystems(String targetBasePath) {
+		
+		boolean success = true;
+		for(System system : systems) {
+			String completePath = targetBasePath + "/" + system.getEntityName() + ".system";
+			
+			Resource systemResource = new XMLResourceImpl(URI.createFileURI(completePath));
+			systemResource.getContents().add(system);
+			
+			try {
+				systemResource.save(null);
+			} catch (IOException e){
+				success = false;
+			}
+		}
+		
+		return success;
+	}
+	
 	private void extendPalladioComponents(KASTELGoalModelReader reader) {
-		Set<Component> components = reader.getServices();
+		Set<ServiceComponent> components = reader.getServices();
 		
 		extendComponentsWithFunctionalRequirementInterfaces(components);
 		extendComponentsWithHardGoalsAndMechanisms(components);
 		extendComponentsSeffsWithBlackBoxMechanisms(components);
-		
-		
+
 	}
 	
 	private void generateInterfacesFromKASTELFunctionalRequirements(Collection<FunctionalRequirement> functionalRequirements) {
@@ -127,13 +148,16 @@ public class GoalModelToPCMElementTransformator {
 		return dataType;
 	}
 	
-	private void generateComponentsFromKASTELServices(Collection<Component> services) {
-		for(Component service : services) {
-			CompositeComponent component = RepositoryFactory.eINSTANCE.createCompositeComponent();
+	private void generateComponentsFromKASTELServices(Collection<ServiceComponent> services) {
+		for(ServiceComponent service : services) {
+			System system = SystemFactory.eINSTANCE.createSystem();
 			
-			component.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Composite");
-			repo.getComponents__Repository().add(component);
-			service.setPcmCompositeComponentId(component.getId());
+			
+			
+			system.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Composite");
+			service.setSystemId(system.getId());
+			
+			systems.add(system);
 			
 			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
 			base.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Functionality");
@@ -143,7 +167,7 @@ public class GoalModelToPCMElementTransformator {
 			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
 			mainContext.setEntityName(StringUtil.trimWhiteSpace(service.getName(),UpperOrLower.UPPER));
 			mainContext.setEncapsulatedComponent__AssemblyContext(base);
-			component.getAssemblyContexts__ComposedStructure().add(mainContext);
+			system.getAssemblyContexts__ComposedStructure().add(mainContext);
 		}
 	}
 	
@@ -182,70 +206,81 @@ public class GoalModelToPCMElementTransformator {
 		}
 	}
 	
-	private void extendComponentsWithFunctionalRequirementInterfaces(Set<Component> components) {
+	private void extendComponentsWithFunctionalRequirementInterfaces(Set<ServiceComponent> serviceComponents) {
 		
 		
-		for(Component service : components) {
+		for(ServiceComponent serviceComponent : serviceComponents) {
 			
-			Collection<OperationInterface> interfacesForComponent = findInterfacesForComponent(service);
+			Collection<OperationInterface> interfacesForComponent = findInterfacesForComponent(serviceComponent);
 			
-			CompositeComponent compositeComponent = null;
+			System targetSystem = null;
 			BasicComponent baseComponent = null;
 			
-			for(RepositoryComponent repoComp : repo.getComponents__Repository()) {
-				if(repoComp.getId().equals(service.getPcmCompositeComponentId())) {
-					compositeComponent = (CompositeComponent)repoComp;
-				} else if(repoComp.getId().equals(service.getPcmFunctionalComponentId())) {
-					baseComponent = (BasicComponent)repoComp;
-				}
+			for(System system : systems) {
+				if(system.getId().equals(serviceComponent.getSystemId())) {
+					targetSystem = system;
+					break;
+				} 
+			}
 				
-				if(compositeComponent != null && baseComponent != null) {
+				for(RepositoryComponent repositoryComponent : repo.getComponents__Repository()) {
+				
+				
+				if(repositoryComponent.getId().equals(serviceComponent.getPcmFunctionalComponentId())) {
+					baseComponent = (BasicComponent)repositoryComponent;
 					break;
 				}
+				
+			
 			}
 			
-			if(compositeComponent == null || baseComponent == null) {
-				System.out.println("Did not found corresponding components, model not complete for: " + service.getName());
+			if(targetSystem == null || baseComponent == null) {
+				java.lang.System.out.println("Did not found corresponding components, model not complete for: " + serviceComponent.getName());
 				continue;
 			}
 			
 			for(OperationInterface opInt : interfacesForComponent) {
-				connectInterfacesToCompositeAndFunctionalComponents(compositeComponent, baseComponent, opInt);
+				connectInterfacesToSystemAndFunctionalComponent(targetSystem, baseComponent, opInt);
 				generateTemplateSeffForProvidedSignaturesOfPalladioComponent(baseComponent, opInt);
 			}
 		}
 	}
 	
 	
-	private void extendComponentsWithHardGoalsAndMechanisms(Set<Component> components) {
+	private void extendComponentsWithHardGoalsAndMechanisms(Set<ServiceComponent> serviceComponents) {
 		
 		
-		for(Component service : components) {
+		for(ServiceComponent serviceComponent : serviceComponents) {
 			
-			CompositeComponent compositeComponent = null;
+			System targetSystem = null;
 			RepositoryComponent functionalComponent = null;
 			
 			Set<RepositoryComponent> blackBoxComponents = new HashSet<RepositoryComponent>();
 			
-			for(RepositoryComponent repoComp : repo.getComponents__Repository()) {
-				if(repoComp.getId().equals(service.getPcmCompositeComponentId())) {
-					compositeComponent = (CompositeComponent)repoComp;
-				} else if(repoComp.getId().equals(service.getPcmFunctionalComponentId())) {
-					functionalComponent = repoComp;
+			for(System system : systems) {
+				if(system.getId().equals(serviceComponent.getSystemId())) {
+					targetSystem = system;
+					break;
+				}	
+			}
+			
+			for(RepositoryComponent repositoryComponent : repo.getComponents__Repository()) {
+			
+				if(repositoryComponent.getId().equals(serviceComponent.getPcmFunctionalComponentId())) {
+					functionalComponent = repositoryComponent;
 				} else {
-					for(BlackBoxMechanism bbm : service.getBlackBoxMechanisms()) {
-						if(repoComp.getId().equals(bbm.getBbmComponentId())) {
-							blackBoxComponents.add(repoComp);
+					for(BlackBoxMechanism bbm : serviceComponent.getBlackBoxMechanisms()) {
+						if(repositoryComponent.getId().equals(bbm.getBbmComponentId())) {
+							blackBoxComponents.add(repositoryComponent);
 						}
 					}
 				}
+			}
 				
-				
-				
-				if(compositeComponent != null && functionalComponent != null && blackBoxComponents.size() == service.getBlackBoxMechanisms().size()) {
+				if(targetSystem != null && functionalComponent != null && blackBoxComponents.size() == serviceComponent.getBlackBoxMechanisms().size()) {
 					break;
 				}
-			}
+			
 			
 			for(RepositoryComponent bbCompo : blackBoxComponents) {
 				for(ProvidedRole role : bbCompo.getProvidedRoles_InterfaceProvidingEntity()) {
@@ -260,12 +295,12 @@ public class GoalModelToPCMElementTransformator {
 					AssemblyContext bbCompoContext = CompositionFactory.eINSTANCE.createAssemblyContext();
 					bbCompoContext.setEncapsulatedComponent__AssemblyContext(bbCompo);
 					bbCompoContext.setEntityName(StringUtil.trimWhiteSpace(bbCompo.getEntityName(),UpperOrLower.UPPER));
-					compositeComponent.getAssemblyContexts__ComposedStructure().add(bbCompoContext);
+					targetSystem.getAssemblyContexts__ComposedStructure().add(bbCompoContext);
 					
 					AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
 					AssemblyContext functionalContext = null;
 					
-					for(AssemblyContext context : compositeComponent.getAssemblyContexts__ComposedStructure()) {
+					for(AssemblyContext context : targetSystem.getAssemblyContexts__ComposedStructure()) {
 						if(context.getEncapsulatedComponent__AssemblyContext().getId().equals(functionalComponent.getId())) {
 							functionalContext = context;
 							break;
@@ -277,14 +312,14 @@ public class GoalModelToPCMElementTransformator {
 					assemblyConnector.setRequiredRole_AssemblyConnector(bbmReqRole);
 					assemblyConnector.setRequiringAssemblyContext_AssemblyConnector(functionalContext);
 					
-					compositeComponent.getConnectors__ComposedStructure().add(assemblyConnector);
+					targetSystem.getConnectors__ComposedStructure().add(assemblyConnector);
 				}
 			}
 		}
 		
 	}
 	
-	private Set<OperationInterface> findInterfacesForComponent(Component component){
+	private Set<OperationInterface> findInterfacesForComponent(ServiceComponent component){
 		Set<OperationInterface> interfacesForComponent = new HashSet<OperationInterface>();
 		
 		for(Interface opInt : repo.getInterfaces__Repository()) {
@@ -298,12 +333,12 @@ public class GoalModelToPCMElementTransformator {
 		return interfacesForComponent;
 	}
 	
-	private void connectInterfacesToCompositeAndFunctionalComponents(CompositeComponent compositeComponent, RepositoryComponent functionalityComponent, OperationInterface opInterface) {
+	private void connectInterfacesToSystemAndFunctionalComponent(System system, RepositoryComponent functionalityComponent, OperationInterface opInterface) {
 		
 		OperationProvidedRole compositeProvRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		compositeProvRole.setEntityName(StringUtil.trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
 		compositeProvRole.setProvidedInterface__OperationProvidedRole(opInterface);
-		compositeComponent.getProvidedRoles_InterfaceProvidingEntity().add(compositeProvRole);
+		system.getProvidedRoles_InterfaceProvidingEntity().add(compositeProvRole);
 	
 		OperationProvidedRole baseProvRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		baseProvRole.setEntityName(StringUtil.trimWhiteSpace(opInterface.getEntityName(),UpperOrLower.LOWER));
@@ -312,13 +347,13 @@ public class GoalModelToPCMElementTransformator {
 		
 		ProvidedDelegationConnector compositeBaseInterfaceDelegation = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
 
-		for(AssemblyContext context : compositeComponent.getAssemblyContexts__ComposedStructure()) {
+		for(AssemblyContext context : system.getAssemblyContexts__ComposedStructure()) {
 			if(context.getEncapsulatedComponent__AssemblyContext().getId().equals(functionalityComponent.getId())) {	
 				compositeBaseInterfaceDelegation.setAssemblyContext_ProvidedDelegationConnector(context);
 				compositeBaseInterfaceDelegation.setInnerProvidedRole_ProvidedDelegationConnector(baseProvRole);
 				compositeBaseInterfaceDelegation.setOuterProvidedRole_ProvidedDelegationConnector(compositeProvRole);			
 				
-				compositeComponent.getConnectors__ComposedStructure().add(compositeBaseInterfaceDelegation);
+				system.getConnectors__ComposedStructure().add(compositeBaseInterfaceDelegation);
 				break;
 			}
 		}		
@@ -342,13 +377,13 @@ public class GoalModelToPCMElementTransformator {
 		}
 	}
 	
-	private void extendComponentsSeffsWithBlackBoxMechanisms(Set<Component> components) {
-		for (Component component : components) {
+	private void extendComponentsSeffsWithBlackBoxMechanisms(Set<ServiceComponent> components) {
+		for (ServiceComponent component : components) {
 			fillComponentSeffs(component);
 		}
 	}
 	
-	private void fillComponentSeffs(Component component) {
+	private void fillComponentSeffs(ServiceComponent component) {
 		BasicComponent functionalityComponent = getFunctionalityComponentFromRepository(component);
 		
 		for(FunctionalRequirement req : component.getProvidedFunctionalRequirements()) {
@@ -361,7 +396,7 @@ public class GoalModelToPCMElementTransformator {
 		
 	}
 	
-	private BasicComponent getFunctionalityComponentFromRepository(Component editorComponent) {
+	private BasicComponent getFunctionalityComponentFromRepository(ServiceComponent editorComponent) {
 		
 		for(RepositoryComponent component : repo.getComponents__Repository()) {
 			if(component.getId().equals(editorComponent.getPcmFunctionalComponentId())) {
@@ -381,7 +416,7 @@ public class GoalModelToPCMElementTransformator {
 		return null;
 	}
 	
-	private void fillSeffWithBlackBoxMechanismCalls(Component component, ResourceDemandingSEFF seff, FunctionalRequirement requirement) {
+	private void fillSeffWithBlackBoxMechanismCalls(ServiceComponent component, ResourceDemandingSEFF seff, FunctionalRequirement requirement) {
 		if(seff == null) {
 			return;
 		}
@@ -412,7 +447,7 @@ public class GoalModelToPCMElementTransformator {
 		}
 	}
 	
-	private Set<BlackBoxMechanism> extractBlackBoxMechanismsForRequirement(Component component, FunctionalRequirement requirement){
+	private Set<BlackBoxMechanism> extractBlackBoxMechanismsForRequirement(ServiceComponent component, FunctionalRequirement requirement){
 		Set<BlackBoxMechanism> bbms = new HashSet<BlackBoxMechanism>();
 		for(HardGoal hg : component.getHardGoals()) {
 			if(hg.getFunctionalRequirement().equals(requirement) && !(hg.getBBM() == null)) {

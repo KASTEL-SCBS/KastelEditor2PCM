@@ -24,7 +24,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.U
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.SoftGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.IOUtil;
@@ -33,7 +33,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
 public class KASTELGoalModelReader {
 	
-	private Set<Component> services;
+	private Set<ServiceComponent> services;
 	private Set<BlackBoxMechanism> blackBoxMechanisms;
 	private Set<FunctionalRequirement> functionalRequirements;
 	private Set<Asset> assets;
@@ -178,13 +178,13 @@ public class KASTELGoalModelReader {
 		return assets;
 	}
 	
-private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArrayJsonElement){
+private HashSet<ServiceComponent> generateServiceObjectsFromJson(JsonElement serviceArrayJsonElement){
 		
-		HashSet<Component> services = new HashSet<Component>(); 
+		HashSet<ServiceComponent> services = new HashSet<ServiceComponent>(); 
 		Collection<String> serviceNames = extractStringCollection(serviceArrayJsonElement);
 		
 		for (String serviceName : serviceNames) {
-			services.add(new Component(serviceName));
+			services.add(new ServiceComponent(serviceName));
 			
 		}
 		
@@ -301,7 +301,7 @@ private HashSet<Component> generateServiceObjectsFromJson(JsonElement serviceArr
 				
 				
 				String hgJsonServiceEntry = hardGoalJson.get(HardGoal.COMPONENT_ID).getAsString();
-				Component hgService = getServiceByName(hgJsonServiceEntry);
+				ServiceComponent hgService = getServiceByName(hgJsonServiceEntry);
 				
 				
 				String hgJsonFunctionalRequirementEntry = hardGoalJson.get(HardGoal.FUNCTIONAL_REQUIREMENT_ID).getAsString();
@@ -352,7 +352,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 				continue;
 			}
 			
-			Component hgRelatedService = getServiceByName(hardGoal.getServiceName());
+			ServiceComponent hgRelatedService = getServiceByName(hardGoal.getServiceName());
 			
 			if(hgRelatedService != null) {
 				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
@@ -377,7 +377,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		return string;
 	}
 	
-	public Set<Component> getServices() {
+	public Set<ServiceComponent> getServices() {
 		return services;
 	}
 	
@@ -426,10 +426,10 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 	}
 
 	private void splitFunctionalRequirementsForComponentsWhenNecessary() {
-		Collection<Component> visitedServices = new ArrayList<Component>();
-		for(Component component1 : services) {
+		Collection<ServiceComponent> visitedServices = new ArrayList<ServiceComponent>();
+		for(ServiceComponent component1 : services) {
 			
-			for( Component component2 : services ) {
+			for( ServiceComponent component2 : services ) {
 				if(!component1.equals(component2) && !visitedServices.contains(component1) && !visitedServices.contains(component2)) {
 				modifySimilarButDifferentFunctionalRequirementsInComponent(component1, component2);
 				}
@@ -439,7 +439,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		}
 	}
 
-	public void modifySimilarButDifferentFunctionalRequirementsInComponent(Component component1, Component component2) {
+	public void modifySimilarButDifferentFunctionalRequirementsInComponent(ServiceComponent component1, ServiceComponent component2) {
 		
 		HashSet<FunctionalRequirement> fuReqsOfComponent1 = new HashSet<FunctionalRequirement>();
 		HashSet<FunctionalRequirement> fuReqsOfComponent2 = new HashSet<FunctionalRequirement>();
@@ -493,7 +493,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		component2.exchangeFunctionalRequirements(fuReqsOfComponent2);
 	}
 	
-	public Set<Asset> getAssetsReallyUsedInFunctionalRequirementForComponent(Component component, FunctionalRequirement fuReq) {
+	public Set<Asset> getAssetsReallyUsedInFunctionalRequirementForComponent(ServiceComponent component, FunctionalRequirement fuReq) {
 		Set<Asset> assets = new HashSet<Asset>();
 		for(Asset asset : fuReq.assets) {
 			for(HardGoal hg : component.getHardGoals()) {
@@ -548,10 +548,10 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		return modelName;
 	}
 	
-	public Component getServiceByName(String searchedServiceName) {
+	public ServiceComponent getServiceByName(String searchedServiceName) {
 		String modifiedSearched = StringUtil.removeCharAndStringSymbols(searchedServiceName);
 		
-		for(Component component : services) {
+		for(ServiceComponent component : services) {
 			if(component.getName().equals(modifiedSearched)) {
 				return component;
 			}

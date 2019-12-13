@@ -24,7 +24,7 @@ import JOANAFlow4Palladio.JOANARoot;
 import JOANAFlow4Palladio.ParameterSink;
 import JOANAFlow4Palladio.Source;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Component;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 
@@ -58,7 +58,7 @@ public class JoanaFlow4PCMGenerator {
 	private void buildFlows(KASTELGoalModelReader reader, Repository repository) {
 		
 		
-		for(Component component : reader.getServices()) {
+		for(ServiceComponent component : reader.getServices()) {
 			BasicComponent bc = getBasicComponentById(component.getPcmFunctionalComponentId(), repository);
 			if(bc == null) {
 				continue;

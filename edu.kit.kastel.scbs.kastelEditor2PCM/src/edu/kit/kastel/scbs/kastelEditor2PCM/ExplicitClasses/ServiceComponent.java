@@ -11,9 +11,9 @@ import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
-public class Component extends EditorElement {
+public class ServiceComponent extends EditorElement {
 	
-	private String pcmCompositeComponentId;
+	private String systemId;
 	
 	//Direkt Editor Assignments
 	private Collection<HardGoal> hardGoals;
@@ -22,7 +22,7 @@ public class Component extends EditorElement {
 	private Set<BlackBoxMechanism> blackBoxMechanisms;
 	private Set<FunctionalRequirement> providedFunctionalRequirements;
 	
-	public Component(String name) {
+	public ServiceComponent(String name) {
 		super.setName(name);
 		hardGoals = new ArrayList<HardGoal>();
 		blackBoxMechanisms = new HashSet<BlackBoxMechanism>();
@@ -33,12 +33,12 @@ public class Component extends EditorElement {
 		return super.getName();
 	}
 
-	public String getPcmCompositeComponentId() {
-		return pcmCompositeComponentId;
+	public String getSystemId() {
+		return systemId;
 	}
 
-	public void setPcmCompositeComponentId(String pcmCompositeComponentId) {
-		this.pcmCompositeComponentId = pcmCompositeComponentId;
+	public void setSystemId(String systemId) {
+		this.systemId = systemId;
 	}
 
 	public String getPcmFunctionalComponentId() {
