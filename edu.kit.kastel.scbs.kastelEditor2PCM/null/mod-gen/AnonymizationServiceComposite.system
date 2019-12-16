@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_xRMGmyASEeqHlbPO3wsaSQ" entityName="AnonymizationServiceComposite">
+  <assemblyContexts__ComposedStructure id="_xRMGnSASEeqHlbPO3wsaSQ" entityName="AnonymizationService">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="null/mod-gen/PCC.repository#_xRMGnCASEeqHlbPO3wsaSQ"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmTCASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmSiASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmSyASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmUiASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmUCASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmUSASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmWCASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmViASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmVyASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmXiASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmXCASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmXSASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmZyASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmZSASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmZiASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmbSASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmayASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmbCASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmcyASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmcSASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGnSASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmciASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmSiASEeqHlbPO3wsaSQ" entityName="storingAnonymizedData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGjCASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmUCASEeqHlbPO3wsaSQ" entityName="anonymizingData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGgyASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmViASEeqHlbPO3wsaSQ" entityName="downloadingAnonymizedData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGjiASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmXCASEeqHlbPO3wsaSQ" entityName="authenticatingProsecutionAuthority">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRF_4CASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmZSASEeqHlbPO3wsaSQ" entityName="authenticatingCrashCamOperator">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGkiASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmayASEeqHlbPO3wsaSQ" entityName="explicitlyGrantingAccessToRawData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGliASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmcSASEeqHlbPO3wsaSQ" entityName="storingData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGiSASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

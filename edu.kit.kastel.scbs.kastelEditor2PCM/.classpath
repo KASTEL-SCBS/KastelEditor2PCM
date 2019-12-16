@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -19,7 +20,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/edu.kit.kastel.scbs.JOANAFlow4Palladio"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/edu.kit.ipd.sdq.composition.securityanalyses.basic"/>
 	<classpathentry exported="true" kind="lib" path="lib/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-cli-1.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

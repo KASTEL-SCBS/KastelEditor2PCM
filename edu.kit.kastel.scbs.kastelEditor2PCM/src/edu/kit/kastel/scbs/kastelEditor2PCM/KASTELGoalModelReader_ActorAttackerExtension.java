@@ -22,9 +22,9 @@ public class KASTELGoalModelReader_ActorAttackerExtension extends KASTELGoalMode
 	}
 	
 	@Override
-	protected void readExtensionModelInformation(String goalModelStringRepresentation) {
+	protected void readExtensionModelInformation() {
 		JsonParser parser = new JsonParser();
-		JsonElement rootElement = parser.parse(goalModelStringRepresentation);
+		JsonElement rootElement = parser.parse(super.goalModelStringRepresentation);
 		
 		if(rootElement.isJsonObject()) {
 			JsonObject root = rootElement.getAsJsonObject();

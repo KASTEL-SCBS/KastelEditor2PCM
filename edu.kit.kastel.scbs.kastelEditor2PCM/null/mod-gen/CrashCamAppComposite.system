@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_xRMGmCASEeqHlbPO3wsaSQ" entityName="CrashCamAppComposite">
+  <assemblyContexts__ComposedStructure id="_xRMGmiASEeqHlbPO3wsaSQ" entityName="CrashCamApp">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="null/mod-gen/PCC.repository#_xRMGmSASEeqHlbPO3wsaSQ"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmNCASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmMiASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGmiASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmMyASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmOiASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmOCASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGmiASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmOSASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmQCASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmPiASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGmiASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmPyASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_xRRmRiASEeqHlbPO3wsaSQ" outerProvidedRole_ProvidedDelegationConnector="_xRRmRCASEeqHlbPO3wsaSQ" assemblyContext_ProvidedDelegationConnector="_xRMGmiASEeqHlbPO3wsaSQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="null/mod-gen/PCC.repository#_xRRmRSASEeqHlbPO3wsaSQ"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmMiASEeqHlbPO3wsaSQ" entityName="recordingData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGlCASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmOCASEeqHlbPO3wsaSQ" entityName="authenticatingCrashCamOperator">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGkiASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmPiASEeqHlbPO3wsaSQ" entityName="storingData_CrashCamApp">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGkCASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xRRmRCASEeqHlbPO3wsaSQ" entityName="uploadingData">
+    <providedInterface__OperationProvidedRole href="null/mod-gen/PCC.repository#_xRMGhiASEeqHlbPO3wsaSQ"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

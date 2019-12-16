@@ -1,0 +1,1751 @@
+[
+  {
+    "systemId": "_lPIC1CASEeqHPKm0r21RKg",
+    "hardGoals": [
+      {
+        "name": "Anonymization service ensures the Authenticity of Anonymized data during the Downloading anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmoyASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmoiASEeqHPKm0r21RKg",
+          "name": "Downloading anonymized data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "1",
+        "SoftGoal": {
+          "name": "Authenticity of Anonymized data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Anonymized data during the Storing anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPAHASASEeqHPKm0r21RKg"
+          },
+          "id": "_lPAHACASEeqHPKm0r21RKg",
+          "name": "Storing anonymized data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "2",
+        "SoftGoal": {
+          "name": "Authenticity of Anonymized data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Anonymized data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmmSASEeqHPKm0r21RKg",
+            "Data": "_lPFmmiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmCASEeqHPKm0r21RKg",
+          "name": "Storing data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "3",
+        "SoftGoal": {
+          "name": "Authenticity of Anonymized data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC0CASEeqHPKm0r21RKg",
+          "name": "Authenticating crash cam operator"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": false,
+          "pcmInterfaceId": "_lPLGKSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Crash cam operators user accounts": "_lPLGKiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGKCASEeqHPKm0r21RKg",
+          "name": "Password Authentication Scheme"
+        },
+        "uID": "4",
+        "SoftGoal": {
+          "name": "Authenticity of Crash cam operators\u0027 user accounts",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Data during the Explicitly granting access to raw data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmlSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmlCASEeqHPKm0r21RKg",
+          "name": "Explicitly granting access to raw data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "5",
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmmSASEeqHPKm0r21RKg",
+            "Data": "_lPFmmiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmCASEeqHPKm0r21RKg",
+          "name": "Storing data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "6",
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Authenticity of Privileged user account during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Privileged user account": "_lPFmnCASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPFmniASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmyASEeqHPKm0r21RKg",
+          "name": "Authenticating prosecution authority"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": false,
+          "pcmInterfaceId": "_lPIC3iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC3yASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC3SASEeqHPKm0r21RKg",
+          "name": "Asymmetric Crypto Authentication Scheme"
+        },
+        "uID": "7",
+        "SoftGoal": {
+          "name": "Authenticity of Privileged user account",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmnSASEeqHPKm0r21RKg",
+            "name": "Privileged user account"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC0CASEeqHPKm0r21RKg",
+          "name": "Authenticating crash cam operator"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "8",
+        "SoftGoal": {
+          "name": "Confidentiality of Crash cam operators\u0027 user accounts",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Crash cam operators\u0027 user accounts during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Privileged user account": "_lPFmnCASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPFmniASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmyASEeqHPKm0r21RKg",
+          "name": "Authenticating prosecution authority"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "9",
+        "SoftGoal": {
+          "name": "Confidentiality of Crash cam operators\u0027 user accounts",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Data during the Explicitly granting access to raw data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmlSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmlCASEeqHPKm0r21RKg",
+          "name": "Explicitly granting access to raw data"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "10",
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmmSASEeqHPKm0r21RKg",
+            "Data": "_lPFmmiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmCASEeqHPKm0r21RKg",
+          "name": "Storing data"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGOCASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGNiASEeqHPKm0r21RKg",
+          "name": "Hybrid Encryption"
+        },
+        "uID": "11",
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Confidentiality of Privileged user account during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Privileged user account": "_lPFmnCASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPFmniASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmyASEeqHPKm0r21RKg",
+          "name": "Authenticating prosecution authority"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "12",
+        "SoftGoal": {
+          "name": "Confidentiality of Privileged user account",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmnSASEeqHPKm0r21RKg",
+            "name": "Privileged user account"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Anonymizing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPIC0yASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC0iASEeqHPKm0r21RKg",
+          "name": "Anonymizing data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "13",
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Downloading anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmoyASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmoiASEeqHPKm0r21RKg",
+          "name": "Downloading anonymized data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "14",
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Storing anonymized data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPAHASASEeqHPKm0r21RKg"
+          },
+          "id": "_lPAHACASEeqHPKm0r21RKg",
+          "name": "Storing anonymized data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "15",
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Anonymized data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmmSASEeqHPKm0r21RKg",
+            "Data": "_lPFmmiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmCASEeqHPKm0r21RKg",
+          "name": "Storing data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGLyASEeqHPKm0r21RKg",
+          "name": "Digital Signature"
+        },
+        "uID": "16",
+        "SoftGoal": {
+          "name": "Integrity of Anonymized data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC0CASEeqHPKm0r21RKg",
+          "name": "Authenticating crash cam operator"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "17",
+        "SoftGoal": {
+          "name": "Integrity of Crash cam operators\u0027 user accounts",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Crash cam operators\u0027 user accounts during the Authenticating prosecution authority",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Privileged user account": "_lPFmnCASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPFmniASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmyASEeqHPKm0r21RKg",
+          "name": "Authenticating prosecution authority"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "18",
+        "SoftGoal": {
+          "name": "Integrity of Crash cam operators\u0027 user accounts",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Data during the Explicitly granting access to raw data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmlSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmlCASEeqHPKm0r21RKg",
+          "name": "Explicitly granting access to raw data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "19",
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Anonymization service ensures the Integrity of Data during the Storing data",
+        "serviceName": "Anonymization service",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkCASEeqHPKm0r21RKg",
+              "name": "Anonymized data"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Anonymized data": "_lPFmmSASEeqHPKm0r21RKg",
+            "Data": "_lPFmmiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmmCASEeqHPKm0r21RKg",
+          "name": "Storing data"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGOCASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGNiASEeqHPKm0r21RKg",
+          "name": "Hybrid Encryption"
+        },
+        "uID": "20",
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      }
+    ],
+    "blackBoxMechanisms": [
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": false,
+        "pcmInterfaceId": "_lPIC3iASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmnSASEeqHPKm0r21RKg",
+            "name": "Privileged user account"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Privileged user account": "_lPIC3yASEeqHPKm0r21RKg"
+        },
+        "id": "_lPIC3SASEeqHPKm0r21RKg",
+        "name": "Asymmetric Crypto Authentication Scheme"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmnSASEeqHPKm0r21RKg",
+            "name": "Privileged user account"
+          },
+          {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+          "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+          "Data": "_lPIC5SASEeqHPKm0r21RKg"
+        },
+        "id": "_lPIC4SASEeqHPKm0r21RKg",
+        "name": "Access Control"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": true,
+        "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Data": "_lPLGJiASEeqHPKm0r21RKg"
+        },
+        "id": "_lPLGJCASEeqHPKm0r21RKg",
+        "name": "Cryptographic Hash Function"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": false,
+        "pcmInterfaceId": "_lPLGKSASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Crash cam operators user accounts": "_lPLGKiASEeqHPKm0r21RKg"
+        },
+        "id": "_lPLGKCASEeqHPKm0r21RKg",
+        "name": "Password Authentication Scheme"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": true,
+        "pcmInterfaceId": "_lPLGMCASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Anonymized data": "_lPLGMSASEeqHPKm0r21RKg"
+        },
+        "id": "_lPLGLyASEeqHPKm0r21RKg",
+        "name": "Digital Signature"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Data": "_lPLGOCASEeqHPKm0r21RKg"
+        },
+        "id": "_lPLGNiASEeqHPKm0r21RKg",
+        "name": "Hybrid Encryption"
+      }
+    ],
+    "providedFunctionalRequirements": [
+      {
+        "assets": [
+          {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Anonymized data": "_lPAHASASEeqHPKm0r21RKg"
+        },
+        "id": "_lPAHACASEeqHPKm0r21RKg",
+        "name": "Storing anonymized data"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Data": "_lPFmlSASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmlCASEeqHPKm0r21RKg",
+        "name": "Explicitly granting access to raw data"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          },
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Anonymized data": "_lPFmmSASEeqHPKm0r21RKg",
+          "Data": "_lPFmmiASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmmCASEeqHPKm0r21RKg",
+        "name": "Storing data"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmnSASEeqHPKm0r21RKg",
+            "name": "Privileged user account"
+          },
+          {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Privileged user account": "_lPFmnCASEeqHPKm0r21RKg",
+          "Crash cam operators user accounts": "_lPFmniASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmmyASEeqHPKm0r21RKg",
+        "name": "Authenticating prosecution authority"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Anonymized data": "_lPFmoyASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmoiASEeqHPKm0r21RKg",
+        "name": "Downloading anonymized data"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+        },
+        "id": "_lPIC0CASEeqHPKm0r21RKg",
+        "name": "Authenticating crash cam operator"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmkCASEeqHPKm0r21RKg",
+            "name": "Anonymized data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Anonymized data": "_lPIC0yASEeqHPKm0r21RKg"
+        },
+        "id": "_lPIC0iASEeqHPKm0r21RKg",
+        "name": "Anonymizing data"
+      }
+    ],
+    "id": "_lPIC1SASEeqHPKm0r21RKg",
+    "name": "Anonymization service"
+  },
+  {
+    "systemId": "_lPIC1yASEeqHPKm0r21RKg",
+    "hardGoals": [
+      {
+        "name": "Crash cam app ensures the Authenticity of Data during the Recording data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmoSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmoCASEeqHPKm0r21RKg",
+          "name": "Recording data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "21",
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Authenticity of Data during the Uploading data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmkiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmkSASEeqHPKm0r21RKg",
+          "name": "Uploading data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "22",
+        "SoftGoal": {
+          "name": "Authenticity of Data",
+          "concern": "authenticity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC0CASEeqHPKm0r21RKg",
+          "name": "Authenticating crash cam operator"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "23",
+        "SoftGoal": {
+          "name": "Confidentiality of Crash cam operators\u0027 user accounts",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Data during the Recording data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmoSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmoCASEeqHPKm0r21RKg",
+          "name": "Recording data"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGOCASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGNiASEeqHPKm0r21RKg",
+          "name": "Hybrid Encryption"
+        },
+        "uID": "24",
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Data during the Storing data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmlyASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmliASEeqHPKm0r21RKg",
+          "name": "Storing data_Crash cam app"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGOCASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGNiASEeqHPKm0r21RKg",
+          "name": "Hybrid Encryption"
+        },
+        "uID": "25",
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Confidentiality of Data during the Uploading data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmkiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmkSASEeqHPKm0r21RKg",
+          "name": "Uploading data"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGOCASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGNiASEeqHPKm0r21RKg",
+          "name": "Hybrid Encryption"
+        },
+        "uID": "26",
+        "SoftGoal": {
+          "name": "Confidentiality of Data",
+          "concern": "confidentiality",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Integrity of Crash cam operators\u0027 user accounts during the Authenticating crash cam operator",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC0CASEeqHPKm0r21RKg",
+          "name": "Authenticating crash cam operator"
+        },
+        "bbm": {
+          "authenticity": false,
+          "confidentiality": true,
+          "integrity": true,
+          "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmnSASEeqHPKm0r21RKg",
+              "name": "Privileged user account"
+            },
+            {
+              "id": "_lPFmnyASEeqHPKm0r21RKg",
+              "name": "Crash cam operators user accounts"
+            },
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+            "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+            "Data": "_lPIC5SASEeqHPKm0r21RKg"
+          },
+          "id": "_lPIC4SASEeqHPKm0r21RKg",
+          "name": "Access Control"
+        },
+        "uID": "27",
+        "SoftGoal": {
+          "name": "Integrity of Crash cam operators\u0027 user accounts",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Integrity of Data during the Recording data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmoSASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmoCASEeqHPKm0r21RKg",
+          "name": "Recording data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "28",
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      },
+      {
+        "name": "Crash cam app ensures the Integrity of Data during the Uploading data",
+        "serviceName": "Crash cam app",
+        "functionalRequirement": {
+          "assets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "operationSignatureAssetMap": {
+            "Data": "_lPFmkiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPFmkSASEeqHPKm0r21RKg",
+          "name": "Uploading data"
+        },
+        "bbm": {
+          "authenticity": true,
+          "confidentiality": false,
+          "integrity": true,
+          "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+          "targetAssets": [
+            {
+              "id": "_lPFmkyASEeqHPKm0r21RKg",
+              "name": "Data"
+            }
+          ],
+          "assetToPCMOperationSignatureIdMapping": {
+            "Data": "_lPLGJiASEeqHPKm0r21RKg"
+          },
+          "id": "_lPLGJCASEeqHPKm0r21RKg",
+          "name": "Cryptographic Hash Function"
+        },
+        "uID": "29",
+        "SoftGoal": {
+          "name": "Integrity of Data",
+          "concern": "integrity",
+          "asset": {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          },
+          "priority": true
+        }
+      }
+    ],
+    "blackBoxMechanisms": [
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "pcmInterfaceId": "_lPIC4iASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmnSASEeqHPKm0r21RKg",
+            "name": "Privileged user account"
+          },
+          {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          },
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Privileged user account": "_lPIC4yASEeqHPKm0r21RKg",
+          "Crash cam operators user accounts": "_lPIC5CASEeqHPKm0r21RKg",
+          "Data": "_lPIC5SASEeqHPKm0r21RKg"
+        },
+        "id": "_lPIC4SASEeqHPKm0r21RKg",
+        "name": "Access Control"
+      },
+      {
+        "authenticity": true,
+        "confidentiality": false,
+        "integrity": true,
+        "pcmInterfaceId": "_lPLGJSASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Data": "_lPLGJiASEeqHPKm0r21RKg"
+        },
+        "id": "_lPLGJCASEeqHPKm0r21RKg",
+        "name": "Cryptographic Hash Function"
+      },
+      {
+        "authenticity": false,
+        "confidentiality": true,
+        "integrity": true,
+        "pcmInterfaceId": "_lPLGNyASEeqHPKm0r21RKg",
+        "targetAssets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "assetToPCMOperationSignatureIdMapping": {
+          "Data": "_lPLGOCASEeqHPKm0r21RKg"
+        },
+        "id": "_lPLGNiASEeqHPKm0r21RKg",
+        "name": "Hybrid Encryption"
+      }
+    ],
+    "providedFunctionalRequirements": [
+      {
+        "assets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Data": "_lPFmkiASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmkSASEeqHPKm0r21RKg",
+        "name": "Uploading data"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Data": "_lPFmlyASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmliASEeqHPKm0r21RKg",
+        "name": "Storing data_Crash cam app"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmkyASEeqHPKm0r21RKg",
+            "name": "Data"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Data": "_lPFmoSASEeqHPKm0r21RKg"
+        },
+        "id": "_lPFmoCASEeqHPKm0r21RKg",
+        "name": "Recording data"
+      },
+      {
+        "assets": [
+          {
+            "id": "_lPFmnyASEeqHPKm0r21RKg",
+            "name": "Crash cam operators user accounts"
+          }
+        ],
+        "operationSignatureAssetMap": {
+          "Crash cam operators user accounts": "_lPIC0SASEeqHPKm0r21RKg"
+        },
+        "id": "_lPIC0CASEeqHPKm0r21RKg",
+        "name": "Authenticating crash cam operator"
+      }
+    ],
+    "id": "_lPIC2CASEeqHPKm0r21RKg",
+    "name": "Crash cam app"
+  }
+]

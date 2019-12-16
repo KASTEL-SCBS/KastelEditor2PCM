@@ -3,6 +3,7 @@ package edu.kit.kastel.scbs.kastelEditor2PCM;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
@@ -54,6 +55,7 @@ public class GoalModelToPCMElementTransformator {
 	
 	public void generateRepositoryModel(KASTELGoalModelReader reader, String modelFilePath) {
 		
+		systems = new LinkedHashSet<System>();
 
 		if(!modelFilePath.endsWith(".repository")) {
 			modelFilePath += ".repository";

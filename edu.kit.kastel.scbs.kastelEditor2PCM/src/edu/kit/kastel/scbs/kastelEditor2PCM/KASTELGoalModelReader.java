@@ -40,22 +40,23 @@ public class KASTELGoalModelReader {
 	private Collection<SoftGoal> softGoals;
 	private Map<String, HardGoal> hardGoals;
 	private String modelName;
+	protected String goalModelStringRepresentation;
 
 	public boolean extractKastelEditorModelFromJson(File file) {
-		String goalModelStringRepresentation = IOUtil.readFromFile(file);
+		goalModelStringRepresentation = IOUtil.readFromFile(file);
 		
 		if(goalModelStringRepresentation.isEmpty()) {
 			return false ;
 		}
 		readBaseGoalModel(goalModelStringRepresentation);
-		readExtensionModelInformation(goalModelStringRepresentation);
+		readExtensionModelInformation();
 		postProcessFunctionalRequirementsAndComponents();
 		
 		return true;
 		
 	}
 	
-	protected void readExtensionModelInformation(String goalModelStringRepresentation) {
+	protected void readExtensionModelInformation() {
 		// In Basic Reader, no extension expected
 	}
 
