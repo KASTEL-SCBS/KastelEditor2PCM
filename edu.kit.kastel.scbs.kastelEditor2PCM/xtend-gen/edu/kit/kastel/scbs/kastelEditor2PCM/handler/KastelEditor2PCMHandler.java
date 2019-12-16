@@ -86,6 +86,7 @@ public class KastelEditor2PCMHandler extends AbstractHandler implements IHandler
     GoalModelToPCMElementTransformator goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
     goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
     goalModelToPCMTransformer.savePCMModel();
+    goalModelToPCMTransformer.saveSystems(((projectPath + "/") + this.GENERATION_DIRECTORY_NAME));
     String _modelName_1 = goalModelReader.getModelName();
     String _plus_1 = ((((projectPath + "/") + this.GENERATION_DIRECTORY_NAME) + "/") + _modelName_1);
     final String joanaFlowModelPath = (_plus_1 + ".joanaflow4palladio");
