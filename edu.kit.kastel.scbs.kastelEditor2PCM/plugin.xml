@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension
+         id="headlessKASTELEditor2PCMApplication"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="edu.kit.kastel.scbs.kastelEditor2PCM.KastelEditor2PCM">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="headlessKastelEditor2PCM"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplication"
+            name="Headless KASTELEditor2PCM">
+         <property
+               name="appName"
+               value="Headless KASTELEditor2PCM">
+         </property>
+      </product>
+   </extension>
 
 </plugin>

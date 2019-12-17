@@ -2,6 +2,7 @@ package edu.kit.kastel.scbs.kastelEditor2PCM;
 
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -10,9 +11,11 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.equinox.app.IApplication;
+import org.eclipse.equinox.app.IApplicationContext;
 
 
-public class KastelEditor2PCM {
+public class KastelEditor2PCM implements IApplication{
 
 	private final static String GOAL_MODEL_FILE_ENDING = ".json";
 	private final static String PCM_REPOSITORY_FILE_ENDING = ".repository";
@@ -29,9 +32,40 @@ public class KastelEditor2PCM {
 			} 
 		} catch (ParseException e) {
 			System.out.println("Error in CLI");
+			System.out.println("Error: " + e.getMessage().toString());
 		}
 	}
 	
+
+	@Override
+	public Object start(IApplicationContext context) throws Exception {
+		Map<?, ?> contextArgs = context.getArguments();
+		String[] appArgs = (String[]) contextArgs.get("application.args");
+		
+		try {
+			CommandLineParameters cliParameters = getConfiguration(appArgs);
+			
+			if(cliParameters != null && cliParameters.parametersValid()) {
+			processGoalModelingEditorModel(cliParameters);
+			System.exit(42);
+			return 42;
+			} 
+		} catch (ParseException e) {
+			System.out.println("Error in CLI");
+			System.out.println("Error: " + e.getMessage().toString());
+			System.exit(42);
+			return 42;
+		}
+		
+		return IApplication.EXIT_OK;
+	}
+
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	private static void processGoalModelingEditorModel(CommandLineParameters cliParameters){
 
@@ -133,4 +167,6 @@ public class KastelEditor2PCM {
 		File trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName() + "_Tracking" + TRACKING_FILE_ENDING);
 		goalModelReader.saveTrackingFile(trackingFile);
 	}
+
+
 }
