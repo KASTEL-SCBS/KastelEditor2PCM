@@ -155,9 +155,6 @@ public class KastelEditor2PCM implements IApplication{
 		goalModelToPCMTransformer.saveSystems(projectPath + "/" + GENERATION_DIRECTORY_NAME);
 		
 		if(cliParameters.isGeneratingJOANAFlowModel()) {
-		String joanaFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName() + ".joanaflow4palladio";
-		JoanaFlow4PCMGenerator joanaFlow4PCMGenerator = new JoanaFlow4PCMGenerator();
-		joanaFlow4PCMGenerator.generateModel(goalModelReader, goalModelToPCMTransformer.getRepositoryModel(), joanaFlowModelPath);
 		}
 		
 		if(cliParameters.isUsingAdversaries()) {
