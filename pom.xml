@@ -1,0 +1,17 @@
+<project>
+ <modelVersion>4.0.0</modelVersion>
+ <groupId>edu.kit.kastel.scbs.kastelEditor2PCM</groupId>
+ <artifactId>edu.kit.kastel.scbs.kastelEditor2PCM.root</artifactId>
+ <version>1.0.0-SNAPSHOT</version>
+ <packaging>pom</packaging>
+ <parent>
+   <groupId>edu.kit.kastel.scbs.kastelEditor2PCM</groupId>
+   <artifactId>edu.kit.kastel.scbs.kastelEditor2PCM.configuration</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+  <relativePath>./releng/edu.kit.kastel.scbs.kasteleditor2pcm.configuration</relativePath>
+ </parent>
+
+ <modules>
+    <module>bundles</module>
+ </modules>
+</project>
