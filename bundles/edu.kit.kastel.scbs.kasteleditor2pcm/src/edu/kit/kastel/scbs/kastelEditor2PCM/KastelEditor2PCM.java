@@ -10,9 +10,13 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+
+import edu.kit.kastel.scbs.kastelEditor2PCM.cli.KASTELEditor2PCMCLI;
+import edu.kit.kastel.scbs.kastelEditor2PCM.cli.KASTELEditor2PCMCommandLineParameters;
 
 
 public class KastelEditor2PCM implements IApplication{
@@ -24,16 +28,15 @@ public class KastelEditor2PCM implements IApplication{
 	
 	
 	public static void main(String[] args) {
-		try {
-			CommandLineParameters cliParameters = getConfiguration(args);
 			
-			if(cliParameters != null && cliParameters.parametersValid()) {
+			KASTELEditor2PCMCommandLineParameters cliParameters =  new KASTELEditor2PCMCLI().interrogateCommandLine(args);
+		
+			if(cliParameters.parametersValid()) {
 				processGoalModelingEditorModel(cliParameters);
-			} 
-		} catch (ParseException e) {
-			System.out.println("Error in CLI");
-			System.out.println("Error: " + e.getMessage().toString());
-		}
+			}  else {
+				System.out.println("Error in CLI");
+			}
+		
 		
 		System.out.println("Done");
 	}
@@ -44,20 +47,21 @@ public class KastelEditor2PCM implements IApplication{
 		Map<?, ?> contextArgs = context.getArguments();
 		String[] appArgs = (String[]) contextArgs.get("application.args");
 		
-		try {
-			CommandLineParameters cliParameters = getConfiguration(appArgs);
+		
+			KASTELEditor2PCMCommandLineParameters cliParameters = new KASTELEditor2PCMCLI().interrogateCommandLine(appArgs);
 			
-			if(cliParameters != null && cliParameters.parametersValid()) {
+			
+			
+			
+			if(cliParameters.parametersValid()) {
 				processGoalModelingEditorModel(cliParameters);
 			} else {
-				System.out.println("Problem with CLI Parameters");
+				System.out.println("Error in CLI");
+				System.exit(42);
+				return 42;
 			}
-		} catch (ParseException e) {
-			System.out.println("Error in CLI");
-			System.out.println("Error: " + e.getMessage().toString());
-			System.exit(42);
-			return 42;
-		}
+		
+	
 		System.out.println("Done");
 		return IApplication.EXIT_OK;
 	}
@@ -69,7 +73,7 @@ public class KastelEditor2PCM implements IApplication{
 		
 	}
 	
-	private static void processGoalModelingEditorModel(CommandLineParameters cliParameters){
+	private static void processGoalModelingEditorModel(KASTELEditor2PCMCommandLineParameters cliParameters){
 
 		KASTELGoalModelReader reader;
 		
@@ -93,54 +97,7 @@ public class KastelEditor2PCM implements IApplication{
 		}
 	}
 	
-	
-
-	
-	protected static CommandLineParameters getConfiguration(String[] args) throws ParseException{
-
-		Options options = new Options();
-		
-		Option editorFilePathOption = Option.builder("editorFilePath").longOpt("KASTELEditorModelFile").argName("file").hasArg().desc("File that contains the Editor model").required().build();
-		Option generationPathOption = Option.builder("generationPath").argName("generationPath").desc("The Path the Models shall be generated into").hasArg().required().build();
-		Option useAdversariesOption = Option.builder("useAdversaries").argName("considerAdversaries").desc("Determines wether adversaries should be considered in input or output").hasArg(false).build();
-		Option generateJOANAFlowModelOption = Option.builder("generateJOANAFlowModel").argName("generateJOANAFlowModel").desc("Specifies that a JOANA Flow Model should be generated").hasArg(false).build();
-		
-		
-		
-		options.addOption(editorFilePathOption);
-		options.addOption(generationPathOption);
-		options.addOption(useAdversariesOption);
-		options.addOption(generateJOANAFlowModelOption);
-		
-		CommandLineParser parser = new DefaultParser();
-		
-		CommandLine  commandLine = parser.parse(options, args);
-
-		String filePath = "";
-		String generationPath = "";
-		
-		if(commandLine.hasOption(editorFilePathOption.getOpt())) {
-			filePath = commandLine.getOptionValue(editorFilePathOption.getOpt());
-		} else {
-			System.out.println("Editor File Path not provided");
-			return null;
-		}
-		
-		if(commandLine.hasOption(generationPathOption.getOpt())) {
-			generationPath = commandLine.getOptionValue(generationPathOption.getOpt());
-		} else {
-			System.out.println("Generation Path not provided");
-			return null;
-		}
-		
-		 
-		boolean useAdversaries = commandLine.hasOption(useAdversariesOption.getOpt());
-		boolean generateJOANAFlowModel = commandLine.hasOption(generateJOANAFlowModelOption.getOpt());
-		
-		return new CommandLineParameters(filePath, generationPath, useAdversaries, generateJOANAFlowModel);
-	}	
-	
-	private static void processReadGoalModel(KASTELGoalModelReader goalModelReader, String projectPath, CommandLineParameters cliParameters){
+	private static void processReadGoalModel(KASTELGoalModelReader goalModelReader, String projectPath, KASTELEditor2PCMCommandLineParameters cliParameters){
 		
 		File genDirectoryFile =  new File(projectPath + "/" + GENERATION_DIRECTORY_NAME);
 		
