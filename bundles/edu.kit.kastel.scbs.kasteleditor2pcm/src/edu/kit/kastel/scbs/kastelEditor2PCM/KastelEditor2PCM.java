@@ -1,0 +1,128 @@
+package edu.kit.kastel.scbs.kastelEditor2PCM;
+
+
+import java.io.File;
+import java.util.Map;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.equinox.app.IApplication;
+import org.eclipse.equinox.app.IApplicationContext;
+
+import edu.kit.kastel.scbs.kastelEditor2PCM.cli.KASTELEditor2PCMCLI;
+import edu.kit.kastel.scbs.kastelEditor2PCM.cli.KASTELEditor2PCMCommandLineParameters;
+
+
+public class KastelEditor2PCM implements IApplication{
+
+	private final static String GOAL_MODEL_FILE_ENDING = ".json";
+	private final static String PCM_REPOSITORY_FILE_ENDING = ".repository";
+	private final static String TRACKING_FILE_ENDING = ".json";
+	private final static String GENERATION_DIRECTORY_NAME = "mod-gen";
+	
+	
+	public static void main(String[] args) {
+			
+			KASTELEditor2PCMCommandLineParameters cliParameters =  new KASTELEditor2PCMCLI().interrogateCommandLine(args);
+		
+			if(cliParameters.parametersValid()) {
+				processGoalModelingEditorModel(cliParameters);
+			}  else {
+				System.out.println("Error in CLI");
+			}
+		
+		
+		System.out.println("Done");
+	}
+	
+
+	@Override
+	public Object start(IApplicationContext context) throws Exception {
+		Map<?, ?> contextArgs = context.getArguments();
+		String[] appArgs = (String[]) contextArgs.get("application.args");
+		
+		
+			KASTELEditor2PCMCommandLineParameters cliParameters = new KASTELEditor2PCMCLI().interrogateCommandLine(appArgs);
+			
+			
+			
+			
+			if(cliParameters.parametersValid()) {
+				processGoalModelingEditorModel(cliParameters);
+			} else {
+				System.out.println("Error in CLI");
+				System.exit(42);
+				return 42;
+			}
+		
+	
+		System.out.println("Done");
+		return IApplication.EXIT_OK;
+	}
+
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private static void processGoalModelingEditorModel(KASTELEditor2PCMCommandLineParameters cliParameters){
+
+		KASTELGoalModelReader reader;
+		
+		File goalModelFile = new File(URI.createFileURI(cliParameters.getEditorFilePath()).toFileString());
+		
+		
+		
+		boolean validGoalModel = false;
+		
+		if(cliParameters.isUsingAdversaries()) {
+			reader = new KASTELGoalModelReader_ActorAttackerExtension();
+		} else {
+			reader = new KASTELGoalModelReader();
+		}
+		
+		validGoalModel = reader.extractKastelEditorModelFromJson(goalModelFile);
+	
+		
+		if(validGoalModel){
+			processReadGoalModel(reader, cliParameters.getGenerationPath(), cliParameters);
+		}
+	}
+	
+	private static void processReadGoalModel(KASTELGoalModelReader goalModelReader, String projectPath, KASTELEditor2PCMCommandLineParameters cliParameters){
+		
+		File genDirectoryFile =  new File(projectPath + "/" + GENERATION_DIRECTORY_NAME);
+		
+		if(!genDirectoryFile.exists()){
+			genDirectoryFile.mkdirs();
+		}
+		
+		String pcmRepositoryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName() + PCM_REPOSITORY_FILE_ENDING;
+		GoalModelToPCMElementTransformator goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
+		goalModelToPCMTransformer.generateRepositoryModel(goalModelReader, pcmRepositoryModelPath);
+		goalModelToPCMTransformer.savePCMModel();
+		goalModelToPCMTransformer.saveSystems(projectPath + "/" + GENERATION_DIRECTORY_NAME);
+		
+		if(cliParameters.isGeneratingJOANAFlowModel()) {
+		}
+		
+		if(cliParameters.isUsingAdversaries()) {
+		String adversaryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" +goalModelReader.getModelName() + ".adversary";
+		AdversaryGenerator adversaryGenerator = new AdversaryGenerator();
+		adversaryGenerator.generateAdversaryModel((KASTELGoalModelReader_ActorAttackerExtension)goalModelReader, adversaryModelPath);
+		}
+		
+		File trackingFile = new File(projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName() + "_Tracking" + TRACKING_FILE_ENDING);
+		goalModelReader.saveTrackingFile(trackingFile);
+	}
+
+
+}
