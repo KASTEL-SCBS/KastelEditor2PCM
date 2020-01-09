@@ -16,7 +16,6 @@ public class KASTELEditor2PCMCLIHandler {
 
 	public Options getOptions() {
 		Options options = new Options();
-		System.out.println("in options");
 		Option editorFilePathOption = Option.builder(EDITOR_FILE_PATH).argName("file").hasArg().desc("File that contains the Editor model").required().build();
 		Option generationPathOption = Option.builder(GENERATION_FOLDER_PATH).argName("generationPath").desc("The Path the Models shall be generated into").hasArg().required().build();
 		Option useAdversariesOption = Option.builder(ADVERSARIES).argName("considerAdversaries").desc("Determines wether adversaries should be considered in input or output").hasArg(false).build();

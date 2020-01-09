@@ -22,6 +22,7 @@ public class AdversaryGenerator {
 			modelFilePath += ".adversary";
 		}
 		
+		
 		this.res = new XMLResourceImpl(URI.createFileURI(modelFilePath));
 		this.adversaries = AdversaryFactory.eINSTANCE.createAdversaries();
 		this.res.getContents().add(adversaries);

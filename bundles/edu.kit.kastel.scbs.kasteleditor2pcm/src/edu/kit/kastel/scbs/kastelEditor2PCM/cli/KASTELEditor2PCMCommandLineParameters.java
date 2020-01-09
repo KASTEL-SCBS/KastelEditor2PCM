@@ -39,12 +39,7 @@ public class KASTELEditor2PCMCommandLineParameters {
 	}
 	
 	public boolean parametersValid() {
-		if(!editorFilePath.isBlank() && !generationPath.isBlank()) {
-			return true;
-		} 
-		
-		System.out.println("At least one Path is blank");
-		return false;
+		return !editorFilePath.isBlank() && !generationPath.isBlank();
 	}
 	
 	

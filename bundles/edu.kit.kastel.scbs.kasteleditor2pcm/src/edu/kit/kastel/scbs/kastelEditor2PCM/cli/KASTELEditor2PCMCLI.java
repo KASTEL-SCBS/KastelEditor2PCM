@@ -26,7 +26,6 @@ public class KASTELEditor2PCMCLI{
 		Options options = handler.getOptions();
 		CommandLine cmd = null;
 		try {
-			System.out.println("Try parsing input");
 			cmd = parseInput(options, args);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
