@@ -7,16 +7,9 @@ Bundle-ClassPath: .,
  lib/gson-2.8.5.jar,
  lib/commons-cli-1.4.jar
 Export-Package: edu.kit.kastel.scbs.kastelEditor2PCM
-Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.2.0",
- org.eclipse.ui,
- com.google.guava,
- org.eclipse.xtext.xbase.lib,
+Require-Bundle: org.eclipse.ui,
  org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro,
  org.eclipse.core.resources;bundle-version="3.13.200",
- org.eclipse.equinox.event;bundle-version="1.5.0",
- org.eclipse.e4.ui.css.core;bundle-version="0.12.400",
- org.eclipse.e4.ui.di;bundle-version="1.2.400",
  edu.kit.kastel.scbs.confidentialitymm;bundle-version="0.1.0"
 Bundle-Activator: edu.kit.kastel.scbs.kastelEditor2PCM.Activator
 Bundle-ActivationPolicy: lazy
