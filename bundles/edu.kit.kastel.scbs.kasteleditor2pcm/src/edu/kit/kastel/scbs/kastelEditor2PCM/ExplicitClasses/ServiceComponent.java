@@ -9,9 +9,11 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
+import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.BaseObjectExtendingTrackingEnhanced;
+import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
-public class ServiceComponent extends EditorElement {
+public class ServiceComponent extends EditorElement{
 	
 	private String systemId;
 	
@@ -21,6 +23,7 @@ public class ServiceComponent extends EditorElement {
 	//Palladio Component Containments
 	private Set<BlackBoxMechanism> blackBoxMechanisms;
 	private Set<FunctionalRequirement> providedFunctionalRequirements;
+	
 	
 	public ServiceComponent(String name) {
 		super.setName(name);
@@ -108,5 +111,4 @@ public class ServiceComponent extends EditorElement {
 			}
 		}
 	}
-	
 }
