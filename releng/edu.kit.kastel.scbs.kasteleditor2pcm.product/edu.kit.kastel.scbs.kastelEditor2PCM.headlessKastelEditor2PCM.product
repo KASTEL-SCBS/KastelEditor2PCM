@@ -7,13 +7,14 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-application edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplicationation
+      <programArgs>-application edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplication
       </programArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
+
 
    <launcher name="kastelEditor2PCM">
       <win useIco="false">
@@ -22,7 +23,6 @@
    </launcher>
 
    <vm>
-      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11</windows>
    </vm>
 
    <plugins>
@@ -147,7 +147,7 @@
    </plugins>
 
    <configurations>
-      <plugin id="org.apache.felix.scr" autoStart="false" startLevel="99" />
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />

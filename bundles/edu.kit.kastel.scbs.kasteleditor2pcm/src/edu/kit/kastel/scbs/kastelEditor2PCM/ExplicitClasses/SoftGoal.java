@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 public class SoftGoal {
 
 	@Expose private final String name;
-	@Expose private final String concern;
+	private final String concern;
 	@Expose private final Asset asset;
 	private final Boolean priority;
 	
