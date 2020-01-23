@@ -9,15 +9,13 @@ import com.google.gson.annotations.Expose;
 
 public class BlackBoxMechanism extends EditorElement {
 
-	@Expose(serialize = false, deserialize = false) 
+	
 	private final boolean authenticity;
-	@Expose(serialize = false, deserialize = false) 
 	private final boolean confidentiality;
-	@Expose(serialize = false, deserialize = false) 
 	private final boolean integrity;
-	private String pcmInterfaceId;
-	private Set<Asset> targetAssets;
-	private Map<Asset, String> assetToPCMOperationSignatureIdMapping;
+	@Expose private String pcmInterfaceId;
+	@Expose private Set<Asset> targetAssets;
+	@Expose private Map<Asset, String> assetToPCMOperationSignatureIdMapping;
 	
 	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity) {
 		super.setName(name);

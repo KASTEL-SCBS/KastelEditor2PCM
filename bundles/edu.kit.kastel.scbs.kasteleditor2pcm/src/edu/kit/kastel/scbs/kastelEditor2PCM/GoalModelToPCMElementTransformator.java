@@ -49,22 +49,24 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 
 
 public class GoalModelToPCMElementTransformator {
-	Repository repo;
+	
 	Resource res;
-	Collection<System> systems;
+	PCMRepresentation pcm;
 	
 	public void generateRepositoryModel(KASTELGoalModelReader reader, String modelFilePath) {
 		
-		systems = new LinkedHashSet<System>();
-
+		
 		if(!modelFilePath.endsWith(".repository")) {
 			modelFilePath += ".repository";
 		}
 		
 		this.res = new XMLResourceImpl(URI.createFileURI(modelFilePath));
-		repo = RepositoryFactory.eINSTANCE.createRepository();
+		Repository repo = RepositoryFactory.eINSTANCE.createRepository();
 		this.res.getContents().add(repo);
 		repo.setEntityName(reader.getModelName());
+		
+		pcm = new PCMRepresentation(repo);
+		
 		generateInterfacesFromKASTELFunctionalRequirements(reader.getFunctionalRequirements());
 		generateComponentsFromKASTELServices(reader.getServices());
 		generateBBMComponentsFromKASTELBBM(reader.getBlackBoxMechanisms());
@@ -84,7 +86,7 @@ public class GoalModelToPCMElementTransformator {
 	public boolean saveSystems(String targetBasePath) {
 		
 		boolean success = true;
-		for(System system : systems) {
+		for(System system : pcm.getSystems()) {
 			String completePath = targetBasePath + "/" + system.getEntityName() + ".system";
 			
 			Resource systemResource = new XMLResourceImpl(URI.createFileURI(completePath));
@@ -131,12 +133,12 @@ public class GoalModelToPCMElementTransformator {
 			}
 			
 			functionalRequirement.setId(functionalRequirementInterface.getId());
-			repo.getInterfaces__Repository().add(functionalRequirementInterface);
+			pcm.addInterfaceToRepo(functionalRequirementInterface);
 		}
 	}
 	
 	private CompositeDataType generateDataTypeFromAssetWhenNotExisting(Asset asset) {
-		for(DataType datatype : repo.getDataTypes__Repository()) {
+		for(DataType datatype : pcm.getRepository().getDataTypes__Repository()) {
 			if((StringUtil.trimWhiteSpace(((CompositeDataType)datatype).getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.UPPER)))){
 				return (CompositeDataType)datatype;
 			}
@@ -145,7 +147,7 @@ public class GoalModelToPCMElementTransformator {
 		CompositeDataType dataType = RepositoryFactory.eINSTANCE.createCompositeDataType();
 		dataType.setEntityName(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.UPPER));
 		asset.setId(dataType.getId());
-		repo.getDataTypes__Repository().add(dataType);
+		pcm.addDataType(dataType);
 		
 		return dataType;
 	}
@@ -159,11 +161,11 @@ public class GoalModelToPCMElementTransformator {
 			system.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Composite");
 			service.setSystemId(system.getId());
 			
-			systems.add(system);
+			pcm.addSystem(system);
 			
 			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
 			base.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Functionality");
-			repo.getComponents__Repository().add(base);
+			pcm.addRepositoryComponent(base);
 			service.setPcmFunctionalComponentId(base.getId());
 			
 			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
@@ -178,7 +180,7 @@ public class GoalModelToPCMElementTransformator {
 		for(BlackBoxMechanism bbm : bbms) {
 			BasicComponent bbmComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
 			bbmComponent.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
-			repo.getComponents__Repository().add(bbmComponent);
+			pcm.addRepositoryComponent(bbmComponent);
 			bbm.setBbmComponentId(bbmComponent.getId());
 			
 			OperationInterface bbmInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
@@ -196,7 +198,7 @@ public class GoalModelToPCMElementTransformator {
 				bbm.addPcmOperationSignatureIdForTargetAsset(signature.getId(), asset);
 			}
 			
-			repo.getInterfaces__Repository().add(bbmInterface);
+			pcm.addInterfaceToRepo(bbmInterface);
 			
 			
 			
@@ -213,28 +215,10 @@ public class GoalModelToPCMElementTransformator {
 		
 		for(ServiceComponent serviceComponent : serviceComponents) {
 			
-			Collection<OperationInterface> interfacesForComponent = findInterfacesForComponent(serviceComponent);
+			Collection<OperationInterface> interfacesForComponent = pcm.findInterfacesForComponent(serviceComponent);
 			
-			System targetSystem = null;
-			BasicComponent baseComponent = null;
-			
-			for(System system : systems) {
-				if(system.getId().equals(serviceComponent.getSystemId())) {
-					targetSystem = system;
-					break;
-				} 
-			}
-				
-				for(RepositoryComponent repositoryComponent : repo.getComponents__Repository()) {
-				
-				
-				if(repositoryComponent.getId().equals(serviceComponent.getPcmFunctionalComponentId())) {
-					baseComponent = (BasicComponent)repositoryComponent;
-					break;
-				}
-				
-			
-			}
+			System targetSystem = pcm.getSystemById(serviceComponent.getSystemId());
+			BasicComponent baseComponent = pcm.getBasicComponentInRepositoryById(serviceComponent.getPcmFunctionalComponentId());
 			
 			if(targetSystem == null || baseComponent == null) {
 				java.lang.System.out.println("Did not found corresponding components, model not complete for: " + serviceComponent.getName());
@@ -254,19 +238,12 @@ public class GoalModelToPCMElementTransformator {
 		
 		for(ServiceComponent serviceComponent : serviceComponents) {
 			
-			System targetSystem = null;
+			System targetSystem = pcm.getSystemById(serviceComponent.getSystemId());
 			RepositoryComponent functionalComponent = null;
 			
 			Set<RepositoryComponent> blackBoxComponents = new HashSet<RepositoryComponent>();
 			
-			for(System system : systems) {
-				if(system.getId().equals(serviceComponent.getSystemId())) {
-					targetSystem = system;
-					break;
-				}	
-			}
-			
-			for(RepositoryComponent repositoryComponent : repo.getComponents__Repository()) {
+			for(RepositoryComponent repositoryComponent : pcm.getRepository().getComponents__Repository()) {
 			
 				if(repositoryComponent.getId().equals(serviceComponent.getPcmFunctionalComponentId())) {
 					functionalComponent = repositoryComponent;
@@ -321,19 +298,7 @@ public class GoalModelToPCMElementTransformator {
 		
 	}
 	
-	private Set<OperationInterface> findInterfacesForComponent(ServiceComponent component){
-		Set<OperationInterface> interfacesForComponent = new HashSet<OperationInterface>();
-		
-		for(Interface opInt : repo.getInterfaces__Repository()) {
-			for(FunctionalRequirement functionalRequirement : component.getProvidedFunctionalRequirements()) {
-				if(StringUtil.trimWhiteSpace(opInt.getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
-					interfacesForComponent.add((OperationInterface) opInt);
-				}
-			}
-		}
-		
-		return interfacesForComponent;
-	}
+
 	
 	private void connectInterfacesToSystemAndFunctionalComponent(System system, RepositoryComponent functionalityComponent, OperationInterface opInterface) {
 		
@@ -398,14 +363,8 @@ public class GoalModelToPCMElementTransformator {
 		
 	}
 	
-	private BasicComponent getFunctionalityComponentFromRepository(ServiceComponent editorComponent) {
-		
-		for(RepositoryComponent component : repo.getComponents__Repository()) {
-			if(component.getId().equals(editorComponent.getPcmFunctionalComponentId())) {
-				return (BasicComponent)component;
-			}
-		}
-		return null;
+	public BasicComponent getFunctionalityComponentFromRepository(ServiceComponent editorComponent) {
+		return pcm.getBasicComponentInRepositoryById(editorComponent.getPcmFunctionalComponentId());
 	}
 	
 	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(String operationSignatureId, BasicComponent component){
@@ -443,9 +402,7 @@ public class GoalModelToPCMElementTransformator {
 					break;
 				}
 			}
-			
 			seff.getSteps_Behaviour().add(action);
-			
 		}
 	}
 	
@@ -460,7 +417,6 @@ public class GoalModelToPCMElementTransformator {
 		return bbms;
 	}
 	
-	
 	public enum UpperOrLower {
 		UPPER,
 		LOWER,
@@ -468,7 +424,9 @@ public class GoalModelToPCMElementTransformator {
 	};
 	
 	
-	public Repository getRepositoryModel() {
-		return repo;
+	public PCMRepresentation getRepositoryModel() {
+		return pcm;
 	}
+	
+	
 }

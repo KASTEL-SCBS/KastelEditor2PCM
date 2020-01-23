@@ -1,10 +1,12 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
+import com.google.gson.annotations.Expose;
+
 public class SoftGoal {
 
-	private final String name;
-	private final String concern;
-	private final Asset asset;
+	@Expose private final String name;
+	@Expose private final String concern;
+	@Expose private final Asset asset;
 	private final Boolean priority;
 	
 	

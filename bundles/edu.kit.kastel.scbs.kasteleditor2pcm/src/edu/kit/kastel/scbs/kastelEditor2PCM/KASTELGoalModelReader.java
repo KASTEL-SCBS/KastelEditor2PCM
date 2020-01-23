@@ -49,36 +49,10 @@ public class KASTELGoalModelReader {
 			return false ;
 		}
 		readBaseGoalModel(goalModelStringRepresentation);
-		readExtensionModelInformation();
 		postProcessFunctionalRequirementsAndComponents();
 		
 		return true;
 		
-	}
-	
-	protected void readExtensionModelInformation() {
-		// In Basic Reader, no extension expected
-	}
-
-	public boolean saveTrackingFile(File f) {
-		
-		File json;
-		
-		if(!f.getAbsolutePath().endsWith(".json")) {
-			json = new File(f.getAbsolutePath() + ".json");
-			try {
-				json.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			json = f;
-		}
-		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String s = gson.toJson(services);
-		return IOUtil.writeToFile( json, s);
 	}
 	
 	private boolean readBaseGoalModel(String jsonString) {

@@ -1,8 +1,10 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class Entity {
-	private String id;
-	private String name;
+	@Expose private String id;
+	@Expose private String name;
 	
 	public String getId() {
 		return id;
