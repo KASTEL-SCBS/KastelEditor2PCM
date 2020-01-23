@@ -113,7 +113,10 @@ public class KastelEditor2PCM implements IApplication{
 		if(!genDirectoryFile.exists()){
 			genDirectoryFile.mkdirs();
 		}
+		
 		TrackingGenerator trackingGenerator = new TrackingGenerator();
+		
+		Collection<RelatingModelGeneration> relatingModelGeneration = new ArrayList<RelatingModelGeneration>();
 		
 		String pcmRepositoryModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName() + PCM_REPOSITORY_FILE_ENDING;
 		GoalModelToPCMElementTransformator goalModelToPCMTransformer = new GoalModelToPCMElementTransformator();
@@ -125,8 +128,8 @@ public class KastelEditor2PCM implements IApplication{
 			String JOANAFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName();
 			JOANAFlowGenerator joanaFlowGenerator = new JOANAFlowGenerator(goalModelToPCMTransformer.getRepositoryModel());
 			joanaFlowGenerator.generateRelatedModel(goalModelReader, JOANAFlowModelPath);
-			joanaFlowGenerator.saveRelatingModel();
-			
+		
+			relatingModelGeneration.add(joanaFlowGenerator);
 			trackingGenerator.addExtensionTracking(joanaFlowGenerator);
 		}
 		
@@ -137,14 +140,19 @@ public class KastelEditor2PCM implements IApplication{
 			actorAttackerExtension.readExtensionContent(goalModel);
 			AdversaryGenerator adversaryGenerator = new AdversaryGenerator(actorAttackerExtension);
 			adversaryGenerator.generateRelatedModel(goalModelReader, adversaryModelPath);
-			
+			relatingModelGeneration.add(adversaryGenerator);
 			trackingGenerator.addExtensionTracking(adversaryGenerator);
 		}
 		
+		saveRelatingModels(relatingModelGeneration);
+		
 		String trackingFilePath = projectPath  + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName() +"Tracking";
 		
-		
 		trackingGenerator.writeTracking(goalModelReader, trackingFilePath);
+	}
+	
+	private static void saveRelatingModels(Collection<RelatingModelGeneration> relatingModelGenerators) {
+		relatingModelGenerators.forEach( x-> {x.saveRelatingModel();});
 	}
 
 

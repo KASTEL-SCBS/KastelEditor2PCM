@@ -7,14 +7,13 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-application edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplication
+      <programArgs>-application edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplicationation
       </programArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
-
 
    <launcher name="kastelEditor2PCM">
       <win useIco="false">

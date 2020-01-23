@@ -5,10 +5,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
+
 public class FunctionalRequirement extends EditorElement {
 	
-	public Set<Asset> assets;
-	public Map<Asset, String> operationSignatureAssetMap; 
+	@Expose public Set<Asset> assets;
+	@Expose public Map<Asset, String> operationSignatureAssetMap; 
 
 	public FunctionalRequirement(String name) {
 		super.setName(name);

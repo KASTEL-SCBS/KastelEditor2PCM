@@ -40,15 +40,6 @@ public class AdversaryGenerator implements RelatingModelGeneration,ExtensionTrac
 			trackingElement.addActorNameAdversaryIdPair(actor.getName(), adversary.getId());
 		}
 	}
-	
-	public boolean saveModel() {
-		try {
-			res.save(null);
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
-	}
 
 	@Override
 	public Collection<ExtensionInformationTrackingElement> getExtensionTrackingElement() {

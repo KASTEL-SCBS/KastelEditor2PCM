@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
+import com.google.gson.annotations.Expose;
 
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.BaseObjectExtendingTrackingEnhanced;
@@ -15,14 +16,14 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 
 public class ServiceComponent extends EditorElement{
 	
-	private String systemId;
+	@Expose private String systemId;
 	
 	//Direkt Editor Assignments
-	private Collection<HardGoal> hardGoals;
+	@Expose private Collection<HardGoal> hardGoals;
 	
 	//Palladio Component Containments
-	private Set<BlackBoxMechanism> blackBoxMechanisms;
-	private Set<FunctionalRequirement> providedFunctionalRequirements;
+	@Expose private Set<BlackBoxMechanism> blackBoxMechanisms;
+	@Expose private Set<FunctionalRequirement> providedFunctionalRequirements;
 	
 	
 	public ServiceComponent(String name) {

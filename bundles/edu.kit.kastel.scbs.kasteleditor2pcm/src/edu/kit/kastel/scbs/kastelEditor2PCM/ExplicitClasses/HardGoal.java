@@ -1,13 +1,15 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
+import com.google.gson.annotations.Expose;
+
 public class HardGoal {
 
-	private final String name;
-	private final String serviceName;
-	private FunctionalRequirement functionalRequirement;
-	private BlackBoxMechanism bbm;
-	private final String uID;
-	private final SoftGoal SoftGoal;
+	@Expose private final String name;
+	@Expose private final String serviceName;
+	@Expose private FunctionalRequirement functionalRequirement;
+	@Expose private BlackBoxMechanism bbm;
+	@Expose private final String uID;
+	@Expose private final SoftGoal SoftGoal;
 
 	
 	//KASTEL Editor Member Strings for in Hardgoals -- has to be Updated whenever changes are made in the JSON Layout of the KASTEL Editor

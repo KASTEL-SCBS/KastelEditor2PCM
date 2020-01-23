@@ -2,6 +2,7 @@ package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Map.Entry;
 
@@ -23,6 +24,8 @@ public class ActorAttackerExtension extends GoalModelExtension{
 	
 	public ActorAttackerExtension(String extensionName) {
 		super(extensionName);
+		this.actorRoles = new HashSet<String>();
+		this.actors = new HashSet<Actor>();
 	}
 
 	@Override

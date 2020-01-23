@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
@@ -56,7 +57,7 @@ public class TrackingGenerator {
 		}
 		
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		String s = gson.toJson(element);
 		return IOUtil.writeToFile(json, s);
 	}
@@ -64,18 +65,18 @@ public class TrackingGenerator {
 	private class TrackingElement {
 		
 		
-		private String projectName;
-		private Collection<ServiceComponent> services;
-		private Collection<ExtensionInformationTrackingElement> extensionTrackingElements;
+		@Expose private String project;
+		@Expose private Collection<ServiceComponent> services;
+		@Expose private Collection<ExtensionInformationTrackingElement> extensionTrackingElements;
 		
 		public TrackingElement(String projectName, Collection<ServiceComponent> services) {
-			this.projectName = projectName + "Tracking";
+			this.project = projectName + "Tracking";
 			this.services = services;
 			extensionTrackingElements = new ArrayList<ExtensionInformationTrackingElement>();
 		}
 		
 		public TrackingElement(String projectName, Collection<ServiceComponent> services, Collection<ExtensionInformationTrackingElement> extensionElements) {
-			this.projectName = projectName + "Tracking";
+			this.project = projectName + "Tracking";
 			this.services = services;
 			this.extensionTrackingElements = extensionElements;
 		} 
