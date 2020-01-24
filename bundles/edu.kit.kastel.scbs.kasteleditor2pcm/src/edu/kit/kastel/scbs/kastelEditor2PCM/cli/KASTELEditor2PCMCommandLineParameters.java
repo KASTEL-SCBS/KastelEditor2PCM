@@ -1,16 +1,18 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.cli;
 
 public class KASTELEditor2PCMCommandLineParameters {
-	private String editorFilePath;
-	private String generationPath;
-	private boolean useAdversaries;
-	private boolean generateJOANAFlowModel;
+	private final String editorFilePath;
+	private final String generationPath;
+	private final boolean useAdversaries;
+	private final boolean generateJOANAFlowModel;
+	private final boolean useSimpleJoanaflowIds;
 	
-	public KASTELEditor2PCMCommandLineParameters(String editorFilePath, String generationPath, boolean useAdversaries, boolean generateJOANAFlowModel) {
+	public KASTELEditor2PCMCommandLineParameters(String editorFilePath, String generationPath, boolean useAdversaries, boolean generateJOANAFlowModel, boolean useSimpleJoanaFlowIds) {
 		this.editorFilePath = editorFilePath;
 		this.generationPath = generationPath;
 		this.useAdversaries = useAdversaries;
 		this.generateJOANAFlowModel = generateJOANAFlowModel;
+		this.useSimpleJoanaflowIds = useSimpleJoanaFlowIds;
 	}
 	
 	
@@ -20,6 +22,7 @@ public class KASTELEditor2PCMCommandLineParameters {
 		this.generationPath = "";
 		this.useAdversaries = false;
 		this.generateJOANAFlowModel = false;
+		this.useSimpleJoanaflowIds = false;
 	}
 	
 	public String getEditorFilePath() {
@@ -40,6 +43,10 @@ public class KASTELEditor2PCMCommandLineParameters {
 	
 	public boolean parametersValid() {
 		return !editorFilePath.isBlank() && !generationPath.isBlank();
+	}
+	
+	public boolean usingSimpleJoanaFlowIds() {
+		return useSimpleJoanaflowIds;
 	}
 	
 	

@@ -126,7 +126,7 @@ public class KastelEditor2PCM implements IApplication{
 		
 		if(cliParameters.isGeneratingJOANAFlowModel()) {
 			String JOANAFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName();
-			JOANAFlowGenerator joanaFlowGenerator = new JOANAFlowGenerator(goalModelToPCMTransformer.getRepositoryModel());
+			JOANAFlowGenerator joanaFlowGenerator = new JOANAFlowGenerator(goalModelToPCMTransformer.getRepositoryModel(), cliParameters.usingSimpleJoanaFlowIds());
 			joanaFlowGenerator.generateRelatedModel(goalModelReader, JOANAFlowModelPath);
 		
 			relatingModelGeneration.add(joanaFlowGenerator);

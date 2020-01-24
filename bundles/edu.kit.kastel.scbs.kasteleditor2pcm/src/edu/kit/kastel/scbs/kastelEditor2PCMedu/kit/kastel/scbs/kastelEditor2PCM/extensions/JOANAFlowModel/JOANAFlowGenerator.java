@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 
 import JOANAFlow4Palladio.EntryPoint;
@@ -20,9 +19,7 @@ import JOANAFlow4Palladio.FlowSpecification;
 import JOANAFlow4Palladio.JOANAFlow4PalladioFactory;
 import JOANAFlow4Palladio.JOANARoot;
 import JOANAFlow4Palladio.ParameterSink;
-import JOANAFlow4Palladio.Sink;
 import JOANAFlow4Palladio.Source;
-import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator;
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 import edu.kit.kastel.scbs.kastelEditor2PCM.PCMRepresentation;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
@@ -34,20 +31,19 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackin
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionTracking;
 import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
 
-import org.palladiosimulator.pcm.system.System;
-
 public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTracking{
 
 	private JOANARoot flowRoot;
 	private Resource res;
 	private PCMRepresentation pcm;
 	private Collection<ExtensionInformationTrackingElement> trackingElements;
-	
+	private boolean useSimpleJoanaflowIds;
 
 	
-	public JOANAFlowGenerator(PCMRepresentation pcm) {
+	public JOANAFlowGenerator(PCMRepresentation pcm, boolean useSimpleJoanaflowIds) {
 		this.pcm = pcm;
 		this.trackingElements = new ArrayList<ExtensionInformationTrackingElement>();
+		this.useSimpleJoanaflowIds = useSimpleJoanaflowIds;
 	}
 	
 	@Override
@@ -55,8 +51,8 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 	
 
 		
-		if(!targetLocation.endsWith(".joanaflow4pcm")) {
-			targetLocation += ".joanaflow4pcm";
+		if(!targetLocation.endsWith(".joanaflow4palladio")) {
+			targetLocation += ".joanaflow4palladio";
 		}
 		
 		this.res = new XMLResourceImpl(URI.createFileURI(targetLocation));
@@ -68,6 +64,7 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 	
 	private void generateContent(KASTELGoalModelReader reader) {
 		Collection<ServiceComponent> goalServiceComponents = reader.getServices();
+		Integer counter = 0;
 		
 		for(ServiceComponent compo : goalServiceComponents) {
 			for(FunctionalRequirement req : compo.getProvidedFunctionalRequirements()) {
@@ -75,11 +72,13 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 					
 					
 					FlowSpecification spec = JOANAFlow4PalladioFactory.eINSTANCE.createFlowSpecification();
-					spec.setId(EcoreUtil.generateUUID());
-				
+					if(useSimpleJoanaflowIds) {
+						spec.setId(counter.toString());
+						counter++;
+					} else {
+						spec.setId(EcoreUtil.generateUUID());
+					}
 					
-				
-				
 					RepositoryComponent component = pcm.getFunctionalityComponentFromRepository(compo);
 					OperationInterface interf = pcm.getInterfaceFromComponentForProvidedRoles(component, req.getId());
 					OperationSignature sign = pcm.getOperationSignatureFromInterface(interf, req.getOperationSignaturePCMIdForAsset(asset));	
