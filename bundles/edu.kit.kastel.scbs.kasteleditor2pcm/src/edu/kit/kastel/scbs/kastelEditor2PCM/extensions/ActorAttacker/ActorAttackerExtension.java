@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +14,7 @@ import com.google.gson.JsonParser;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Actor;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionTracking;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.GoalModelExtension;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.GoalModelExtension;
 
 public class ActorAttackerExtension extends GoalModelExtension{
 	

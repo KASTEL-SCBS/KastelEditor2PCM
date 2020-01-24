@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions;
 
 import java.io.File;
 

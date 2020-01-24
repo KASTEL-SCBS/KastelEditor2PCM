@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
 
 import java.util.HashMap;
 import java.util.Map;

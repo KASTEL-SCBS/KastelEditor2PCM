@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel;
 
 import java.util.ArrayList;
 import java.util.Collection;

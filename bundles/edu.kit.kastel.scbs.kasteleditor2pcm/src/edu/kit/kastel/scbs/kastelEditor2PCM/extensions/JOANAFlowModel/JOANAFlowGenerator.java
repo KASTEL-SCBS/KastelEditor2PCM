@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionTracking;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
 
 public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTracking{
 

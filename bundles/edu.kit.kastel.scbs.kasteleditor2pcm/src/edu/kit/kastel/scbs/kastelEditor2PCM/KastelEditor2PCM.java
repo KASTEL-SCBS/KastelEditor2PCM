@@ -20,11 +20,11 @@ import org.eclipse.equinox.app.IApplicationContext;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.TrackingGenerator;
 import edu.kit.kastel.scbs.kastelEditor2PCM.cli.KASTELEditor2PCMCLI;
 import edu.kit.kastel.scbs.kastelEditor2PCM.cli.KASTELEditor2PCMCommandLineParameters;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.GoalModelExtension;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker.ActorAttackerExtension;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE.AdversaryGenerator;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel.JOANAFlowGenerator;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.GoalModelExtension;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker.ActorAttackerExtension;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE.AdversaryGenerator;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel.JOANAFlowGenerator;
 
 
 public class KastelEditor2PCM implements IApplication{

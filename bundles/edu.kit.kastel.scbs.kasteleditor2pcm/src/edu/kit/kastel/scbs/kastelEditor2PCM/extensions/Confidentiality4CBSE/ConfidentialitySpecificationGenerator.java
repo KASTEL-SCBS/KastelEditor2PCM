@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionTracking;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
  
 
 public class ConfidentialitySpecificationGenerator implements RelatingModelGeneration, ExtensionTracking{

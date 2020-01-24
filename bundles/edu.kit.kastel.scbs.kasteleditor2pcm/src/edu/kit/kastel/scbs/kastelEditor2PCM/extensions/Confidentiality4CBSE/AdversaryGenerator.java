@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Actor;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionTracking;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
-import edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker.ActorAttackerExtension;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker.ActorAttackerExtension;
 
 
 public class AdversaryGenerator implements RelatingModelGeneration,ExtensionTracking{

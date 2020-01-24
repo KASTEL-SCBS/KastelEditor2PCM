@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCMedu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker;
 
 import java.util.Set;
 
