@@ -3,11 +3,13 @@ package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.annotations.Expose;
+
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 
 public class ActorAdversaryTrackingElement extends ExtensionInformationTrackingElement{
 	
-	private Map<String,String> actorNameToAdversaryIdMap;
+	@Expose private Map<String,String> actorNameToAdversaryIdMap;
 	
 	public ActorAdversaryTrackingElement() {
 		this.actorNameToAdversaryIdMap = new HashMap<String,String>();

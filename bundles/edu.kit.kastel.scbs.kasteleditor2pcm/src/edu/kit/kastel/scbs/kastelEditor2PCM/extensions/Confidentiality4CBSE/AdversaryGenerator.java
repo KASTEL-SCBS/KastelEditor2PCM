@@ -8,6 +8,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
+import com.google.gson.annotations.Expose;
+
 import edu.kit.kastel.scbs.confidentiality.adversary.Adversaries;
 import edu.kit.kastel.scbs.confidentiality.adversary.Adversary;
 import edu.kit.kastel.scbs.confidentiality.adversary.AdversaryFactory;
@@ -22,7 +24,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker.ActorAttack
 public class AdversaryGenerator implements RelatingModelGeneration,ExtensionTracking{
 	Adversaries adversaries;
 	Resource res;
-	Collection<ExtensionInformationTrackingElement> trackingElements;
+	@Expose Collection<ExtensionInformationTrackingElement> trackingElements;
 	ActorAdversaryTrackingElement trackingElement = new ActorAdversaryTrackingElement();
 	ActorAttackerExtension extension;
 	
