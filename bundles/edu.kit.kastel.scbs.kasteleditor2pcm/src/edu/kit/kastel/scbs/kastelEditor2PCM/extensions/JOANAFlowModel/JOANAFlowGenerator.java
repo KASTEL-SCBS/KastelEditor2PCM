@@ -99,7 +99,7 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 						spec.setEntrypoint(ep);
 						spec.getSource().add(source);
 					}
-					JOANAFlowTrackingElement trackingElement = new JOANAFlowTrackingElement(spec.getId(), req.getId(), asset.getEditorAssetName());
+					JOANAFlowTrackingElement trackingElement = new JOANAFlowTrackingElement(spec.getId(),compo.getId(), req.getId(), asset.getEditorAssetName());
 					Collection<BlackBoxMechanism> bbms = findBBMsForFlow(compo, req, asset);
 					
 					for(BlackBoxMechanism bbm : bbms) {

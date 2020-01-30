@@ -9,14 +9,16 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackin
 
 public class JOANAFlowTrackingElement extends ExtensionInformationTrackingElement{
 	@Expose private String joanaFlowiId;
+	@Expose private String component_source;
 	@Expose private String functionalRequirementId_source;
-	@Expose private String assetName;
+	@Expose private String assetName_source;
 	@Expose private Collection<String> bbmIds_sink;
 	
-	public JOANAFlowTrackingElement(String joanaFlowId, String functionalRequirementId_source, String assetName) {
+	public JOANAFlowTrackingElement(String joanaFlowId, String componentId, String functionalRequirementId_source, String assetName) {
 		this.joanaFlowiId = joanaFlowId;
+		this.component_source = componentId;
 		this.functionalRequirementId_source = functionalRequirementId_source;
-		this.assetName = assetName;
+		this.assetName_source = assetName;
 		bbmIds_sink = new ArrayList<String>();
 	}
 	

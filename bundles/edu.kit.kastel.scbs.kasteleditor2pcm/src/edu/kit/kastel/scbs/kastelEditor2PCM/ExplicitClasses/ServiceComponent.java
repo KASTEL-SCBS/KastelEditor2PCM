@@ -45,14 +45,6 @@ public class ServiceComponent extends EditorElement{
 		this.systemId = systemId;
 	}
 
-	public String getPcmFunctionalComponentId() {
-		return super.getId();
-	}
-
-	public void setPcmFunctionalComponentId(String pcmFunctionalComponentId) {
-		super.setId(pcmFunctionalComponentId);
-	}
-
 	public Collection<HardGoal> getHardGoals() {
 		return hardGoals;
 	}	

@@ -109,7 +109,7 @@ public class PCMRepresentation {
 
 
 	public BasicComponent getFunctionalityComponentFromRepository(ServiceComponent compo) {
-		return getBasicComponentInRepositoryById(compo.getPcmFunctionalComponentId());
+		return getBasicComponentInRepositoryById(compo.getId());
 	}
 	
 	public System getSystem(ServiceComponent compo) {
