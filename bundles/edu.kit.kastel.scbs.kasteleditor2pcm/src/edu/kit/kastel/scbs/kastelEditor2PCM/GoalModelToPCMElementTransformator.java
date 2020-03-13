@@ -41,8 +41,8 @@ import org.palladiosimulator.pcm.system.System;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.InterfaceMapping;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
 import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 
@@ -111,9 +111,9 @@ public class GoalModelToPCMElementTransformator {
 
 	}
 	
-	private void generateInterfacesFromKASTELFunctionalRequirements(Collection<FunctionalRequirement> functionalRequirements) {
+	private void generateInterfacesFromKASTELFunctionalRequirements(Collection<InterfaceMapping> functionalRequirements) {
 		
-		for(FunctionalRequirement functionalRequirement : functionalRequirements) {
+		for(InterfaceMapping functionalRequirement : functionalRequirements) {
 			OperationInterface functionalRequirementInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
 			functionalRequirementInterface.setEntityName(StringUtil.trimWhiteSpace(functionalRequirement.getName(), UpperOrLower.UPPER));
 
@@ -166,7 +166,7 @@ public class GoalModelToPCMElementTransformator {
 			BasicComponent base = RepositoryFactory.eINSTANCE.createBasicComponent();
 			base.setEntityName(StringUtil.trimWhiteSpace(service.getName(), UpperOrLower.UPPER)+"Functionality");
 			pcm.addRepositoryComponent(base);
-			service.setPcmFunctionalComponentId(base.getId());
+			service.setComponentId(base.getId());
 			
 			AssemblyContext  mainContext =  CompositionFactory.eINSTANCE.createAssemblyContext();
 			mainContext.setEntityName(StringUtil.trimWhiteSpace(service.getName(),UpperOrLower.UPPER));
@@ -185,7 +185,8 @@ public class GoalModelToPCMElementTransformator {
 			
 			OperationInterface bbmInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
 			bbmInterface.setEntityName(StringUtil.trimWhiteSpace(bbm.getName(),UpperOrLower.UPPER));
-			bbm.setPcmInterfaceId(bbmInterface.getId());
+			InterfaceMapping mapping = new InterfaceMapping(bbmInterface.getEntityName(), bbmInterface.getId());
+			bbm.addPrimaryInterface(mapping);
 			
 			for(Asset asset : bbm.getTargetAssets()) {
 				OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
@@ -195,7 +196,7 @@ public class GoalModelToPCMElementTransformator {
 				parameter.setParameterName(StringUtil.trimWhiteSpace(asset.getName(), UpperOrLower.LOWER));
 				signature.getParameters__OperationSignature().add(parameter);
 				bbmInterface.getSignatures__OperationInterface().add(signature);
-				bbm.addPcmOperationSignatureIdForTargetAsset(signature.getId(), asset);
+				bbm.addPcmOperationSignatureIdForTargetAssetToPrimaryInterface(signature.getId(), asset);
 			}
 			
 			pcm.addInterfaceToRepo(bbmInterface);
@@ -218,7 +219,7 @@ public class GoalModelToPCMElementTransformator {
 			Collection<OperationInterface> interfacesForComponent = pcm.findInterfacesForComponent(serviceComponent);
 			
 			System targetSystem = pcm.getSystemById(serviceComponent.getSystemId());
-			BasicComponent baseComponent = pcm.getBasicComponentInRepositoryById(serviceComponent.getPcmFunctionalComponentId());
+			BasicComponent baseComponent = pcm.getBasicComponentInRepositoryById(serviceComponent.getComponentId());
 			
 			if(targetSystem == null || baseComponent == null) {
 				java.lang.System.out.println("Did not found corresponding components, model not complete for: " + serviceComponent.getName());
@@ -245,7 +246,7 @@ public class GoalModelToPCMElementTransformator {
 			
 			for(RepositoryComponent repositoryComponent : pcm.getRepository().getComponents__Repository()) {
 			
-				if(repositoryComponent.getId().equals(serviceComponent.getPcmFunctionalComponentId())) {
+				if(repositoryComponent.getId().equals(serviceComponent.getComponentId())) {
 					functionalComponent = repositoryComponent;
 				} else {
 					for(BlackBoxMechanism bbm : serviceComponent.getBlackBoxMechanisms()) {
@@ -353,7 +354,7 @@ public class GoalModelToPCMElementTransformator {
 	private void fillComponentSeffs(ServiceComponent component) {
 		BasicComponent functionalityComponent = getFunctionalityComponentFromRepository(component);
 		
-		for(FunctionalRequirement req : component.getProvidedFunctionalRequirements()) {
+		for(InterfaceMapping req : component.getProvidedFunctionalRequirements()) {
 			//TODO: make for all interfaces
 			for(String operationSignatureId : req.getAssetOperationSignatureIdRelation().values()) {
 			ResourceDemandingSEFF seff = (ResourceDemandingSEFF)getSeffForFunctionalRequirementAndComponent(operationSignatureId, functionalityComponent);
@@ -364,7 +365,7 @@ public class GoalModelToPCMElementTransformator {
 	}
 	
 	public BasicComponent getFunctionalityComponentFromRepository(ServiceComponent editorComponent) {
-		return pcm.getBasicComponentInRepositoryById(editorComponent.getPcmFunctionalComponentId());
+		return pcm.getBasicComponentInRepositoryById(editorComponent.getComponentId());
 	}
 	
 	private ServiceEffectSpecification getSeffForFunctionalRequirementAndComponent(String operationSignatureId, BasicComponent component){
@@ -377,7 +378,7 @@ public class GoalModelToPCMElementTransformator {
 		return null;
 	}
 	
-	private void fillSeffWithBlackBoxMechanismCalls(ServiceComponent component, ResourceDemandingSEFF seff, FunctionalRequirement requirement) {
+	private void fillSeffWithBlackBoxMechanismCalls(ServiceComponent component, ResourceDemandingSEFF seff, InterfaceMapping requirement) {
 		if(seff == null) {
 			return;
 		}
@@ -406,7 +407,7 @@ public class GoalModelToPCMElementTransformator {
 		}
 	}
 	
-	private Set<BlackBoxMechanism> extractBlackBoxMechanismsForRequirement(ServiceComponent component, FunctionalRequirement requirement){
+	private Set<BlackBoxMechanism> extractBlackBoxMechanismsForRequirement(ServiceComponent component, InterfaceMapping requirement){
 		Set<BlackBoxMechanism> bbms = new HashSet<BlackBoxMechanism>();
 		for(HardGoal hg : component.getHardGoals()) {
 			if(hg.getFunctionalRequirement().equals(requirement) && !(hg.getBBM() == null)) {

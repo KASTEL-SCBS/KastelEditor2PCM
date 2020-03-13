@@ -16,7 +16,7 @@ import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.system.System;
 
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.InterfaceMapping;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
 import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.UpperOrLower;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
@@ -36,7 +36,7 @@ public class PCMRepresentation {
 		Set<OperationInterface> interfacesForComponent = new HashSet<OperationInterface>();
 		
 		for(Interface opInt : repo.getInterfaces__Repository()) {
-			for(FunctionalRequirement functionalRequirement : component.getProvidedFunctionalRequirements()) {
+			for(InterfaceMapping functionalRequirement : component.getProvidedFunctionalRequirements()) {
 				if(StringUtil.trimWhiteSpace(opInt.getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
 					interfacesForComponent.add((OperationInterface) opInt);
 				}

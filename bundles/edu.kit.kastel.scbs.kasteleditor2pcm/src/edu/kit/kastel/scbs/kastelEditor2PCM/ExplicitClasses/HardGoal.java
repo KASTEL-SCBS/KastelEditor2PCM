@@ -6,7 +6,7 @@ public class HardGoal {
 
 	@Expose private final String name;
 	@Expose private final String serviceName;
-	@Expose private FunctionalRequirement functionalRequirement;
+	@Expose private InterfaceMapping functionalRequirement;
 	@Expose private BlackBoxMechanism bbm;
 	@Expose private final String uID;
 	@Expose private final SoftGoal SoftGoal;
@@ -19,7 +19,7 @@ public class HardGoal {
 	public static final String UNIQUE_ID = "unique_id";
 	
 	
-	public HardGoal(String name, String serviceName, SoftGoal sg, FunctionalRequirement functionalRequirement, String uniqueId) {
+	public HardGoal(String name, String serviceName, SoftGoal sg, InterfaceMapping functionalRequirement, String uniqueId) {
 		this.name = name;
 		this.serviceName = serviceName;
 		this.functionalRequirement = functionalRequirement;
@@ -37,7 +37,7 @@ public class HardGoal {
 	}
 
 
-	public FunctionalRequirement getFunctionalRequirement() {
+	public InterfaceMapping getFunctionalRequirement() {
 		return functionalRequirement;
 	}
 	
@@ -54,7 +54,7 @@ public class HardGoal {
 		return bbm;
 	}
 	
-	public void setFunctionalRequirement(FunctionalRequirement functionalRequirement) {
+	public void setFunctionalRequirement(InterfaceMapping functionalRequirement) {
 		this.functionalRequirement = functionalRequirement;
 	}
 }

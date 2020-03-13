@@ -23,18 +23,26 @@ public class ServiceComponent extends EditorElement{
 	
 	//Palladio Component Containments
 	@Expose private Set<BlackBoxMechanism> blackBoxMechanisms;
-	@Expose private Set<FunctionalRequirement> providedFunctionalRequirements;
+	@Expose private Set<InterfaceMapping> providedFunctionalRequirements;
 	
 	
 	public ServiceComponent(String name) {
 		super.setName(name);
 		hardGoals = new ArrayList<HardGoal>();
 		blackBoxMechanisms = new HashSet<BlackBoxMechanism>();
-		providedFunctionalRequirements = new HashSet<FunctionalRequirement>();
+		providedFunctionalRequirements = new HashSet<InterfaceMapping>();
 	}
 
 	public String getName() {
 		return super.getName();
+	}
+	
+	public String getComponentId() {
+		return super.getId();
+	}
+	
+	public void setComponentId(String id) {
+		super.setId(id);
 	}
 
 	public String getSystemId() {
@@ -53,17 +61,17 @@ public class ServiceComponent extends EditorElement{
 		return blackBoxMechanisms;
 	}
 
-	public Set<FunctionalRequirement> getProvidedFunctionalRequirements() {
+	public Set<InterfaceMapping> getProvidedFunctionalRequirements() {
 		return providedFunctionalRequirements;
 	}
 	
-	public void addFunctionalRequirement(FunctionalRequirement requirement) {
+	public void addFunctionalRequirement(InterfaceMapping requirement) {
 		providedFunctionalRequirements.add(requirement);
 	}
 	
-	public Multimap<FunctionalRequirement, BlackBoxMechanism> extractFunctionalRequirementAndBlackBoxMechanismCorrespondences(){
+	public Multimap<InterfaceMapping, BlackBoxMechanism> extractFunctionalRequirementAndBlackBoxMechanismCorrespondences(){
 		
-		Multimap<FunctionalRequirement, BlackBoxMechanism> correspondences = ListMultimapBuilder.hashKeys().linkedListValues().build();
+		Multimap<InterfaceMapping, BlackBoxMechanism> correspondences = ListMultimapBuilder.hashKeys().linkedListValues().build();
 		
 		for(HardGoal hg : hardGoals) {
 			correspondences.put(hg.getFunctionalRequirement(), hg.getBBM());
@@ -72,13 +80,13 @@ public class ServiceComponent extends EditorElement{
 		
 	}
 	
-	public void exchangeFunctionalRequirements(Set<FunctionalRequirement> functionalRequirements) {
-		Set<FunctionalRequirement> temp = new HashSet<FunctionalRequirement>();
+	public void exchangeFunctionalRequirements(Set<InterfaceMapping> functionalRequirements) {
+		Set<InterfaceMapping> temp = new HashSet<InterfaceMapping>();
 		
 		boolean found = false;
 		
-		for(FunctionalRequirement fuReq : providedFunctionalRequirements) {
-			for(FunctionalRequirement toExchange : functionalRequirements) {
+		for(InterfaceMapping fuReq : providedFunctionalRequirements) {
+			for(InterfaceMapping toExchange : functionalRequirements) {
 				if(fuReq.getName().equals(toExchange.getName()) || toExchange.getName().equals(fuReq.getName() + "_" + this.getName())) {
 					found = true;
 					temp.add(toExchange);
@@ -97,7 +105,7 @@ public class ServiceComponent extends EditorElement{
 		providedFunctionalRequirements = temp;
 	}
 	
-	public void findAndExchangeHardGoalFunctionalRequirement(FunctionalRequirement toFind, FunctionalRequirement toExchange) {
+	public void findAndExchangeHardGoalFunctionalRequirement(InterfaceMapping toFind, InterfaceMapping toExchange) {
 		for(HardGoal hg : hardGoals) {
 			if(hg.getFunctionalRequirement().equals(toFind)) {
 				hg.setFunctionalRequirement(toExchange);

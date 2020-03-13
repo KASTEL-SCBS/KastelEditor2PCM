@@ -24,8 +24,8 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.KASTELGoalModelReader;
 import edu.kit.kastel.scbs.kastelEditor2PCM.PCMRepresentation;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.InterfaceMapping;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionTracking;
@@ -67,7 +67,7 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 		Integer counter = 0;
 		
 		for(ServiceComponent compo : goalServiceComponents) {
-			for(FunctionalRequirement req : compo.getProvidedFunctionalRequirements()) {
+			for(InterfaceMapping req : compo.getProvidedFunctionalRequirements()) {
 				for(Asset asset : req.assets) {
 					
 					
@@ -105,7 +105,7 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 					for(BlackBoxMechanism bbm : bbms) {
 						
 						RepositoryComponent bbmComponent = pcm.getBasicComponentInRepositoryById(bbm.getBbmComponentId());
-						OperationInterface bbmOpInt = pcm.getInterfaceFromComponentForProvidedRoles(bbmComponent, bbm.getPcmInterfaceId());
+						OperationInterface bbmOpInt = pcm.getInterfaceFromComponentForProvidedRoles(bbmComponent, bbm.getPrimaryInterfaceId());
 						OperationSignature bbmSigForAsset = pcm.getOperationSignatureFromInterface(bbmOpInt, bbm.getPcmOperationSignatureIdForTargetAsset(asset));
 						
 						if(bbmComponent != null && bbmOpInt != null && bbmSigForAsset != null) {
@@ -130,11 +130,11 @@ public class JOANAFlowGenerator implements RelatingModelGeneration, ExtensionTra
 		}
 	}
 	
-	private Collection<BlackBoxMechanism> findBBMsForFlow(ServiceComponent component, FunctionalRequirement fuReq, Asset asset){
+	private Collection<BlackBoxMechanism> findBBMsForFlow(ServiceComponent component, InterfaceMapping fuReq, Asset asset){
 		Collection<BlackBoxMechanism> bbms = new HashSet<BlackBoxMechanism>();
 		
 		for(HardGoal hg : component.getHardGoals()) {
-			if(hg.getFunctionalRequirement().getId().equals(fuReq.getId()) && hg.getSoftGoal().getAsset().getId().equals(asset.getId())){
+			if(hg.getFunctionalRequirement().equals(fuReq.getId()) && hg.getSoftGoal().getAsset().getId().equals(asset.getId())){
 				bbms.add(hg.getBBM());
 			}
 		}

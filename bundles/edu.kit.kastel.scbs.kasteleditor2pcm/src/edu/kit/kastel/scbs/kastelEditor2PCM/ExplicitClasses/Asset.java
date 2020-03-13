@@ -10,6 +10,10 @@ public class Asset extends EditorElement {
 		return super.getName();
 	}
 	
+	public String getPcmDataTypeId() {
+		return super.getId();
+	}
+	
 	@Override
 	public String toString() {
 		return super.getName();
