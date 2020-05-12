@@ -37,7 +37,7 @@ public class PCMRepresentation {
 		
 		for(Interface opInt : repo.getInterfaces__Repository()) {
 			for(InterfaceMapping functionalRequirement : component.getProvidedFunctionalRequirements()) {
-				if(StringUtil.trimWhiteSpace(opInt.getEntityName(),UpperOrLower.UPPER).equals(StringUtil.trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
+				if(StringUtil.cleanAndTrim(opInt.getEntityName(),UpperOrLower.UPPER).equals("I"+StringUtil.trimWhiteSpace(functionalRequirement.getName(),UpperOrLower.UPPER))) {
 					interfacesForComponent.add((OperationInterface) opInt);
 				}
 			}

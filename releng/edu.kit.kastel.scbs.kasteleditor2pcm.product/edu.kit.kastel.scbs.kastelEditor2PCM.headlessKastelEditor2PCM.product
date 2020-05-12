@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Headless KASTELEditor2PCM" uid="edu.kit.kastel.scbs.kastelEditor2PCM.headlessKastelEditor2PCM" id="edu.kit.kastel.scbs.kastelEditor2PCM.headlessKastelEditor2PCM" application="edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplication" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="Headless KASTELEditor2PCM" uid="edu.kit.kastel.scbs.kastelEditor2PCM.headlessKastelEditor2PCM" id="org.eclipse.epp.package.modeling.product" application="edu.kit.kastel.scbs.kastelEditor2PCM.headlessKASTELEditor2PCMApplication" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+
 
    <configIni use="default">
    </configIni>
@@ -22,7 +23,9 @@
       </win>
    </launcher>
 
+
    <vm>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/CDC-1.1%Foundation-1.1</windows>
    </vm>
 
    <plugins>

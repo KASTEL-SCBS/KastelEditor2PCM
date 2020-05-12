@@ -1,10 +1,15 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import com.google.gson.annotations.Expose;
 
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.NameIdPair;
@@ -12,8 +17,8 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.Util.NameIdPair;
 public class InterfaceMapping extends EditorElement {
 	
 	@Expose public Set<Asset> assets = new HashSet<Asset>();
-	@Expose public Set<NameIdPair> operationSignatures = new HashSet<>();
-	@Expose public Map<Asset, String> operationSignatureAssetMap = new HashMap<Asset,String>(); 
+	@Expose public Map<String, String> operationSignatures = new HashMap<String, String>();
+	@Expose public Map<String, Collection<Asset>> assetsInOperationSignatures = new HashMap<String, Collection<Asset>>();
 	
 	public InterfaceMapping(String name, String interfaceId) {
 		super.setName(name);
@@ -40,10 +45,6 @@ public class InterfaceMapping extends EditorElement {
 		super.setId(id);
 	}
 	
-	public String getEditorFunctionalRequirementName() {
-		return super.getName();
-	}
-	
 	public void addAsset(Asset asset) {
 		assets.add(asset);
 	}
@@ -52,39 +53,37 @@ public class InterfaceMapping extends EditorElement {
 		return assets;
 	}
 
-	public String getOperationSignaturePCMIdForAsset(Asset asset) {
-		return operationSignatureAssetMap.get(asset);
-	}
-
-	public void includeOperationSignatureAndAssetMapping(Asset asset, String operationSignaturePCMId) {
-		operationSignatureAssetMap.put(asset, operationSignaturePCMId);
-	}
-	
-	public Map<Asset,String> getAssetOperationSignatureIdRelation(){
-		return operationSignatureAssetMap;
-	}
-
-	public void addOperationSignaturePair(String name, String id) {
-		for(NameIdPair pair : operationSignatures) {
-			if(pair.getId().equals(id)) {
-				return;
+	public Collection<String> getOperationSignaturePCMIdsForAsset(Asset asset) {
+		Collection<String> signatures = new ArrayList<String>();
+		for(Entry<String, Collection<Asset>> entry : assetsInOperationSignatures.entrySet()) {
+			if(entry.getValue().equals(asset)) {
+				signatures.add(entry.getKey());
 			}
 		}
 		
-		operationSignatures.add(new NameIdPair(name, id));
+		return signatures;
 	}
 	
+	public Collection<Asset> getAssetsForOperationSignature(String id){
+		return assetsInOperationSignatures.get(id);
+	}
 
-	public void addPcmOperationSignatureIdForTargetAsset(String pcmOperationSignatureId, Asset targetAsset) {
-		if(assets.contains(targetAsset)) {
-			operationSignatureAssetMap.put(targetAsset, pcmOperationSignatureId);
+	public void addAssetToOperationSignature(Asset asset, String operationSignaturePCMId) {
+		if(assets.contains(asset)) {
+			assetsInOperationSignatures.get(operationSignaturePCMId).add(asset);
 		}
 	}
 	
-	public String getPcmOperationSignatureIdForTargetAsset(Asset targetAsset) {
-		if(assets.contains(targetAsset)) {
-			return operationSignatureAssetMap.get(targetAsset);
-		}
-		return null;
+	public Map<String, String> getOperationSignatures(){
+		return operationSignatures;
+	}
+
+	public void addOperationSignature(String name, String id) {
+		operationSignatures.put(id, name);
+		assetsInOperationSignatures.put(id, new ArrayList<Asset>());
+	}
+
+	public boolean operationSignatureAvailable(String id) {
+		return operationSignatures.containsKey(id);
 	}
 }

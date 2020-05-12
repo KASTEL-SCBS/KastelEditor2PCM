@@ -8,11 +8,14 @@ import com.google.gson.annotations.Expose;
 public class BlackBoxMechanism extends EditorElement {
 
 	@Expose private String primaryInterfaceId;
+	//TODO Reeeeaaally bad design, redesign necessary
+	private Set<Asset> editorAssets;
 	@Expose private Set<InterfaceMapping> providedBBMInterfaces;
 	
 	public BlackBoxMechanism(String name) {
 		super.setName(name);
 		primaryInterfaceId = "";
+		editorAssets = new HashSet<Asset>();
 		providedBBMInterfaces = new HashSet<InterfaceMapping>();
 	}
 
@@ -29,33 +32,19 @@ public class BlackBoxMechanism extends EditorElement {
 		primaryInterfaceId = mapping.getId();
 		providedBBMInterfaces.add(mapping);
 	}
-
-	public void addPcmOperationSignatureIdForTargetAssetToPrimaryInterface(String pcmOperationSignatureId, Asset targetAsset) {
-		
-		InterfaceMapping mapping = getPrimaryInterface();
-		
-		if(mapping != null)
-			mapping.addPcmOperationSignatureIdForTargetAsset(pcmOperationSignatureId, targetAsset);
-	}
-	
-	public String getPcmOperationSignatureIdForTargetAsset(Asset targetAsset) {
-		InterfaceMapping mapping = getPrimaryInterface();
-		if(mapping != null)
-			return mapping.getPcmOperationSignatureIdForTargetAsset(targetAsset);
-		
-		return null;
-	}
 	
 	public String getPrimaryInterfaceId() {
 		return primaryInterfaceId;
 	}
 	
-	public Set<Asset> getTargetAssets(){
+	public void addOperationSignatureToPrimaryInterface(String name, String id) {
 		InterfaceMapping mapping = getPrimaryInterface();
 		if(mapping != null)
-			return mapping.getAssets();
-		
-		return null;
+			mapping.addOperationSignature(name, id);
+	}
+	
+	public Set<Asset> getEditorAssets(){
+		return editorAssets;
 	}
 	
 	private InterfaceMapping getPrimaryInterface() {
@@ -67,6 +56,10 @@ public class BlackBoxMechanism extends EditorElement {
 		return null;
 	}
 	
+	public void addEditorAsset(Asset asset) {
+		editorAssets.add(asset);
+	}
+	
 	public void addAssetToPrimaryInterface(Asset asset) {
 		InterfaceMapping mapping = getPrimaryInterface();
 		if(mapping != null)
@@ -74,4 +67,17 @@ public class BlackBoxMechanism extends EditorElement {
 				
 	}
 	
+	public void addAssetToOperationSignatureOfPrimaryInterface(Asset asset, String id) {
+		InterfaceMapping mapping = getPrimaryInterface();
+		if(mapping != null)
+			mapping.addAssetToOperationSignature(asset, id);
+	}
+	
+	public String getFirstPrimaryInterfaceSignatureId() {
+		InterfaceMapping primaryInterface = getPrimaryInterface();
+		for(String id : primaryInterface.getOperationSignatures().keySet()) {
+			return id;
+		}
+		return null;
+	}
 }

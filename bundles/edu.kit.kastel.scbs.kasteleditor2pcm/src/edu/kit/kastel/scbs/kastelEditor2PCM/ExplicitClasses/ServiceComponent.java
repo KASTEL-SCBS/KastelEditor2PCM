@@ -60,6 +60,10 @@ public class ServiceComponent extends EditorElement{
 	public Set<BlackBoxMechanism> getBlackBoxMechanisms(){
 		return blackBoxMechanisms;
 	}
+	
+	public void addBlackBoxMechanism(BlackBoxMechanism bbm) {
+		blackBoxMechanisms.add(bbm);
+	}
 
 	public Set<InterfaceMapping> getProvidedFunctionalRequirements() {
 		return providedFunctionalRequirements;
@@ -69,16 +73,6 @@ public class ServiceComponent extends EditorElement{
 		providedFunctionalRequirements.add(requirement);
 	}
 	
-	public Multimap<InterfaceMapping, BlackBoxMechanism> extractFunctionalRequirementAndBlackBoxMechanismCorrespondences(){
-		
-		Multimap<InterfaceMapping, BlackBoxMechanism> correspondences = ListMultimapBuilder.hashKeys().linkedListValues().build();
-		
-		for(HardGoal hg : hardGoals) {
-			correspondences.put(hg.getFunctionalRequirement(), hg.getBBM());
-		}
-		return null;
-		
-	}
 	
 	public void exchangeFunctionalRequirements(Set<InterfaceMapping> functionalRequirements) {
 		Set<InterfaceMapping> temp = new HashSet<InterfaceMapping>();

@@ -108,7 +108,7 @@ public class KASTELGoalModelReader {
 		appendFunctionalRequirementsToServices(rootElement.get("Functional Requirements and Services Relationships"));
 		softGoals = extractSoftGoals(rootElement.get("Soft Goals"));
 		hardGoals = extractHardGoals(rootElement.get("Hard Goals"));
-		appendBBMsToHardgoals(rootElement.get("Hard Mechanism Relationship"));
+		appendBBMsToHardgoals(rootElement.get("Hard Mechanism Relationship").getAsJsonObject().get("base"));
 	}
 	
 	private void extractGoalModelName(JsonObject rootElement) {
@@ -265,14 +265,6 @@ private HashSet<ServiceComponent> generateServiceObjectsFromJson(JsonElement ser
 				
 				JsonObject hardGoalJson = entry.getValue().getAsJsonObject();
 				
-				
-				
-				
-				
-			
-			
-				
-				
 				String hgJsonServiceEntry = hardGoalJson.get(HardGoal.COMPONENT_ID).getAsString();
 				ServiceComponent hgService = getServiceByName(hgJsonServiceEntry);
 				
@@ -316,9 +308,9 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		for(Entry<String,JsonElement> entry : relationshipEntries) {
 	
 			HardGoal hardGoal = hardGoals.get(entry.getKey());
-			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(entry.getValue().getAsString());
+			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(StringUtil.removeCharAndStringSymbols(entry.getValue().getAsString()));
 			
-			blackBoxMechanism.addAssetToPrimaryInterface(hardGoal.getSoftGoal().getAsset());
+			blackBoxMechanism.addEditorAsset(hardGoal.getSoftGoal().getAsset());
 			
 			if(hardGoal == null || blackBoxMechanism == null) {
 				System.out.println("HardGoal BBM Relationship not found");
@@ -328,7 +320,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 			ServiceComponent hgRelatedService = getServiceByName(hardGoal.getServiceName());
 			
 			if(hgRelatedService != null) {
-				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
+				hgRelatedService.addBlackBoxMechanism(blackBoxMechanism);
 			}
 			
 			hardGoal.setBlackBoxMechansims(blackBoxMechanism);
@@ -534,8 +526,6 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 	}
 	
 	public SoftGoal getSoftGoalByName(String searchedSoftGoalName) {
-		
-		
 		for(SoftGoal sg : softGoals){
 			if(sg.getName().equals(searchedSoftGoalName)) {
 				return sg;

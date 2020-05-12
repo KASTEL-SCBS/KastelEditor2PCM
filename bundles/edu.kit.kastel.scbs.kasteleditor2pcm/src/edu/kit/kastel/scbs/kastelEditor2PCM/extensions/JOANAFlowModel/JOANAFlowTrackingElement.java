@@ -8,21 +8,49 @@ import com.google.gson.annotations.Expose;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 
 public class JOANAFlowTrackingElement extends ExtensionInformationTrackingElement{
-	@Expose private String joanaFlowiId;
-	@Expose private String component_source;
-	@Expose private String functionalRequirementId_source;
-	@Expose private String assetName_source;
-	@Expose private Collection<String> bbmIds_sink;
+	@Expose private String joanaFlowId;
+	@Expose private OperationIdentifying source;
+	@Expose private String assetId_source;
+	@Expose private Collection<OperationIdentifying> sinks;
 	
-	public JOANAFlowTrackingElement(String joanaFlowId, String componentId, String functionalRequirementId_source, String assetName) {
-		this.joanaFlowiId = joanaFlowId;
-		this.component_source = componentId;
-		this.functionalRequirementId_source = functionalRequirementId_source;
-		this.assetName_source = assetName;
-		bbmIds_sink = new ArrayList<String>();
+	public JOANAFlowTrackingElement(String joanaFlowId, String componentId, String interfaceId_source,String operationId_source ,String assetId) {
+		this.joanaFlowId = joanaFlowId;
+		source = new OperationIdentifying(componentId, interfaceId_source, operationId_source);
+		this.assetId_source = assetId;
+		sinks = new ArrayList<OperationIdentifying>();
 	}
 	
-	public void addBBMSinkId(String id) {
-		bbmIds_sink.add(id);
+	public JOANAFlowTrackingElement(String joanaFlowId, String componentId, String interfaceId_source,String operationId_source) {
+		this.joanaFlowId = joanaFlowId;
+		source = new OperationIdentifying(componentId, interfaceId_source, operationId_source);
+		sinks = new ArrayList<OperationIdentifying>();
+	}
+	
+	public void addBBMSink(String componentId, String interfaceId, String signatureId) {
+		sinks.add(new OperationIdentifying(componentId, interfaceId, signatureId));
+	}
+	
+	public void addBBMSink(String componentId, String interfaceId, String signatureId, String assetId) {
+		sinks.add(new OperationIdentifying(componentId, interfaceId, signatureId, assetId));
+	}
+	
+	public class OperationIdentifying  {
+		@Expose private String componentId;
+		@Expose private String interfaceId;
+		@Expose private String signatureId;
+		@Expose private String assetId;
+		
+		public OperationIdentifying(String componentId, String interfaceId, String signatureId ) {
+			this.componentId = componentId;
+			this.interfaceId = interfaceId;
+			this.signatureId = signatureId;
+		}
+		
+		public OperationIdentifying(String componentId, String interfaceId, String signatureId, String assetId) {
+			this.componentId = componentId;
+			this.interfaceId = interfaceId;
+			this.signatureId = signatureId;
+			this.assetId = assetId;
+		}
 	}
 }
