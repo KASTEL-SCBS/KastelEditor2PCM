@@ -49,7 +49,7 @@ public class KASTELEditor2PCMCommandLineParameters {
 	}
 	
 	public boolean parametersValid() {
-		return !editorFilePath.isBlank() && !generationPath.isBlank();
+		return !editorFilePath.isEmpty() && !generationPath.isEmpty();
 	}
 	
 	public boolean usingSimpleJoanaFlowIds() {

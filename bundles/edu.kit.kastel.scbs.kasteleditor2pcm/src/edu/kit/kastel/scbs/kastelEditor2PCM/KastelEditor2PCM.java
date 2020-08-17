@@ -6,13 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.eclipse.core.resources.ResourcesPlugin;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
@@ -24,7 +18,7 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.GoalModelExtension;
 import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.RelatingModelGeneration;
 import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.ActorAttacker.ActorAttackerExtension;
 import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.Confidentiality4CBSE.AdversaryGenerator;
-import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel.JOANAFlowGenerator;
+import edu.kit.kastel.scbs.kastelEditor2PCM.extensions.SimplePCMFlowModel.FlowGenerator;
 
 
 public class KastelEditor2PCM implements IApplication{
@@ -126,7 +120,7 @@ public class KastelEditor2PCM implements IApplication{
 		
 		if(cliParameters.isGeneratingJOANAFlowModel()) {
 			String JOANAFlowModelPath = projectPath + "/" + GENERATION_DIRECTORY_NAME + "/" + goalModelReader.getModelName();
-			JOANAFlowGenerator joanaFlowGenerator = new JOANAFlowGenerator(goalModelToPCMTransformer.getRepositoryModel(), cliParameters.usingSimpleJoanaFlowIds(), cliParameters.isConsideringAssets());
+			FlowGenerator joanaFlowGenerator = new FlowGenerator(goalModelToPCMTransformer.getRepositoryModel(), cliParameters.usingSimpleJoanaFlowIds(), cliParameters.isConsideringAssets());
 			joanaFlowGenerator.generateRelatedModel(goalModelReader, JOANAFlowModelPath);
 		
 			relatingModelGeneration.add(joanaFlowGenerator);

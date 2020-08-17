@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel;
+package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.SimplePCMFlowModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,21 +7,21 @@ import com.google.gson.annotations.Expose;
 
 import edu.kit.kastel.scbs.kastelEditor2PCM.Tracking.ExtensionInformationTrackingElement;
 
-public class JOANAFlowTrackingElement extends ExtensionInformationTrackingElement{
-	@Expose private String joanaFlowId;
+public class FlowTrackingElement extends ExtensionInformationTrackingElement{
+	@Expose private String flowId;
 	@Expose private OperationIdentifying source;
 	@Expose private String assetId_source;
 	@Expose private Collection<OperationIdentifying> sinks;
 	
-	public JOANAFlowTrackingElement(String joanaFlowId, String componentId, String interfaceId_source,String operationId_source ,String assetId) {
-		this.joanaFlowId = joanaFlowId;
+	public FlowTrackingElement(String joanaFlowId, String componentId, String interfaceId_source,String operationId_source ,String assetId) {
+		this.flowId = joanaFlowId;
 		source = new OperationIdentifying(componentId, interfaceId_source, operationId_source);
 		this.assetId_source = assetId;
 		sinks = new ArrayList<OperationIdentifying>();
 	}
 	
-	public JOANAFlowTrackingElement(String joanaFlowId, String componentId, String interfaceId_source,String operationId_source) {
-		this.joanaFlowId = joanaFlowId;
+	public FlowTrackingElement(String joanaFlowId, String componentId, String interfaceId_source,String operationId_source) {
+		this.flowId = joanaFlowId;
 		source = new OperationIdentifying(componentId, interfaceId_source, operationId_source);
 		sinks = new ArrayList<OperationIdentifying>();
 	}

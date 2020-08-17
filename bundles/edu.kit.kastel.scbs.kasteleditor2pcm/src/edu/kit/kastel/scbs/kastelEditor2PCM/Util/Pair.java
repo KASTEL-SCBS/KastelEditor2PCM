@@ -1,4 +1,4 @@
-package edu.kit.kastel.scbs.kastelEditor2PCM.extensions.JOANAFlowModel;
+package edu.kit.kastel.scbs.kastelEditor2PCM.Util;
 
 public class Pair<A,B> {
 	A first;

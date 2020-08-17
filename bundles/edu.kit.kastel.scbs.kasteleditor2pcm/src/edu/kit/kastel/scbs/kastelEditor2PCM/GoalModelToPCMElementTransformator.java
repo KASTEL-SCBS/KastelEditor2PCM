@@ -457,9 +457,6 @@ public class GoalModelToPCMElementTransformator {
 			}
 		}
 		
-		java.lang.System.out.println("Start: " + startAction.getId());
-		java.lang.System.out.println("Stop: " + stopAction.getId());
-		
 		boolean startActionConnected = false;
 		AbstractAction predecessor = null;
 		

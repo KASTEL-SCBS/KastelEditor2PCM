@@ -8,11 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder.ListMultimapBuilder;
 import com.google.gson.annotations.Expose;
 
-import edu.kit.kastel.scbs.kastelEditor2PCM.Util.NameIdPair;
 
 public class InterfaceMapping extends EditorElement {
 	
@@ -56,7 +53,7 @@ public class InterfaceMapping extends EditorElement {
 	public Collection<String> getOperationSignaturePCMIdsForAsset(Asset asset) {
 		Collection<String> signatures = new ArrayList<String>();
 		for(Entry<String, Collection<Asset>> entry : assetsInOperationSignatures.entrySet()) {
-			if(entry.getValue().equals(asset)) {
+			if(entry.getValue().contains(asset)) {
 				signatures.add(entry.getKey());
 			}
 		}
