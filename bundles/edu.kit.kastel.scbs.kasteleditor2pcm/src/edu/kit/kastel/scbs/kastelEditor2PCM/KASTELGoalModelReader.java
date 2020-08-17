@@ -24,8 +24,8 @@ import edu.kit.kastel.scbs.kastelEditor2PCM.GoalModelToPCMElementTransformator.U
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.Asset;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.BlackBoxMechanism;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.HardGoal;
+import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.InterfaceMapping;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.ServiceComponent;
-import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.FunctionalRequirement;
 import edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses.SoftGoal;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.IOUtil;
 import edu.kit.kastel.scbs.kastelEditor2PCM.Util.StringUtil;
@@ -35,7 +35,7 @@ public class KASTELGoalModelReader {
 	
 	private Set<ServiceComponent> services;
 	private Set<BlackBoxMechanism> blackBoxMechanisms;
-	private Set<FunctionalRequirement> functionalRequirements;
+	private Set<InterfaceMapping> functionalRequirements;
 	private Set<Asset> assets;
 	private Collection<SoftGoal> softGoals;
 	private Map<String, HardGoal> hardGoals;
@@ -108,7 +108,7 @@ public class KASTELGoalModelReader {
 		appendFunctionalRequirementsToServices(rootElement.get("Functional Requirements and Services Relationships"));
 		softGoals = extractSoftGoals(rootElement.get("Soft Goals"));
 		hardGoals = extractHardGoals(rootElement.get("Hard Goals"));
-		appendBBMsToHardgoals(rootElement.get("Hard Mechanism Relationship"));
+		appendBBMsToHardgoals(rootElement.get("Hard Mechanism Relationship").getAsJsonObject().get("base"));
 	}
 	
 	private void extractGoalModelName(JsonObject rootElement) {
@@ -132,12 +132,12 @@ public class KASTELGoalModelReader {
 		return stringCollection;	
 	}
 	
-	private Set<FunctionalRequirement> extractFunctionalRequirements(JsonElement functionalRequirementsStringArrayElement){
+	private Set<InterfaceMapping> extractFunctionalRequirements(JsonElement functionalRequirementsStringArrayElement){
 		
-		Set<FunctionalRequirement> functionalRequirements = new HashSet<FunctionalRequirement>();
+		Set<InterfaceMapping> functionalRequirements = new HashSet<InterfaceMapping>();
 		
 		for(String functionalRequirementName : extractStringCollection(functionalRequirementsStringArrayElement)) {
-			functionalRequirements.add(new FunctionalRequirement(functionalRequirementName));
+			functionalRequirements.add(new InterfaceMapping(functionalRequirementName));
 		}
 		
 		return functionalRequirements;
@@ -192,7 +192,7 @@ private HashSet<ServiceComponent> generateServiceObjectsFromJson(JsonElement ser
 		Multimap<String, String> relationships = extractRelationshipSets(relationElement);
 		
 		for(String functionalRequirement : relationships.keySet()) {
-			FunctionalRequirement functionalRequirementObject = getFunctionalRequirementByName(functionalRequirement);
+			InterfaceMapping functionalRequirementObject = getFunctionalRequirementByName(functionalRequirement);
 			for(String serviceName : relationships.get(functionalRequirement)) {
 						getServiceByName(serviceName).addFunctionalRequirement(functionalRequirementObject);				
 				}
@@ -210,12 +210,10 @@ private HashSet<ServiceComponent> generateServiceObjectsFromJson(JsonElement ser
 			
 			for(Entry<String,JsonElement> entry : blackBoxMechanismsObject.entrySet()) {
 				JsonObject blackBoxMechanismJsonObject = entry.getValue().getAsJsonObject();
-				JsonObject baseBlackBoxMechanismInformation = blackBoxMechanismJsonObject.getAsJsonObject("base");
+				//JsonObject baseBlackBoxMechanismInformation = blackBoxMechanismJsonObject.getAsJsonObject("base");
 				
 				
-				BlackBoxMechanism mechanism = new BlackBoxMechanism(entry.getKey(), baseBlackBoxMechanismInformation.get("authenticity").getAsBoolean(), 
-						baseBlackBoxMechanismInformation.get("confidentiality").getAsBoolean(), 
-						baseBlackBoxMechanismInformation.get("integrity").getAsBoolean());
+				BlackBoxMechanism mechanism = new BlackBoxMechanism(entry.getKey());
 				
 				blackBoxMechanisms.add(mechanism);
 			}
@@ -267,20 +265,12 @@ private HashSet<ServiceComponent> generateServiceObjectsFromJson(JsonElement ser
 				
 				JsonObject hardGoalJson = entry.getValue().getAsJsonObject();
 				
-				
-				
-				
-				
-			
-			
-				
-				
 				String hgJsonServiceEntry = hardGoalJson.get(HardGoal.COMPONENT_ID).getAsString();
 				ServiceComponent hgService = getServiceByName(hgJsonServiceEntry);
 				
 				
 				String hgJsonFunctionalRequirementEntry = hardGoalJson.get(HardGoal.FUNCTIONAL_REQUIREMENT_ID).getAsString();
-				FunctionalRequirement hgFunctionalRequirement = getFunctionalRequirementByName(hgJsonFunctionalRequirementEntry);
+				InterfaceMapping hgFunctionalRequirement = getFunctionalRequirementByName(hgJsonFunctionalRequirementEntry);
 				
 				String hgJsonSoftGoalEntry = hardGoalJson.get(HardGoal.SOFTGOAL_ID).getAsString();
 				SoftGoal hgSg = getSoftGoalByName(hgJsonSoftGoalEntry);
@@ -318,9 +308,9 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		for(Entry<String,JsonElement> entry : relationshipEntries) {
 	
 			HardGoal hardGoal = hardGoals.get(entry.getKey());
-			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(entry.getValue().getAsString());
+			BlackBoxMechanism blackBoxMechanism = getBlackBoxMechanism(StringUtil.removeCharAndStringSymbols(entry.getValue().getAsString()));
 			
-			blackBoxMechanism.addTargetAsset(hardGoal.getSoftGoal().getAsset());
+			blackBoxMechanism.addEditorAsset(hardGoal.getSoftGoal().getAsset());
 			
 			if(hardGoal == null || blackBoxMechanism == null) {
 				System.out.println("HardGoal BBM Relationship not found");
@@ -330,7 +320,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 			ServiceComponent hgRelatedService = getServiceByName(hardGoal.getServiceName());
 			
 			if(hgRelatedService != null) {
-				hgRelatedService.getBlackBoxMechanisms().add(blackBoxMechanism);
+				hgRelatedService.addBlackBoxMechanism(blackBoxMechanism);
 			}
 			
 			hardGoal.setBlackBoxMechansims(blackBoxMechanism);
@@ -357,7 +347,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 	}
 	
 	
-	public Collection<FunctionalRequirement> getFunctionalRequirements() {
+	public Collection<InterfaceMapping> getFunctionalRequirements() {
 		return functionalRequirements;
 	}
 	
@@ -416,12 +406,12 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 
 	public void modifySimilarButDifferentFunctionalRequirementsInComponent(ServiceComponent component1, ServiceComponent component2) {
 		
-		HashSet<FunctionalRequirement> fuReqsOfComponent1 = new HashSet<FunctionalRequirement>();
-		HashSet<FunctionalRequirement> fuReqsOfComponent2 = new HashSet<FunctionalRequirement>();
-		for(FunctionalRequirement fuReq1 : component1.getProvidedFunctionalRequirements()) {
-			for(FunctionalRequirement fuReq2 : component2.getProvidedFunctionalRequirements()) {
+		HashSet<InterfaceMapping> fuReqsOfComponent1 = new HashSet<InterfaceMapping>();
+		HashSet<InterfaceMapping> fuReqsOfComponent2 = new HashSet<InterfaceMapping>();
+		for(InterfaceMapping fuReq1 : component1.getProvidedFunctionalRequirements()) {
+			for(InterfaceMapping fuReq2 : component2.getProvidedFunctionalRequirements()) {
 				if(fuReq1.equals(fuReq2)) {
-					FunctionalRequirement requirement = fuReq1;
+					InterfaceMapping requirement = fuReq1;
 					Collection<Asset> fuReq1ReallyUsedAssets = getAssetsReallyUsedInFunctionalRequirementForComponent(component1, requirement);
 					Collection<Asset> fuReq2ReallyUsedAssets = getAssetsReallyUsedInFunctionalRequirementForComponent(component2, requirement);
 					
@@ -436,7 +426,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 					
 					
 					if(assetsEqual(fuReq1ReallyUsedAssets, fuReq2ReallyUsedAssets)) {
-						FunctionalRequirement fuReq = new FunctionalRequirement(requirement.getName());
+						InterfaceMapping fuReq = new InterfaceMapping(requirement.getName());
 						fillFunctionalRequirementAssets(fuReq,fuReq1ReallyUsedAssets);
 						fuReqsOfComponent1.add(fuReq);
 						fuReqsOfComponent2.add(fuReq);
@@ -444,10 +434,10 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 						functionalRequirements.add(fuReq);
 						break;
 					} else {
-						FunctionalRequirement fuReqForC1 = new FunctionalRequirement(requirement.getName()+"_"+component1.getName());
+						InterfaceMapping fuReqForC1 = new InterfaceMapping(requirement.getName()+"_"+component1.getName());
 						fillFunctionalRequirementAssets(fuReqForC1, fuReq1ReallyUsedAssets);
 						
-						FunctionalRequirement fuReqForC2 = new FunctionalRequirement(requirement.getName()+"_"+component2.getName());
+						InterfaceMapping fuReqForC2 = new InterfaceMapping(requirement.getName()+"_"+component2.getName());
 						fillFunctionalRequirementAssets(fuReqForC2, fuReq2ReallyUsedAssets);
 						if(fuReq1UsedAssetsComplete) {
 							fuReqForC1 = requirement;
@@ -468,7 +458,7 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		component2.exchangeFunctionalRequirements(fuReqsOfComponent2);
 	}
 	
-	public Set<Asset> getAssetsReallyUsedInFunctionalRequirementForComponent(ServiceComponent component, FunctionalRequirement fuReq) {
+	public Set<Asset> getAssetsReallyUsedInFunctionalRequirementForComponent(ServiceComponent component, InterfaceMapping fuReq) {
 		Set<Asset> assets = new HashSet<Asset>();
 		for(Asset asset : fuReq.assets) {
 			for(HardGoal hg : component.getHardGoals()) {
@@ -502,15 +492,15 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 		return true;
 	}
 	
-	public void fillFunctionalRequirementAssets(FunctionalRequirement fuReq, Collection<Asset> assets) {
+	public void fillFunctionalRequirementAssets(InterfaceMapping fuReq, Collection<Asset> assets) {
 		for(Asset asset : assets) {
 			fuReq.addAsset(asset);
 		}
 	}
 	
-	public FunctionalRequirement getFunctionalRequirementByName(String searchedFunctionalRequirementName) {
+	public InterfaceMapping getFunctionalRequirementByName(String searchedFunctionalRequirementName) {
 		String modifiedSearched = StringUtil.removeCharAndStringSymbols(searchedFunctionalRequirementName);
-		for(FunctionalRequirement requirement : functionalRequirements) {
+		for(InterfaceMapping requirement : functionalRequirements) {
 			if(requirement.getName().equals(modifiedSearched)) {
 				return requirement;
 			}
@@ -536,8 +526,6 @@ private void appendBBMsToHardgoals(JsonElement hardMechanismRelationshipRootElem
 	}
 	
 	public SoftGoal getSoftGoalByName(String searchedSoftGoalName) {
-		
-		
 		for(SoftGoal sg : softGoals){
 			if(sg.getName().equals(searchedSoftGoalName)) {
 				return sg;

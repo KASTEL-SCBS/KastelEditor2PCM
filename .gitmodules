@@ -1,0 +1,6 @@
+[submodule "bundles/SimpleFlowModel4PCM"]
+	path = bundles/SimpleFlowModel4PCM
+	url = https://github.com/KASTEL-SCBS/SimpleFlowModel4PCM
+[submodule "bundles/Confidentiality4CBSE"]
+	path = bundles/Confidentiality4CBSE
+	url = https://github.com/KASTEL-SCBS/Confidentiality4CBSE

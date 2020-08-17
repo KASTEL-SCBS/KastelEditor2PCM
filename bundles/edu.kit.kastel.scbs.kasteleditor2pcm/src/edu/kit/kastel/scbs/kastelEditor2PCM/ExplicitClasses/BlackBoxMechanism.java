@@ -1,42 +1,24 @@
 package edu.kit.kastel.scbs.kastelEditor2PCM.ExplicitClasses;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.annotations.Expose;
 
 public class BlackBoxMechanism extends EditorElement {
 
+	@Expose private String primaryInterfaceId;
+	//TODO Reeeeaaally bad design, redesign necessary
+	private Set<Asset> editorAssets;
+	@Expose private Set<InterfaceMapping> providedBBMInterfaces;
 	
-	private final boolean authenticity;
-	private final boolean confidentiality;
-	private final boolean integrity;
-	@Expose private String pcmInterfaceId;
-	@Expose private Set<Asset> targetAssets;
-	@Expose private Map<Asset, String> assetToPCMOperationSignatureIdMapping;
-	
-	public BlackBoxMechanism(String name, boolean authenticity, boolean confidentiality, boolean integrity) {
+	public BlackBoxMechanism(String name) {
 		super.setName(name);
-		this.authenticity = authenticity;
-		this.confidentiality = confidentiality;
-		this.integrity = integrity;
-		targetAssets = new HashSet<Asset>();
-		assetToPCMOperationSignatureIdMapping = new HashMap<Asset, String>();
+		primaryInterfaceId = "";
+		editorAssets = new HashSet<Asset>();
+		providedBBMInterfaces = new HashSet<InterfaceMapping>();
 	}
 
-	public boolean providesAuthenticity() {
-		return authenticity;
-	}
-
-	public boolean providesConfidentiality() {
-		return confidentiality;
-	}
-
-	public boolean providesIntegrity() {
-		return integrity;
-	}
 
 	public String getBbmComponentId() {
 		return super.getId();
@@ -45,35 +27,57 @@ public class BlackBoxMechanism extends EditorElement {
 	public void setBbmComponentId(String bbmComponentId) {
 		super.setId(bbmComponentId);
 	}
-
-	public String getPcmInterfaceId() {
-		return pcmInterfaceId;
-	}
-
-	public void setPcmInterfaceId(String pcmInterfaceId) {
-		this.pcmInterfaceId = pcmInterfaceId;
-	}
-
-	public boolean addTargetAsset(Asset asset) {
-		return targetAssets.add(asset);
+	
+	public void addPrimaryInterface(InterfaceMapping mapping) {
+		primaryInterfaceId = mapping.getId();
+		providedBBMInterfaces.add(mapping);
 	}
 	
-	public void addPcmOperationSignatureIdForTargetAsset(String pcmOperationSignatureId, Asset targetAsset) {
-		if(targetAssets.contains(targetAsset)) {
-			assetToPCMOperationSignatureIdMapping.put(targetAsset, pcmOperationSignatureId);
-		}
+	public String getPrimaryInterfaceId() {
+		return primaryInterfaceId;
 	}
 	
-	public String getPcmOperationSignatureIdForTargetAsset(Asset targetAsset) {
-		if(targetAssets.contains(targetAsset)) {
-			return assetToPCMOperationSignatureIdMapping.get(targetAsset);
+	public void addOperationSignatureToPrimaryInterface(String name, String id) {
+		InterfaceMapping mapping = getPrimaryInterface();
+		if(mapping != null)
+			mapping.addOperationSignature(name, id);
+	}
+	
+	public Set<Asset> getEditorAssets(){
+		return editorAssets;
+	}
+	
+	private InterfaceMapping getPrimaryInterface() {
+		for(InterfaceMapping mapping: providedBBMInterfaces) {
+			if(mapping.getId().equals(primaryInterfaceId)){
+				return mapping;
+			}
 		}
 		return null;
 	}
 	
-	public Set<Asset> getTargetAssets(){
-		return targetAssets;
+	public void addEditorAsset(Asset asset) {
+		editorAssets.add(asset);
 	}
 	
+	public void addAssetToPrimaryInterface(Asset asset) {
+		InterfaceMapping mapping = getPrimaryInterface();
+		if(mapping != null)
+			mapping.addAsset(asset);
+				
+	}
 	
+	public void addAssetToOperationSignatureOfPrimaryInterface(Asset asset, String id) {
+		InterfaceMapping mapping = getPrimaryInterface();
+		if(mapping != null)
+			mapping.addAssetToOperationSignature(asset, id);
+	}
+	
+	public String getFirstPrimaryInterfaceSignatureId() {
+		InterfaceMapping primaryInterface = getPrimaryInterface();
+		for(String id : primaryInterface.getOperationSignatures().keySet()) {
+			return id;
+		}
+		return null;
+	}
 }

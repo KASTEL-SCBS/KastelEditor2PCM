@@ -9,6 +9,8 @@ public class StringUtil {
 		
 		cleaned = string.replaceAll("\'", "");
 		cleaned = cleaned.replaceAll("\"", "");
+		cleaned = cleaned.replaceAll("[-]", "");
+		cleaned = cleaned.replaceAll("[()]", "");
 		
 		return cleaned;
 	}
@@ -56,6 +58,5 @@ public class StringUtil {
 		
 		return working;
 	}
-	
 	
 }

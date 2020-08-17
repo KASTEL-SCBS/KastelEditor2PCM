@@ -6,13 +6,15 @@ public class KASTELEditor2PCMCommandLineParameters {
 	private final boolean useAdversaries;
 	private final boolean generateJOANAFlowModel;
 	private final boolean useSimpleJoanaflowIds;
+	private final boolean considerAssets;
 	
-	public KASTELEditor2PCMCommandLineParameters(String editorFilePath, String generationPath, boolean useAdversaries, boolean generateJOANAFlowModel, boolean useSimpleJoanaFlowIds) {
+	public KASTELEditor2PCMCommandLineParameters(String editorFilePath, String generationPath, boolean useAdversaries, boolean generateJOANAFlowModel, boolean useSimpleJoanaFlowIds, boolean considerAssets) {
 		this.editorFilePath = editorFilePath;
 		this.generationPath = generationPath;
 		this.useAdversaries = useAdversaries;
 		this.generateJOANAFlowModel = generateJOANAFlowModel;
 		this.useSimpleJoanaflowIds = useSimpleJoanaFlowIds;
+		this.considerAssets = considerAssets;
 	}
 	
 	
@@ -23,6 +25,7 @@ public class KASTELEditor2PCMCommandLineParameters {
 		this.useAdversaries = false;
 		this.generateJOANAFlowModel = false;
 		this.useSimpleJoanaflowIds = false;
+		this.considerAssets = false;
 	}
 	
 	public String getEditorFilePath() {
@@ -41,8 +44,12 @@ public class KASTELEditor2PCMCommandLineParameters {
 		return generateJOANAFlowModel;
 	}
 	
+	public boolean isConsideringAssets() {
+		return considerAssets;
+	}
+	
 	public boolean parametersValid() {
-		return !editorFilePath.isBlank() && !generationPath.isBlank();
+		return !editorFilePath.isEmpty() && !generationPath.isEmpty();
 	}
 	
 	public boolean usingSimpleJoanaFlowIds() {
